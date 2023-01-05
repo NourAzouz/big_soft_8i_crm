@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 const kBackgroundColor = Colors.white; //Color(0xFFFDFDFD);
-const kActiveIconColor = Colors.purple;
+const kActiveIconColor = Colors.blue;
 const kTextColor = Colors.white;
 const kBlueLightColor = Color.fromARGB(255, 0, 0, 0);
-const kBlueColor = Color(0xFF817DC0);
+const kBlueColor = Color.fromARGB(255, 111, 169, 201);
 const kShadowColor = Colors.white; //Color(0xFFE6E6E6);
 
 class Constants {

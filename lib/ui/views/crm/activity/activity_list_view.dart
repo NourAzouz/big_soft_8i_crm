@@ -101,7 +101,7 @@ class _ActivityListViewState extends State<ActivityListView> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.purple,
+                    Colors.blue,
                     Colors.white,
                   ],
                 ),
@@ -203,7 +203,7 @@ class _ActivityListViewState extends State<ActivityListView> {
                                                   ),
                                                   leading: CircleAvatar(
                                                     backgroundColor:
-                                                        Colors.purple,
+                                                        Colors.blue,
                                                     foregroundColor:
                                                         Colors.white,
                                                     child: Text(
@@ -242,7 +242,7 @@ class _ActivityListViewState extends State<ActivityListView> {
                                                             valueColor:
                                                                 AlwaysStoppedAnimation<
                                                                     Color>(
-                                                              Colors.purple,
+                                                              Colors.blue,
                                                             ),
                                                           ),
                                                         ),
@@ -335,7 +335,7 @@ class _ActivityListViewState extends State<ActivityListView> {
                               : const Center(
                                   child: CircularProgressIndicator(
                                     valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.purple),
+                                        Colors.blue),
                                   ),
                                 ),
                     ),

@@ -200,7 +200,7 @@ class _UniteExerciceViewState extends State<UniteExerciceView> {
                     : const Center(
                         child: CircularProgressIndicator(
                           valueColor:
-                              AlwaysStoppedAnimation<Color>(Colors.purple),
+                              AlwaysStoppedAnimation<Color>(Colors.blue),
                         ),
                       ),
           ),

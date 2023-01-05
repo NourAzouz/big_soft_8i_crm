@@ -67,18 +67,18 @@ class _CustomTextFieldPasswordState extends State<CustomTextFieldPassword> {
         labelText: widget.inputLabel!,
         labelStyle: TextStyle(
           fontWeight: FontWeight.normal,
-          color: Colors.purple[600],
+          color: Colors.blue,
         ),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Color.fromARGB(255, 226, 33, 243),
+            color: Colors.blue,
           ),
           borderRadius: BorderRadius.all(
             Radius.circular(6.0),
           ),
         ),
         enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.purple),
+          borderSide: BorderSide(color: Colors.blue),
           borderRadius: BorderRadius.all(
             Radius.circular(6.0),
           ),

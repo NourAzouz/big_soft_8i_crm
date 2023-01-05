@@ -31,7 +31,8 @@ class App extends StatefulWidget {
 }
 
 class _AppState extends State<App> {
-  final LocalStorageService _localStorageService = locator<LocalStorageService>();
+  final LocalStorageService _localStorageService =
+      locator<LocalStorageService>();
 
   @override
   void initState() {
@@ -54,7 +55,7 @@ class _AppState extends State<App> {
               title: 'BigSoft 8i crm',
               theme: ThemeData(
                 //scaffoldBackgroundColor: Colors.white,
-                primarySwatch: Colors.purple,
+                primarySwatch: Colors.blue,
                 visualDensity: VisualDensity.adaptivePlatformDensity,
                 fontFamily: "Cairo",
                 scaffoldBackgroundColor: kBackgroundColor,

@@ -15,9 +15,9 @@ class FabWithFeatureOverlay extends StatelessWidget {
       featureId: "fabFeature",
       tapTarget: const Icon(
         Icons.add,
-        color: Colors.purple,
+        color: Colors.blue,
       ),
-      backgroundColor: Colors.purple,
+      backgroundColor: Colors.blue,
       title: const Text("Ajouter des crm"),
       description: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

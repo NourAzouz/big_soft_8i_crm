@@ -79,7 +79,7 @@ class IntroScreenDots extends StatelessWidget {
       width: 6,
       decoration: BoxDecoration(
         shape: BoxShape.rectangle,
-        color: isActive ? Colors.purple : Colors.grey[300],
+        color: isActive ? Colors.blue : Colors.grey[300],
         borderRadius: BorderRadius.circular(5.0),
       ),
     );

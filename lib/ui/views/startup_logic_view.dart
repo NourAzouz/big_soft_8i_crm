@@ -12,7 +12,7 @@ class StartupLogicView extends StatelessWidget {
         checkStartupLogic(context, viewModel);
       }),
       builder: (context, viewModel, child) => const Scaffold(
-        backgroundColor: Color.fromARGB(255, 194, 33, 243),
+        backgroundColor: Colors.blue,
         body: SafeArea(
           child: Center(
             child: CircularProgressIndicator(

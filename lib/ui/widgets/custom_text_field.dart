@@ -60,7 +60,7 @@ class CustomTextField extends StatelessWidget {
       maxLines: maxLines,
       onChanged: onChanged,
       onFieldSubmitted: onFieldSubmitted,
-      cursorColor: Colors.purple,
+      cursorColor: Colors.blue,
       decoration: InputDecoration(
         suffixText: suffixText ?? null,
         fillColor: Colors.white,
@@ -91,26 +91,24 @@ class CustomTextField extends StatelessWidget {
         labelText: inputLabel!,
         labelStyle: TextStyle(
           fontWeight: FontWeight.normal,
-          color: filled ? Colors.purple[700] : Colors.purple[600],
+          color: filled ? Colors.blue : Colors.blue,
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: filled
-                ? Color.fromARGB(255, 243, 33, 233)
-                : Color.fromARGB(255, 177, 33, 243),
+            color: filled ? Colors.blue : Colors.blue,
           ),
           borderRadius: const BorderRadius.all(
             Radius.circular(6.0),
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: filled ? Colors.purple : Colors.purple),
+          borderSide: BorderSide(color: filled ? Colors.blue : Colors.blue),
           borderRadius: const BorderRadius.all(
             Radius.circular(6.0),
           ),
         ),
         disabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.purple),
+          borderSide: BorderSide(color: Colors.blue),
           borderRadius: BorderRadius.all(
             Radius.circular(6.0),
           ),

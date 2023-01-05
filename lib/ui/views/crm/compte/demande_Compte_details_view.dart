@@ -350,8 +350,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
                     )
                   : const Center(
                       child: CircularProgressIndicator(
-                        valueColor:
-                            AlwaysStoppedAnimation<Color>(Colors.purple),
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
                       ),
                     ),
           floatingActionButton: FloatingActionButton(

@@ -51,7 +51,7 @@ class _ContactSupportAlertViewState extends State<ContactSupportAlertView> {
                     child: TextButton(
                       child: const Text(
                         "Connectez-vous à nouveau",
-                        style: TextStyle(color: Colors.purple),
+                        style: TextStyle(color: Colors.blue),
                       ),
                       onPressed: () async {
                         setState(() {

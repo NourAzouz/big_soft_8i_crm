@@ -25,12 +25,12 @@ class DrawerItemWithBackground extends StatelessWidget {
         title: Text(
           itemLabel!,
           style: TextStyle(
-            color: isSelectedItem! ? Color.fromARGB(255, 156, 26, 231) : null,
+            color: isSelectedItem! ? Colors.blue : null,
           ),
         ),
         leading: Icon(
           icon,
-          color: isSelectedItem! ? Colors.purple : Colors.black87,
+          color: isSelectedItem! ? Colors.blue : Colors.black87,
         ),
         onTap: onTapAction,
       ),

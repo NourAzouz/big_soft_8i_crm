@@ -29,7 +29,7 @@ class _DemandeProspectDetailsViewState
     extends State<DemandeProspectDetailsView> {
   bool isAddProspectSuccess = false;
 
-  late GlobalKey<ScaffoldState> _scaffoldKey;
+  late GlobalKey<ScaffoldMessengerState> _scaffoldKey;
   late GlobalKey<FormState> _formKey;
   late TextEditingController _numProspectTextFormFieldController;
   late TextEditingController _nomProspectTextFormFieldController;
@@ -69,7 +69,7 @@ class _DemandeProspectDetailsViewState
   @override
   void initState() {
     super.initState();
-    _scaffoldKey = GlobalKey<ScaffoldState>();
+    _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
     _formKey = GlobalKey<FormState>();
     _numProspectTextFormFieldController = TextEditingController();
     _nomProspectTextFormFieldController = TextEditingController();
@@ -422,7 +422,7 @@ class _DemandeProspectDetailsViewState
                   )
                 : const Center(
                     child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.purple),
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
                     ),
                   ),
         floatingActionButton: SpeedDial(
@@ -440,7 +440,7 @@ class _DemandeProspectDetailsViewState
                 }),
             SpeedDialChild(
                 child: const Icon(FontAwesomeIcons.productHunt),
-                backgroundColor: Colors.purple,
+                backgroundColor: Colors.blue,
                 label: 'Produits',
                 labelStyle: const TextStyle(fontSize: 18.0),
                 onTap: () {
@@ -450,7 +450,7 @@ class _DemandeProspectDetailsViewState
                 }),
             SpeedDialChild(
               child: const Icon(FontAwesomeIcons.floppyDisk),
-              backgroundColor: Colors.purple,
+              backgroundColor: Colors.blue,
               label: 'Save',
               labelStyle: const TextStyle(fontSize: 18.0),
               onTap: () async {

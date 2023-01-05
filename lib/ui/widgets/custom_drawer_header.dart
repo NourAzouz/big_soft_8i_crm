@@ -22,7 +22,7 @@ class CustomDrawerHeader extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              Colors.purple,
+              Colors.blue,
               Colors.white,
             ],
           ),
@@ -50,7 +50,7 @@ class CustomDrawerHeader extends StatelessWidget {
                     Text(
                       Constants.username!,
                       style: const TextStyle(
-                        color: Colors.purple,
+                        color: Colors.blue,
                         fontSize: 25,
                       ),
                     ),

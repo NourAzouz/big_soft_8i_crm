@@ -104,7 +104,7 @@ class _DemandesProdcutListViewState extends State<DemandesProdcutListView> {
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.purple,
+                    Colors.blue,
                     Colors.white,
                   ],
                 ),
@@ -215,7 +215,7 @@ class _DemandesProdcutListViewState extends State<DemandesProdcutListView> {
                                                         ),
                                                   leading: CircleAvatar(
                                                     backgroundColor:
-                                                        Colors.purple,
+                                                        Colors.blue,
                                                     foregroundColor:
                                                         Colors.white,
                                                     child: Text(
@@ -251,7 +251,7 @@ class _DemandesProdcutListViewState extends State<DemandesProdcutListView> {
                                                             valueColor:
                                                                 AlwaysStoppedAnimation<
                                                                     Color>(
-                                                              Colors.purple,
+                                                              Colors.blue,
                                                             ),
                                                           ),
                                                         ),
@@ -335,7 +335,7 @@ class _DemandesProdcutListViewState extends State<DemandesProdcutListView> {
                               : const Center(
                                   child: CircularProgressIndicator(
                                     valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.purple),
+                                        Colors.blue),
                                   ),
                                 ),
                     ),

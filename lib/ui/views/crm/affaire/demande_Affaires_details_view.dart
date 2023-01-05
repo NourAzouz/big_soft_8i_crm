@@ -259,7 +259,7 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
                   )
                 : const Center(
                     child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.purple),
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
                     ),
                   ),
         floatingActionButton: FloatingActionButton(

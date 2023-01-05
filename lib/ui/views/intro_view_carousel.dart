@@ -131,7 +131,7 @@ class _IntroViewCarouselState extends State<IntroViewCarousel> {
                 ? initialText!
                 : finalText!,
             style: TextStyle(
-              color: Colors.purple,
+              color: Colors.blue,
               fontSize: SizeConfig.textMultiplier * 3.3,
             ),
           ),

@@ -115,6 +115,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
     //widget.demandeDetailsViewArguments!.superieur.toString();
     _descriptionTextFormFieldController.text =
         widget.demandeDetailsViewArguments!.disc.toString();
+
     functionselectedValue =
         widget.demandeDetailsViewArguments!.fonction as FonctionListModel?;
     fToast = FToast();
@@ -400,7 +401,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                 SpeedDial(animatedIcon: AnimatedIcons.menu_home, children: [
               SpeedDialChild(
                 child: const Icon(FontAwesomeIcons.floppyDisk),
-                backgroundColor: Colors.purple,
+                backgroundColor: Colors.blue,
                 label: 'Save',
                 labelStyle: const TextStyle(fontSize: 18.0),
                 onTap: () async {

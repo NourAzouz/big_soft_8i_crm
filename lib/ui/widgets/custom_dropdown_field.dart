@@ -40,18 +40,18 @@ class CustomDropdownField extends StatelessWidget {
         labelText: labelText,
         labelStyle: TextStyle(
           fontWeight: FontWeight.normal,
-          color: Colors.purple,
+          color: Colors.blue,
         ),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.purple,
+            color: Colors.blue,
           ),
           borderRadius: BorderRadius.all(
             Radius.circular(6.0),
           ),
         ),
         enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.purple),
+          borderSide: BorderSide(color: Colors.blue),
           borderRadius: BorderRadius.all(
             Radius.circular(6.0),
           ),
