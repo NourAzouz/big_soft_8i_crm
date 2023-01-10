@@ -23,7 +23,7 @@ class DemandeProductDetailsView extends StatefulWidget {
 }
 
 class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
-  late GlobalKey<ScaffoldState> _scaffoldKey;
+  late GlobalKey<ScaffoldMessengerState> _scaffoldKey;
   late GlobalKey<FormState> _formKey;
   late TextEditingController _codeArticleTextFormFieldController;
   late TextEditingController _libelleTextFormFieldController;
@@ -59,7 +59,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
   @override
   void initState() {
     super.initState();
-    _scaffoldKey = GlobalKey<ScaffoldState>();
+    _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
     _formKey = GlobalKey<FormState>();
     _codeArticleTextFormFieldController = TextEditingController();
     _libelleTextFormFieldController = TextEditingController();
@@ -112,7 +112,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
   }
 
   onPressAction(DemandeProductDetailsViewModel viewModel, scaffoldstate) async {
-    scaffoldstate.hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     if (_formKey.currentState!.validate()) {
       var addProspectResult = await viewModel.updateContact(
         SaveProductArgument(

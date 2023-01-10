@@ -33,15 +33,16 @@ class DemandeDetailsView extends StatefulWidget {
 class _DemandeDetailsViewState extends State<DemandeDetailsView> {
   late List<DemandesCollabListModel> demandesResultsList;
   late List<FonctionListModel> fonctionResultsList;
-  FonctionListModel? functionselectedValue;
+  String? functionselectedValue;
 
   List<DropdownMenuItem<Object?>> _dropdownTestItems = [];
 
-  late GlobalKey<ScaffoldState> _scaffoldKey;
+  late GlobalKey<ScaffoldMessengerState> _scaffoldKey;
   late GlobalKey<FormState> _formKey;
   late TextEditingController _numCompteTextFormFieldController;
   late TextEditingController _nomTiersTextFormFieldController;
   late TextEditingController _assigneTextFormFieldController;
+  late TextEditingController _fonctionTextFormFieldController;
 
   late TextEditingController _nomTextFormFieldController;
   late TextEditingController _prenomTextFormFieldController;
@@ -81,7 +82,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
     fonctionResultsList = [];
 
     L = [];
-    _scaffoldKey = GlobalKey<ScaffoldState>();
+    _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
     _formKey = GlobalKey<FormState>();
     _numCompteTextFormFieldController = TextEditingController();
     _nomTiersTextFormFieldController = TextEditingController();
@@ -94,6 +95,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
     _superieurTextFormFieldController = TextEditingController();
     _descriptionTextFormFieldController = TextEditingController();
     _assigneTextFormFieldController = TextEditingController();
+    _fonctionTextFormFieldController = TextEditingController();
 
     _numCompteTextFormFieldController.text =
         widget.demandeDetailsViewArguments!.numcompte.toString();
@@ -111,13 +113,13 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
         widget.demandeDetailsViewArguments!.telBureau.toString();
     _serviceTextFormFieldController.text =
         widget.demandeDetailsViewArguments!.service.toString();
-    _superieurTextFormFieldController.text = 'ss';
-    //widget.demandeDetailsViewArguments!.superieur.toString();
+    _superieurTextFormFieldController.text =
+        widget.demandeDetailsViewArguments!.superieur.toString();
     _descriptionTextFormFieldController.text =
         widget.demandeDetailsViewArguments!.disc.toString();
-
     /*functionselectedValue =
-        widget.demandeDetailsViewArguments!.fonction as FonctionListModel?;*/
+        widget.demandeDetailsViewArguments!.fonction.toString();*/
+
     fToast = FToast();
     fToast.init(context);
   }
@@ -135,11 +137,12 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
     _superieurTextFormFieldController.dispose();
     _descriptionTextFormFieldController.dispose();
     _assigneTextFormFieldController.dispose();
+    _fonctionTextFormFieldController.dispose();
     super.dispose();
   }
 
   onPressAction(DemandeListDetailsViewModel viewModel, scaffoldstate) async {
-    scaffoldstate.hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     if (_formKey.currentState!.validate()) {
       var addProspectResult = await viewModel.updateContact(SaveContactArgument(
           numCompte: '',
@@ -220,6 +223,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                     filled: true,
                                     onTapAction: () => showToast(
                                         fToast, toastMessage, context),
+                                    child: null,
                                   ),
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
@@ -234,6 +238,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                     filled: true,
                                     onTapAction: () => showToast(
                                         fToast, toastMessage, context),
+                                    child: null,
                                   ),
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
@@ -247,6 +252,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                     filled: true,
                                     onTapAction: () => showToast(
                                         fToast, toastMessage, context),
+                                    child: null,
                                   ),
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
@@ -265,6 +271,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                               .text),
                                       child: const Icon(Icons.phone),
                                     ),
+                                    child: null,
                                   ),
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
@@ -281,6 +288,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                           _mailTextFormFieldController.text),
                                       child: const Icon(Icons.mail),
                                     ),
+                                    child: null,
                                   ),
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
@@ -343,19 +351,29 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                               .text),
                                       child: const Icon(Icons.phone),
                                     ),
+                                    child: null,
                                   ),
+                                  /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 2),
+                                  Text(
+                                    _superieurTextFormFieldController.text
+                                        .toString(),
+                                    selectionColor: Colors.black,
+                                  ),*/
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
                                   CustomTextField(
-                                      controller:
-                                          _superieurTextFormFieldController,
-                                      inputLabel: "Supérieur",
-                                      helperText: " ",
-                                      style: TextStyle(color: Colors.grey[600]),
-                                      readOnly: false,
-                                      enabled: true,
-                                      filled: true,
-                                      onTapAction: () {}),
+                                    controller:
+                                        _superieurTextFormFieldController,
+                                    inputLabel: "Supérieur",
+                                    helperText: " ",
+                                    style: TextStyle(color: Colors.grey[600]),
+                                    readOnly: false,
+                                    enabled: true,
+                                    filled: true,
+                                    onTapAction: () {},
+                                    child: null,
+                                  ),
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
                                   CustomTextField(
@@ -369,6 +387,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                     filled: true,
                                     onTapAction: () => showToast(
                                         fToast, toastMessage, context),
+                                    child: null,
                                   ),
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
@@ -401,7 +420,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                 SpeedDial(animatedIcon: AnimatedIcons.menu_home, children: [
               SpeedDialChild(
                 child: const Icon(FontAwesomeIcons.floppyDisk),
-                backgroundColor: Colors.blue,
+                backgroundColor: Colors.purple,
                 label: 'Save',
                 labelStyle: const TextStyle(fontSize: 18.0),
                 onTap: () async {

@@ -27,7 +27,7 @@ class DemandeCompteDetailsView extends StatefulWidget {
 
 class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
   bool isAddProspectSuccess = false;
-  late GlobalKey<ScaffoldState> _scaffoldKey;
+  late GlobalKey<ScaffoldMessengerState> _scaffoldKey;
   late GlobalKey<FormState> _formKey;
   late TextEditingController _nomCompteTextFormFieldController;
   late TextEditingController _assignTextFormFieldController;
@@ -62,7 +62,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
   @override
   void initState() {
     super.initState();
-    _scaffoldKey = GlobalKey<ScaffoldState>();
+    _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
     _formKey = GlobalKey<FormState>();
     _nomCompteTextFormFieldController = TextEditingController();
     _assignTextFormFieldController = TextEditingController();
@@ -114,7 +114,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
   }
 
   onPressAction(DemandeCompteDetailsViewModel viewModel, scaffoldstate) async {
-    scaffoldstate.hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     if (_formKey.currentState!.validate()) {
       var addProspectResult = await viewModel.updateContact(
         SaveCompteArgument(

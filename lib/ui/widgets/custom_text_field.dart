@@ -1,3 +1,4 @@
+import 'package:big_soft_8i_crm/ui/widgets/custom_dropdown_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -22,6 +23,7 @@ class CustomTextField extends StatelessWidget {
   final helperText;
   final autovalidateMode;
   final inputFormatters;
+  final child;
 
   const CustomTextField({
     Key? key,
@@ -44,6 +46,7 @@ class CustomTextField extends StatelessWidget {
     this.autovalidateMode,
     this.inputFormatters,
     this.onFieldSubmitted,
+    this.child,
   }) : super(key: key);
 
   @override
