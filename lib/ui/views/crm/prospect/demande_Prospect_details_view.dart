@@ -127,7 +127,7 @@ class _DemandeProspectDetailsViewState
 
   onPressAction(
       DemandeProspectDetailsViewModel viewModel, scaffoldstate) async {
-    scaffoldstate.hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
     if (_formKey.currentState!.validate()) {
       var addProspectResult = await viewModel.updateContact(
         SaveProspectArgument(

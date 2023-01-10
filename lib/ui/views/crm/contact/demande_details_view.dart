@@ -116,8 +116,8 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
     _descriptionTextFormFieldController.text =
         widget.demandeDetailsViewArguments!.disc.toString();
 
-    functionselectedValue =
-        widget.demandeDetailsViewArguments!.fonction as FonctionListModel?;
+    /*functionselectedValue =
+        widget.demandeDetailsViewArguments!.fonction as FonctionListModel?;*/
     fToast = FToast();
     fToast.init(context);
   }
@@ -187,7 +187,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
   @override
   Widget build(BuildContext context) {
     return BaseView<DemandeListDetailsViewModel>(
-        onModelReady: (viewModel) => getDemandeDetails(viewModel),
+        onModelReady: (viewModel) => getDemandeDetails(viewModel, context),
         builder: (context, viewModel, child) => Scaffold(
             key: _scaffoldKey,
             body: dataFinishLoading
@@ -196,7 +196,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                     padding: const EdgeInsets.symmetric(horizontal: 30),
                     child: RefreshIndicator(
                       onRefresh: () async {
-                        await getDemandeDetails(viewModel);
+                        await getDemandeDetails(viewModel, context);
                       },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -382,7 +382,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                   ))
                 : RefreshIndicator(
                     onRefresh: () async {
-                      await getDemandeDetails(viewModel);
+                      await getDemandeDetails(viewModel, context);
                     },
                     child: SingleChildScrollView(
                       physics: const AlwaysScrollableScrollPhysics(),
@@ -418,8 +418,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
       value == null ? validationMessage : null;
 
   Future<void> getDemandeDetails(
-    DemandeListDetailsViewModel viewModel,
-  ) async {
+      DemandeListDetailsViewModel viewModel, BuildContext context) async {
     var demandesResults = await viewModel.getCollab();
     var fonctionResults = await viewModel.getFunction();
 
