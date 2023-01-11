@@ -73,6 +73,17 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
   late String dataLoadingErrorMessage;
   var selectedValue;
 
+  //for dropdownmenu
+  bool _canShowButton = true;
+  bool _offstage = true;
+
+  void hideWidget() {
+    setState(() {
+      _canShowButton = !_canShowButton;
+      _offstage = !_offstage;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -117,6 +128,8 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
         widget.demandeDetailsViewArguments!.superieur.toString();
     _descriptionTextFormFieldController.text =
         widget.demandeDetailsViewArguments!.disc.toString();
+    _fonctionTextFormFieldController.text =
+        widget.demandeDetailsViewArguments!.fonction.toString();
     /*functionselectedValue =
         widget.demandeDetailsViewArguments!.fonction.toString();*/
 
@@ -313,25 +326,49 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                     ),
                                   ),
                                   SizedBox(
-                                      height: SizeConfig.heightMultiplier * 3),
-                                  CustomDropdownField(
-                                    labelText: "Function ",
-                                    value: functionselectedValue,
-                                    items: fonctionResultsList.map((value) {
-                                      return DropdownMenuItem(
-                                        value: value,
-                                        child: Text(value.libellefonction),
-                                      );
-                                    }).toList(),
-                                    onChangedAction: (value) {
-                                      setState(() {
-                                        functionselectedValue = value!;
-                                      });
-                                    },
-                                    validator: (value) =>
-                                        dropdownFieldValidation(
-                                      value,
-                                      "Selectionne une fonction",
+                                      height: SizeConfig.heightMultiplier * 2),
+
+                                  ///if the show button is false
+                                  !_canShowButton
+                                      ? const SizedBox.shrink()
+                                      : CustomTextField(
+                                          controller:
+                                              _fonctionTextFormFieldController,
+                                          inputLabel: "Fonction",
+                                          helperText: " ",
+                                          style: TextStyle(
+                                              color: Colors.grey[600]),
+                                          readOnly: false,
+                                          enabled: true,
+                                          filled: true,
+                                          onTapAction: () {
+                                            hideWidget();
+                                            //_number();
+                                          },
+                                        ),
+                                  /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                                  Offstage(
+                                    offstage: _offstage,
+                                    child: CustomDropdownField(
+                                      labelText: "Function ",
+                                      value: functionselectedValue,
+                                      items: fonctionResultsList.map((value) {
+                                        return DropdownMenuItem(
+                                          value: value,
+                                          child: Text(value.libellefonction),
+                                        );
+                                      }).toList(),
+                                      onChangedAction: (value) {
+                                        setState(() {
+                                          functionselectedValue = value!;
+                                        });
+                                      },
+                                      validator: (value) =>
+                                          dropdownFieldValidation(
+                                        value,
+                                        "Selectionne une fonction",
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
