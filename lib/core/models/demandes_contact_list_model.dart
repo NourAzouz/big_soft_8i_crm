@@ -23,6 +23,7 @@ class DemandesContactListModel {
   dynamic telephone;
   dynamic fix;
   dynamic mail;
+  dynamic assigne;
   dynamic codeTiers;
   dynamic nomTiers;
   dynamic telBureau;
@@ -41,6 +42,7 @@ class DemandesContactListModel {
       this.telephone,
       this.fix,
       this.mail,
+      this.assigne,
       this.codeTiers,
       this.nomTiers,
       this.telBureau,
@@ -58,6 +60,7 @@ class DemandesContactListModel {
     telephone = json['TelMobile'];
     fix = json['TelDomicile'];
     mail = json['Email1'];
+    assigne = json['NomCollab'];
     codeTiers = json['CodeTiers'];
     nomTiers = json['NomTiers'];
     telBureau = json['TelBureau'];

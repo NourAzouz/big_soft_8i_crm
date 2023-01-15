@@ -29,6 +29,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
   bool isAddProspectSuccess = false;
   late GlobalKey<ScaffoldMessengerState> _scaffoldKey;
   late GlobalKey<FormState> _formKey;
+  late TextEditingController _numCompteTextFormFieldController;
   late TextEditingController _nomCompteTextFormFieldController;
   late TextEditingController _assignTextFormFieldController;
   late TextEditingController _telephoneTextFormFieldController;
@@ -64,6 +65,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
     super.initState();
     _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
     _formKey = GlobalKey<FormState>();
+    _numCompteTextFormFieldController = TextEditingController();
     _nomCompteTextFormFieldController = TextEditingController();
     _assignTextFormFieldController = TextEditingController();
     _telephoneTextFormFieldController = TextEditingController();
@@ -74,8 +76,10 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
     _revenueTextFormFieldController = TextEditingController();
     _devisTextFormFieldController = TextEditingController();
     _descriptionTextFormController = TextEditingController();
-    _nomCompteTextFormFieldController.text =
+    _numCompteTextFormFieldController.text =
         widget.demandeCompteDetailsViewArguments!.codeTiers.toString();
+    _nomCompteTextFormFieldController.text =
+        widget.demandeCompteDetailsViewArguments!.nomTiers.toString();
     _assignTextFormFieldController.text =
         widget.demandeCompteDetailsViewArguments!.assign.toString();
     _telephoneTextFormFieldController.text =
@@ -101,7 +105,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
 
   @override
   void dispose() {
-    _nomCompteTextFormFieldController.dispose();
+    _numCompteTextFormFieldController.dispose();
     _assignTextFormFieldController.dispose();
     _telephoneTextFormFieldController.dispose();
     _mailTextFormFieldController.dispose();
@@ -118,6 +122,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
     if (_formKey.currentState!.validate()) {
       var addProspectResult = await viewModel.updateContact(
         SaveCompteArgument(
+          numCompteText: _numCompteTextFormFieldController.text,
           nomCompteText: _nomCompteTextFormFieldController.text,
           assignText: _assignTextFormFieldController.text,
           telephoneText: _telephoneTextFormFieldController.text,
@@ -184,8 +189,21 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomTextField(
+                                  controller: _numCompteTextFormFieldController,
+                                  inputLabel: "Numero",
+                                  helperText: " ",
+                                  style: TextStyle(color: Colors.grey[600]),
+                                  readOnly: false,
+                                  enabled: true,
+                                  filled: true,
+                                  onTapAction: () =>
+                                      showToast(fToast, toastMessage, context),
+                                ),
+                                SizedBox(
+                                    height: SizeConfig.heightMultiplier * 2),
+                                CustomTextField(
                                   controller: _nomCompteTextFormFieldController,
-                                  inputLabel: "Nom du Compte",
+                                  inputLabel: "Nom du compte",
                                   helperText: " ",
                                   style: TextStyle(color: Colors.grey[600]),
                                   readOnly: false,
@@ -270,7 +288,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
                                     height: SizeConfig.heightMultiplier * 2),
                                 CustomTextField(
                                   controller: _effictifeTextFormFieldController,
-                                  inputLabel: "Effictife",
+                                  inputLabel: "Effectif",
                                   helperText: " ",
                                   style: TextStyle(color: Colors.grey[600]),
                                   readOnly: false,
@@ -370,7 +388,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
   ) async {
     setState(
       () {
-        _nomCompteTextFormFieldController.text =
+        _numCompteTextFormFieldController.text =
             widget.demandeCompteDetailsViewArguments!.codeTiers.toString();
         _assignTextFormFieldController.text =
             widget.demandeCompteDetailsViewArguments!.assign.toString();
@@ -397,7 +415,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
 }
 
 class SaveCompteArgument {
-  final String nomCompteText;
+  final String numCompteText;
   final String assignText;
   final String telephoneText;
   final String secteurText;
@@ -407,9 +425,10 @@ class SaveCompteArgument {
   final String revenueText;
   final String devisText;
   final String descriptionText;
+  final String nomCompteText;
 
   SaveCompteArgument({
-    required this.nomCompteText,
+    required this.numCompteText,
     required this.assignText,
     required this.telephoneText,
     required this.secteurText,
@@ -419,6 +438,7 @@ class SaveCompteArgument {
     required this.revenueText,
     required this.devisText,
     required this.descriptionText,
+    required this.nomCompteText,
   });
 }
 

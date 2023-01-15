@@ -113,7 +113,9 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
     _nomTiersTextFormFieldController.text =
         widget.demandeDetailsViewArguments!.nomTiers.toString();
     _nomTextFormFieldController.text =
-        widget.demandeDetailsViewArguments!.nom.toString();
+        widget.demandeDetailsViewArguments!.nom.toString() +
+            " " +
+            widget.demandeDetailsViewArguments!.prenom.toString();
     _telephoneTextFormFieldController.text =
         widget.demandeDetailsViewArguments!.telephone.toString();
     _prenomTextFormFieldController.text =
@@ -130,6 +132,9 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
         widget.demandeDetailsViewArguments!.disc.toString();
     _fonctionTextFormFieldController.text =
         widget.demandeDetailsViewArguments!.fonction.toString();
+    _assigneTextFormFieldController.text =
+        widget.demandeDetailsViewArguments!.assigne.toString();
+
     /*functionselectedValue =
         widget.demandeDetailsViewArguments!.fonction.toString();*/
 
@@ -228,7 +233,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                   CustomTextField(
                                     controller:
                                         _numCompteTextFormFieldController,
-                                    inputLabel: "N° Compte",
+                                    inputLabel: "N° Contact",
                                     helperText: " ",
                                     style: TextStyle(color: Colors.grey[600]),
                                     readOnly: true,
@@ -243,7 +248,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                   CustomTextField(
                                     controller:
                                         _nomTiersTextFormFieldController,
-                                    inputLabel: "Compte",
+                                    inputLabel: "Nom Compte",
                                     helperText: " ",
                                     style: TextStyle(color: Colors.grey[600]),
                                     readOnly: false,
@@ -256,8 +261,8 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
                                   CustomTextField(
-                                    controller: _prenomTextFormFieldController,
-                                    inputLabel: "Prenom",
+                                    controller: _nomTextFormFieldController,
+                                    inputLabel: "Nom & Prenom",
                                     helperText: " ",
                                     style: TextStyle(color: Colors.grey[600]),
                                     readOnly: false,
@@ -273,6 +278,25 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                     controller:
                                         _telephoneTextFormFieldController,
                                     inputLabel: "Telephone",
+                                    helperText: " ",
+                                    style: TextStyle(color: Colors.grey[600]),
+                                    readOnly: false,
+                                    enabled: true,
+                                    filled: true,
+                                    suffixIcon: GestureDetector(
+                                      onTap: () => _makePhoneCall(
+                                          _telephoneTextFormFieldController
+                                              .text),
+                                      child: const Icon(Icons.phone),
+                                    ),
+                                    child: null,
+                                  ),
+                                  SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),
+                                  CustomTextField(
+                                    controller:
+                                        _telBureauTextFormFieldController,
+                                    inputLabel: "Téléphone bureau",
                                     helperText: " ",
                                     style: TextStyle(color: Colors.grey[600]),
                                     readOnly: false,
@@ -371,25 +395,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(
-                                      height: SizeConfig.heightMultiplier * 3),
-                                  CustomTextField(
-                                    controller:
-                                        _telBureauTextFormFieldController,
-                                    inputLabel: "Téléphone bureau",
-                                    helperText: " ",
-                                    style: TextStyle(color: Colors.grey[600]),
-                                    readOnly: false,
-                                    enabled: true,
-                                    filled: true,
-                                    suffixIcon: GestureDetector(
-                                      onTap: () => _makePhoneCall(
-                                          _telephoneTextFormFieldController
-                                              .text),
-                                      child: const Icon(Icons.phone),
-                                    ),
-                                    child: null,
-                                  ),
+
                                   /*SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
                                   Text(

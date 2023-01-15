@@ -196,7 +196,7 @@ class _DemandeProspectDetailsViewState
                             children: [
                               CustomTextField(
                                 controller: _numProspectTextFormFieldController,
-                                inputLabel: "Code du prospect",
+                                inputLabel: "Numero",
                                 helperText: " ",
                                 style: TextStyle(color: Colors.grey[600]),
                                 readOnly: false,
@@ -208,18 +208,7 @@ class _DemandeProspectDetailsViewState
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
                                 controller: _nomProspectTextFormFieldController,
-                                inputLabel: "Nom du prospect",
-                                helperText: " ",
-                                style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
-                                enabled: true,
-                                filled: true,
-                              ),
-                              SizedBox(height: SizeConfig.heightMultiplier * 2),
-                              CustomTextField(
-                                controller:
-                                    _prenomProspectTextFormFieldController,
-                                inputLabel: "Prénom du prospect",
+                                inputLabel: "Nom & prenom",
                                 helperText: " ",
                                 style: TextStyle(color: Colors.grey[600]),
                                 readOnly: false,
@@ -333,19 +322,6 @@ class _DemandeProspectDetailsViewState
                               CustomTextField(
                                 controller: _collabTextFormFieldController,
                                 inputLabel: "Assigné à ",
-                                helperText: " ",
-                                style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
-                                enabled: true,
-                                filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
-                              ),
-                              SizedBox(height: SizeConfig.heightMultiplier * 2),
-                              CustomTextField(
-                                controller:
-                                    _chiffreAffaireTextFormFieldController,
-                                inputLabel: "Chiffre d'affaire",
                                 helperText: " ",
                                 style: TextStyle(color: Colors.grey[600]),
                                 readOnly: false,
@@ -496,9 +472,9 @@ class _DemandeProspectDetailsViewState
           _numProspectTextFormFieldController.text =
               prospectDetailsResult.numProspect.toString();
           _nomProspectTextFormFieldController.text =
-              prospectDetailsResult.nomProspect.toString();
-          _prenomProspectTextFormFieldController.text =
-              prospectDetailsResult.prenomProspect.toString();
+              prospectDetailsResult.nomProspect.toString() +
+                  " " +
+                  prospectDetailsResult.prenomProspect.toString();
           _telTextFormFieldController.text =
               prospectDetailsResult.tel.toString();
           _titreTextFormFieldController.text =

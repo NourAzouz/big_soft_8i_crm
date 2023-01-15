@@ -364,24 +364,29 @@ class _RootViewState extends State<RootView> {
                 ListTile(
                   title: Text("BIG Annaba"),
                   subtitle: Text("Tél : 213(0)38 86 18 57/86 29 94"),
+                  textColor: Colors.black,
                 ),
                 ListTile(
                   title: Text("BIG DG"),
                   subtitle: Text("Tél : 213(0)38 86 18 57/86 29 94"),
+                  textColor: Colors.black,
                 ),
                 ListTile(
                   title: Text("BIG SOFT"),
                   subtitle: Text("Tél :+ 213(0)38 55 62 99"),
+                  textColor: Colors.black,
                 ),
                 ListTile(
                   title: Text("BIG Alger"),
                   subtitle: Text(
                       "Tél :+ 213(0)21 56 19 11/19 26/19 27\n Fax :+ 213 (0) 21 56 18 97"),
+                  textColor: Colors.black,
                 ),
                 ListTile(
                   title: Text("BIG Oran"),
                   subtitle: Text(
                       "Tél :+ 213(0)41 42 77 19\n Fax :+ 213(0)41 42 77 19"),
+                  textColor: Colors.black,
                 ),
               ],
             ),
