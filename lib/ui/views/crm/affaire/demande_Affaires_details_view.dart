@@ -135,7 +135,7 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
                                 controller: _nomTextFormFieldController,
-                                inputLabel: "Libelle",
+                                inputLabel: "Nom affaire",
                                 helperText: " ",
                                 style: TextStyle(color: Colors.grey[600]),
                                 readOnly: false,
@@ -204,7 +204,7 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
                                 onTapAction: () =>
                                     showToast(fToast, toastMessage, context),
                               ),
-                              SizedBox(height: SizeConfig.heightMultiplier * 2),
+                              /*SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
                                 controller: _suivantTextFormFieldController,
                                 inputLabel: "Suivant",
@@ -215,7 +215,7 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
                                 filled: true,
                                 onTapAction: () =>
                                     showToast(fToast, toastMessage, context),
-                              ),
+                              ),*/
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
                                 controller: _descriptionTextFormFieldController,

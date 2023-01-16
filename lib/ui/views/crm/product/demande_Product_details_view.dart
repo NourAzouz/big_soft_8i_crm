@@ -195,7 +195,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                     height: SizeConfig.heightMultiplier * 2),
                                 CustomTextField(
                                   controller: _libelleTextFormFieldController,
-                                  inputLabel: "Libelle",
+                                  inputLabel: "Produit",
                                   helperText: " ",
                                   style: TextStyle(color: Colors.grey[600]),
                                   readOnly: false,
@@ -206,7 +206,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                     height: SizeConfig.heightMultiplier * 2),
                                 CustomTextField(
                                   controller: _familleTextFormFieldController,
-                                  inputLabel: "Famille",
+                                  inputLabel: "Categorie",
                                   helperText: " ",
                                   style: TextStyle(color: Colors.grey[600]),
                                   readOnly: false,
@@ -228,7 +228,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                   onTapAction: () =>
                                       showToast(fToast, toastMessage, context),
                                 ),
-                                SizedBox(
+                                /*SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
                                 CustomTextField(
                                   controller: _stockTextFormFieldController,
@@ -240,7 +240,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                   filled: true,
                                   onTapAction: () =>
                                       showToast(fToast, toastMessage, context),
-                                ),
+                                ),*/
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
                                 CustomTextField(
