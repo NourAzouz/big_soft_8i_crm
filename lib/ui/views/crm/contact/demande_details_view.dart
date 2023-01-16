@@ -77,10 +77,20 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
   bool _canShowButton = true;
   bool _offstage = true;
 
+  bool _canShowButton2 = true;
+  bool _offstage2 = true;
+
   void hideWidget() {
     setState(() {
       _canShowButton = !_canShowButton;
       _offstage = !_offstage;
+    });
+  }
+
+  void hideWidget2() {
+    setState(() {
+      _canShowButton2 = !_canShowButton2;
+      _offstage2 = !_offstage2;
     });
   }
 
@@ -329,24 +339,48 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                   ),
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
-                                  CustomDropdownField(
-                                    labelText: "Assigne a ",
-                                    value: selectedValue,
-                                    items: L.map((value) {
-                                      return DropdownMenuItem(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    }).toList(),
-                                    onChangedAction: (value) {
-                                      setState(() {
-                                        selectedValue = value!;
-                                      });
-                                    },
-                                    validator: (value) =>
-                                        dropdownFieldValidation(
-                                      value,
-                                      "Veuillez assigne quelqun",
+
+                                  ///if the show button is false
+                                  !_canShowButton2
+                                      ? const SizedBox.shrink()
+                                      : CustomTextField(
+                                          controller:
+                                              _assigneTextFormFieldController,
+                                          inputLabel: "Assigne a",
+                                          helperText: " ",
+                                          style: TextStyle(
+                                              color: Colors.grey[600]),
+                                          readOnly: false,
+                                          enabled: true,
+                                          filled: true,
+                                          onTapAction: () {
+                                            hideWidget2();
+                                            //_number();
+                                          },
+                                        ),
+                                  /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                                  Offstage(
+                                    offstage: _offstage2,
+                                    child: CustomDropdownField(
+                                      labelText: "Assigne a ",
+                                      value: selectedValue,
+                                      items: L.map((value) {
+                                        return DropdownMenuItem(
+                                          value: value,
+                                          child: Text(value),
+                                        );
+                                      }).toList(),
+                                      onChangedAction: (value) {
+                                        setState(() {
+                                          selectedValue = value!;
+                                        });
+                                      },
+                                      validator: (value) =>
+                                          dropdownFieldValidation(
+                                        value,
+                                        "Veuillez assigne quelqun",
+                                      ),
                                     ),
                                   ),
                                   SizedBox(
@@ -375,7 +409,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                   Offstage(
                                     offstage: _offstage,
                                     child: CustomDropdownField(
-                                      labelText: "Function ",
+                                      labelText: "Fonction ",
                                       value: functionselectedValue,
                                       items: fonctionResultsList.map((value) {
                                         return DropdownMenuItem(

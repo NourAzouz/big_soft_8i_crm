@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -32,6 +34,9 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
   late TextEditingController _lieuTextFormFieldController;
   late TextEditingController _nomContactTextFormFieldController;
   late TextEditingController _descriptionTextFormFieldController;
+  late TextEditingController _prioriteTextFormFieldController;
+  late TextEditingController _typeTextFormFieldController;
+  late TextEditingController _typeATextFormFieldController;
 
   int _indexToStartPaginatingFrom = 25;
   int _dataFetchLimit = 25;
@@ -52,6 +57,25 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
   bool dataLoadingError = false;
   late String dataLoadingErrorMessage;
 
+  Map<dynamic, String> prioMap = {'1': 'Haut', '2': 'Moyen', '3': 'Bas'};
+  Map<dynamic, String> typeMap = {'A': 'Activité', 'T': 'Tâche'};
+  Map<dynamic, String> typeacMap = {
+    'AP': 'Appel',
+    'CF': 'Conférence',
+    'MC': 'Mobile Call'
+  };
+  Map<dynamic, String> statutMap = {
+    '1': 'Planifiée',
+    '2': 'A eu lieu',
+    '3': "N'a pas eu lieu",
+    '4': 'Non commencé',
+    '5': 'En cours',
+    '6': 'Terminé',
+    '7': 'En attente',
+    '8': 'Reporté',
+    '9': 'Planifié'
+  };
+
   @override
   void initState() {
     super.initState();
@@ -64,15 +88,9 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
     _lieuTextFormFieldController = TextEditingController();
     _nomContactTextFormFieldController = TextEditingController();
     _descriptionTextFormFieldController = TextEditingController();
-    /*
-    _sujetTextFormFieldController.text = widget.ActivityDetailsViewArguments!.sujet.toString();
-    _dateDebutTextFormFieldController.text = widget.ActivityDetailsViewArguments!.dateDebut.toString();
-    _heureDebutTextFormFieldController.text =  widget.ActivityDetailsViewArguments!.heureDebut.toString();
-    _lieuTextFormFieldController.text = widget.ActivityDetailsViewArguments!.lieu.toString();
-    _statutTextFormFieldController.text = widget.ActivityDetailsViewArguments!.statut.toString();
-    _nomContactTextFormFieldController.text = widget.ActivityDetailsViewArguments!.nomContact.toString();
-    _descriptionTextFormFieldController.text = widget.ActivityDetailsViewArguments!.description.toString();
-*/
+    _prioriteTextFormFieldController = TextEditingController();
+    _typeTextFormFieldController = TextEditingController();
+    _typeATextFormFieldController = TextEditingController();
 
     fToast = FToast();
     fToast.init(context);
@@ -87,6 +105,9 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
     _lieuTextFormFieldController.dispose();
     _nomContactTextFormFieldController.dispose();
     _descriptionTextFormFieldController.dispose();
+    _prioriteTextFormFieldController.dispose();
+    _typeTextFormFieldController.dispose();
+    _typeATextFormFieldController.dispose();
     super.dispose();
   }
 
@@ -134,7 +155,7 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
                                 onTapAction: () =>
                                     showToast(fToast, toastMessage, context),
                               ),
-                              SizedBox(height: SizeConfig.heightMultiplier * 2),
+                              /*SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
                                 controller: _heureDebutTextFormFieldController,
                                 inputLabel: "Heure début",
@@ -145,7 +166,7 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
                                 filled: true,
                                 onTapAction: () =>
                                     showToast(fToast, toastMessage, context),
-                              ),
+                              ),*/
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
                                 controller: _nomContactTextFormFieldController,
@@ -173,7 +194,7 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
                                 controller: _lieuTextFormFieldController,
-                                inputLabel: "Lieu",
+                                inputLabel: "Localisation",
                                 helperText: " ",
                                 style: TextStyle(color: Colors.grey[600]),
                                 readOnly: false,
@@ -186,6 +207,42 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
                               CustomTextField(
                                 controller: _descriptionTextFormFieldController,
                                 inputLabel: "Description",
+                                helperText: " ",
+                                style: TextStyle(color: Colors.grey[600]),
+                                readOnly: false,
+                                enabled: true,
+                                filled: true,
+                                onTapAction: () =>
+                                    showToast(fToast, toastMessage, context),
+                              ),
+                              SizedBox(height: SizeConfig.heightMultiplier * 2),
+                              CustomTextField(
+                                controller: _prioriteTextFormFieldController,
+                                inputLabel: "priorite",
+                                helperText: " ",
+                                style: TextStyle(color: Colors.grey[600]),
+                                readOnly: false,
+                                enabled: true,
+                                filled: true,
+                                onTapAction: () =>
+                                    showToast(fToast, toastMessage, context),
+                              ),
+                              SizedBox(height: SizeConfig.heightMultiplier * 2),
+                              CustomTextField(
+                                controller: _typeTextFormFieldController,
+                                inputLabel: "Type",
+                                helperText: " ",
+                                style: TextStyle(color: Colors.grey[600]),
+                                readOnly: false,
+                                enabled: true,
+                                filled: true,
+                                onTapAction: () =>
+                                    showToast(fToast, toastMessage, context),
+                              ),
+                              SizedBox(height: SizeConfig.heightMultiplier * 2),
+                              CustomTextField(
+                                controller: _typeATextFormFieldController,
+                                inputLabel: "Type d'activite",
                                 helperText: " ",
                                 style: TextStyle(color: Colors.grey[600]),
                                 readOnly: false,
@@ -255,11 +312,17 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
           _lieuTextFormFieldController.text =
               activityDetailsResult.lieu.toString();
           _statutTextFormFieldController.text =
-              activityDetailsResult.statut.toString();
+              statutMap[activityDetailsResult.statut].toString();
           _nomContactTextFormFieldController.text =
               activityDetailsResult.nomContact.toString();
           _descriptionTextFormFieldController.text =
               activityDetailsResult.description.toString();
+          _prioriteTextFormFieldController.text =
+              prioMap[activityDetailsResult.priorite].toString();
+          _typeTextFormFieldController.text =
+              typeMap[activityDetailsResult.type].toString();
+          _typeATextFormFieldController.text =
+              typeacMap[activityDetailsResult.typeA].toString();
         },
       );
     } else if (activityDetailsResult is int) {

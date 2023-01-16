@@ -76,7 +76,7 @@ class _IpAddressSetupViewState extends State<IpAddressSetupView> {
                     SizedBox(height: SizeConfig.heightMultiplier * 8),
                     Image.asset(
                       "assets/images/Server-rafiki.png",
-                      height: SizeConfig.imageSizeMultiplier * 30,
+                      height: SizeConfig.imageSizeMultiplier * 40,
                     ),
                     SizedBox(height: SizeConfig.heightMultiplier * 8),
                     Form(

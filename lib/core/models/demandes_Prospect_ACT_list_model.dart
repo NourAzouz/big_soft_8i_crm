@@ -30,6 +30,9 @@ class DemandesActivityListModel {
   dynamic dateModified;
   dynamic nomContact;
   dynamic owner;
+  dynamic priorite;
+  dynamic type;
+  dynamic typeA;
 
   DemandesActivityListModel({
     this.numero,
@@ -46,6 +49,9 @@ class DemandesActivityListModel {
     this.dateCreated,
     this.dateModified,
     this.owner,
+    this.priorite,
+    this.type,
+    this.typeA,
   });
 
   DemandesActivityListModel.fromJson(Map<dynamic, dynamic> json) {
@@ -64,5 +70,8 @@ class DemandesActivityListModel {
     dateCreated = json['DateCreated'];
     dateModified = json['DateModified'];
     owner = json['owner'].toString();
+    priorite = json['Priorite'].toString();
+    type = json['Type'].toString();
+    typeA = json['TypeActivite'].toString();
   }
 }

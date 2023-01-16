@@ -136,19 +136,28 @@ class LocalStorageService {
   }
 
   Future<void> readConstantsFromSecureStorage() async {
-    final secureStorage = FlutterSecureStorage();
-    String? domaine = await secureStorage.read(key: DOMAINE);
-    Constants.domaine = domaine;
-    String? username = await secureStorage.read(key: USERNAME);
-    Constants.username = username;
-    String? password = await secureStorage.read(key: PASSWORD);
-    Constants.password = password;
-    String? ipAddress = await secureStorage.read(key: IP_ADDRESS);
-    Constants.ipAddress = ipAddress;
-    String? libelleUnite = await secureStorage.read(key: LIBELLE_UNITE);
-    Constants.libelleUnite = libelleUnite;
-    String? libelleExercice = await secureStorage.read(key: LIBELLE_EXERCICE);
-    Constants.libelleExercice = libelleExercice;
+    final prefs = await SharedPreferences.getInstance();
+    if (prefs.getBool('first_run') ?? true) {
+      FlutterSecureStorage storage = FlutterSecureStorage();
+
+      await storage.deleteAll();
+
+      prefs.setBool('first_run', false);
+    } else {
+      final secureStorage = FlutterSecureStorage();
+      String? domaine = await secureStorage.read(key: DOMAINE);
+      Constants.domaine = domaine;
+      String? username = await secureStorage.read(key: USERNAME);
+      Constants.username = username;
+      String? password = await secureStorage.read(key: PASSWORD);
+      Constants.password = password;
+      String? ipAddress = await secureStorage.read(key: IP_ADDRESS);
+      Constants.ipAddress = ipAddress;
+      String? libelleUnite = await secureStorage.read(key: LIBELLE_UNITE);
+      Constants.libelleUnite = libelleUnite;
+      String? libelleExercice = await secureStorage.read(key: LIBELLE_EXERCICE);
+      Constants.libelleExercice = libelleExercice;
+    }
   }
 
   writeIpAddressToSecureStorage(String ipAdress) async {
