@@ -145,3 +145,34 @@ class FonctionListModel {
     libellefonction = json['Libelle'].toString();
   }
 }
+
+class SupListResults {
+  dynamic total;
+  List<SupListModel>? results;
+
+  SupListResults({this.total, this.results});
+
+  SupListResults.fromJson(Map<dynamic, dynamic> json) {
+    total = json['total'];
+    if (json['results'] != null) {
+      results = <SupListModel>[];
+      json['results'].forEach((v) {
+        results!.add(SupListModel.fromJson(v));
+      });
+    }
+  }
+}
+
+class SupListModel {
+  dynamic nompresup;
+  //dynamic presup;
+
+  SupListModel({
+    this.nompresup,
+    //this.presup,
+  });
+  SupListModel.fromJson(Map<dynamic, dynamic> json) {
+    nompresup = json['Nom'].toString() + " " + json['Prenom'].toString();
+    //presup = json['Prenom'].toString();
+  }
+}

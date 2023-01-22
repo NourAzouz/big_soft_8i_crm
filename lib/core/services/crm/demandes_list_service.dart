@@ -199,4 +199,33 @@ class DemandesListService {
     );
     return demandesResponse.results;
   }
+
+  Future<dynamic> getsup() async {
+    var supresponse;
+    try {
+      supresponse = await http.post(
+        Uri.parse("${Constants.baseURL}/ContactCRMAction"),
+        headers: <String, String>{
+          "Cookie": Constants.sessionId,
+        },
+        body: {
+          "start": "",
+          "limit": "",
+          "action": "select",
+          "code": "",
+        },
+      ).timeout(const Duration(seconds: 50));
+    } on TimeoutException catch (_) {
+      return "Cette requette a pris un temps inattendu";
+    } on SocketException catch (_) {
+      return "Vérifier la configuration de votre réseau";
+    }
+    if (supresponse.contentLength == 0) {
+      return 0;
+    }
+    var demandesResponse = SupListResults.fromJson(
+      json.decode(supresponse.body),
+    );
+    return demandesResponse.results;
+  }
 }

@@ -54,14 +54,14 @@ class DemandesCompteListService {
           body: {
             "action": "update",
             "PrecMtDevise": saveCompteArgument.devisText,
-            "CodeTiers": "CP2SYS2022",
+            "CodeTiers": saveCompteArgument.numCompteText,
             "NomTiers": saveCompteArgument.nomCompteText,
-            "Telephone": saveCompteArgument.nomCompteText,
+            "Telephone": saveCompteArgument.telephoneText,
             "Fax": "",
             "AutreTel": "",
             "Email": saveCompteArgument.mailText,
             "Proprietaire": saveCompteArgument.propritaireText,
-            "Note": "",
+            "Note": saveCompteArgument.descriptionText,
             "CodeActivite": "",
             "LibActivite": "",
             "RevenuAnnuel": saveCompteArgument.revenueText,
@@ -88,8 +88,8 @@ class DemandesCompteListService {
             "VilleLiv": "",
             "PaysLiv": "",
             "CodePostalLiv": "",
-            "ext-comp-1291": "Contient",
-            "ext-comp-1289": "",
+            "ext-comp-1292": "Contient",
+            "ext-comp-1290": "",
             "filterValue": "",
           });
     } on TimeoutException catch (_) {

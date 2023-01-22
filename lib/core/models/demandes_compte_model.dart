@@ -27,6 +27,7 @@ class DemandesCompteListModel {
   dynamic revenue;
   dynamic devis;
   dynamic description;
+
   DemandesCompteListModel({
     this.codeTiers,
     this.nomTiers,

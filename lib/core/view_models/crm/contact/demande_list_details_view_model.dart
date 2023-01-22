@@ -22,5 +22,12 @@ class DemandeListDetailsViewModel extends BaseViewModel {
     return demandesResult;
   }
 
+  Future<dynamic> getsup() async {
+    changeState(ViewState.Busy);
+    var demandesResult = await _contactService.getsup();
+    changeState(ViewState.Idle);
+    return demandesResult;
+  }
+
   updateContact(saveProspectArgument) {}
 }

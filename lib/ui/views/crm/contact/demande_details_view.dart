@@ -32,6 +32,7 @@ class DemandeDetailsView extends StatefulWidget {
 
 class _DemandeDetailsViewState extends State<DemandeDetailsView> {
   late List<DemandesCollabListModel> demandesResultsList;
+  late List<SupListModel> supResultsList;
   late List<FonctionListModel> fonctionResultsList;
   String? functionselectedValue;
 
@@ -72,6 +73,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
   bool dataLoadingError1 = false;
   late String dataLoadingErrorMessage;
   var selectedValue;
+  var value;
 
   //for dropdownmenu
   bool _canShowButton = true;
@@ -79,6 +81,9 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
 
   bool _canShowButton2 = true;
   bool _offstage2 = true;
+
+  bool _canShowButton3 = true;
+  bool _offstage3 = true;
 
   void hideWidget() {
     setState(() {
@@ -94,6 +99,13 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
     });
   }
 
+  void hideWidget3() {
+    setState(() {
+      _canShowButton3 = !_canShowButton3;
+      _offstage3 = !_offstage3;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -101,6 +113,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
     dataLoadingErrorMessage = '';
     demandesResultsList = [];
     fonctionResultsList = [];
+    supResultsList = [];
 
     L = [];
     _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
@@ -439,18 +452,51 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                   ),*/
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
-                                  CustomTextField(
-                                    controller:
-                                        _superieurTextFormFieldController,
-                                    inputLabel: "Supérieur",
-                                    helperText: " ",
-                                    style: TextStyle(color: Colors.grey[600]),
-                                    readOnly: false,
-                                    enabled: true,
-                                    filled: true,
-                                    onTapAction: () {},
-                                    child: null,
+
+                                  ///if the show button is false
+                                  !_canShowButton3
+                                      ? const SizedBox.shrink()
+                                      : CustomTextField(
+                                          controller:
+                                              _superieurTextFormFieldController,
+                                          inputLabel: "Supérieur",
+                                          helperText: " ",
+                                          style: TextStyle(
+                                              color: Colors.grey[600]),
+                                          readOnly: false,
+                                          enabled: true,
+                                          filled: true,
+                                          onTapAction: () {
+                                            hideWidget3();
+                                            //_number();
+                                          },
+                                        ),
+                                  /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                                  Offstage(
+                                    offstage: _offstage3,
+                                    child: CustomDropdownField(
+                                      labelText: "Superieur ",
+                                      value: value,
+                                      items: supResultsList.map((value) {
+                                        return DropdownMenuItem(
+                                          value: value,
+                                          child: Text(value.nompresup),
+                                        );
+                                      }).toList(),
+                                      onChangedAction: (value) {
+                                        setState(() {
+                                          value = value!;
+                                        });
+                                      },
+                                      validator: (value) =>
+                                          dropdownFieldValidation(
+                                        value,
+                                        "Selectionne un superieur",
+                                      ),
+                                    ),
                                   ),
+
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
                                   CustomTextField(
@@ -497,7 +543,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                 SpeedDial(animatedIcon: AnimatedIcons.menu_home, children: [
               SpeedDialChild(
                 child: const Icon(FontAwesomeIcons.floppyDisk),
-                backgroundColor: Colors.purple,
+                backgroundColor: Colors.blue,
                 label: 'Save',
                 labelStyle: const TextStyle(fontSize: 18.0),
                 onTap: () async {
@@ -517,12 +563,14 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
       DemandeListDetailsViewModel viewModel, BuildContext context) async {
     var demandesResults = await viewModel.getCollab();
     var fonctionResults = await viewModel.getFunction();
+    var supResults = await viewModel.getsup();
 
     setState(
       () {
         demandesResultsList = demandesResults;
         fonctionResultsList = fonctionResults;
-        print(fonctionResults);
+        supResultsList = supResults;
+        //print(fonctionResults);
         for (var inu in demandesResultsList) {
           L.add(inu.codeCollab.toString());
         }
