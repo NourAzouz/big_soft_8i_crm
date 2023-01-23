@@ -26,4 +26,27 @@ class DemandeProspectDetailsViewModel extends BaseViewModel {
     changeState(ViewState.Idle);
     return addContactResult;
   }
+
+  //////////////////////////////////////////////
+
+  Future<dynamic> getorg() async {
+    changeState(ViewState.Busy);
+    var demandesResult = await _demandesListService.getorg();
+    changeState(ViewState.Idle);
+    return demandesResult;
+  }
+
+  Future<dynamic> getsect() async {
+    changeState(ViewState.Busy);
+    var demandesResult = await _demandesListService.getsect();
+    changeState(ViewState.Idle);
+    return demandesResult;
+  }
+
+  Future<dynamic> getassg() async {
+    changeState(ViewState.Busy);
+    var demandesResult = await _demandesListService.getassg();
+    changeState(ViewState.Idle);
+    return demandesResult;
+  }
 }

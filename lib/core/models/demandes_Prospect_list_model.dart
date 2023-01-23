@@ -83,3 +83,92 @@ class DemandesProspectListModel {
     description = json['Description'].toString();
   }
 }
+
+/////////////////////////////////////////////+
+
+class DemandesOrgListResults {
+  dynamic total;
+  List<DemandesOrgListModel>? results;
+
+  DemandesOrgListResults({this.total, this.results});
+
+  DemandesOrgListResults.fromJson(Map<dynamic, dynamic> json) {
+    total = json['total'];
+    if (json['results'] != null) {
+      results = <DemandesOrgListModel>[];
+      json['results'].forEach((v) {
+        results!.add(DemandesOrgListModel.fromJson(v));
+      });
+    }
+  }
+}
+
+class DemandesOrgListModel {
+  dynamic orgp;
+
+  DemandesOrgListModel({
+    this.orgp,
+  });
+  DemandesOrgListModel.fromJson(Map<dynamic, dynamic> json) {
+    orgp = json['Libelle'].toString();
+  }
+}
+
+class SectListResults {
+  dynamic total;
+  List<SectListModel>? results;
+
+  SectListResults({this.total, this.results});
+
+  SectListResults.fromJson(Map<dynamic, dynamic> json) {
+    total = json['total'];
+    if (json['results'] != null) {
+      results = <SectListModel>[];
+      json['results'].forEach((v) {
+        results!.add(SectListModel.fromJson(v));
+      });
+    }
+  }
+}
+
+class SectListModel {
+  dynamic libelle;
+
+  SectListModel({
+    this.libelle,
+  });
+  SectListModel.fromJson(Map<dynamic, dynamic> json) {
+    libelle = json['LibelleSecteur'].toString();
+  }
+}
+
+class AssgListResults {
+  dynamic total;
+  List<AssgListModel>? results;
+
+  AssgListResults({this.total, this.results});
+
+  AssgListResults.fromJson(Map<dynamic, dynamic> json) {
+    total = json['total'];
+    if (json['results'] != null) {
+      results = <AssgListModel>[];
+      json['results'].forEach((v) {
+        results!.add(AssgListModel.fromJson(v));
+      });
+    }
+  }
+}
+
+class AssgListModel {
+  dynamic nompresup;
+  //dynamic presup;
+
+  AssgListModel({
+    this.nompresup,
+    //this.presup,
+  });
+  AssgListModel.fromJson(Map<dynamic, dynamic> json) {
+    nompresup = json['Nom'].toString() + " " + json['Prenom'].toString();
+    //presup = json['Prenom'].toString();
+  }
+}

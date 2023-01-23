@@ -9,6 +9,7 @@ import '../../../../core/view_models/crm/prospect/demande_prospect_details_view_
 import '../../../shared/navigation_router_paths.dart';
 import '../../../shared/size_config.dart';
 import '../../../widgets/contact_support_alert_view.dart';
+import '../../../widgets/custom_dropdown_field.dart';
 import '../../../widgets/custom_flutter_toast.dart';
 import '../../../widgets/custom_text_field.dart';
 import '../../../widgets/loading_error_view.dart';
@@ -28,6 +29,46 @@ class DemandeProspectDetailsView extends StatefulWidget {
 class _DemandeProspectDetailsViewState
     extends State<DemandeProspectDetailsView> {
   bool isAddProspectSuccess = false;
+
+  late List<DemandesOrgListModel> orgResultsList; /////////
+  late List<SectListModel> sectResultsList;
+  late List<AssgListModel> assgResultsList;
+
+  List<DropdownMenuItem<Object?>> _dropdownTestItems = []; ///////////
+  String? orgselectedValue;
+  String? sectselectedValue;
+  String? assgselectedValue;
+
+  //for dropdownmenu ////////////////////////////////
+  bool _canShowButton = true;
+  bool _offstage = true;
+
+  void hideWidget() {
+    setState(() {
+      _canShowButton = !_canShowButton;
+      _offstage = !_offstage;
+    });
+  }
+
+  bool _canShowButton2 = true;
+  bool _offstage2 = true;
+
+  void hideWidget2() {
+    setState(() {
+      _canShowButton2 = !_canShowButton2;
+      _offstage2 = !_offstage2;
+    });
+  }
+
+  bool _canShowButton3 = true;
+  bool _offstage3 = true;
+
+  void hideWidget3() {
+    setState(() {
+      _canShowButton3 = !_canShowButton3;
+      _offstage3 = !_offstage3;
+    });
+  }
 
   late GlobalKey<ScaffoldMessengerState> _scaffoldKey;
   late GlobalKey<FormState> _formKey;
@@ -69,6 +110,11 @@ class _DemandeProspectDetailsViewState
   @override
   void initState() {
     super.initState();
+
+    orgResultsList = [];
+    sectResultsList = [];
+    assgResultsList = [];
+
     _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
     _formKey = GlobalKey<FormState>();
     _numProspectTextFormFieldController = TextEditingController();
@@ -176,7 +222,7 @@ class _DemandeProspectDetailsViewState
   @override
   Widget build(BuildContext context) {
     return BaseView<DemandeProspectDetailsViewModel>(
-      onModelReady: (viewModel) => getProspectDetails(viewModel),
+      onModelReady: (viewModel) => getProspectDetails(viewModel, context),
       builder: (context, viewModel, child) => Scaffold(
         key: _scaffoldKey,
         body: dataFinishLoading
@@ -268,31 +314,140 @@ class _DemandeProspectDetailsViewState
                                     showToast(fToast, toastMessage, context),
                               ),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
-                              CustomTextField(
-                                controller:
-                                    _origineProspectTextFormFieldController,
-                                inputLabel: "Origine",
-                                helperText: " ",
-                                style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
-                                enabled: true,
-                                filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
+
+                              //////////////////////////////////////////////
+                              ///if the show button is false
+                              !_canShowButton
+                                  ? const SizedBox.shrink()
+                                  : CustomTextField(
+                                      controller:
+                                          _origineProspectTextFormFieldController,
+                                      inputLabel: "Origine",
+                                      helperText: " ",
+                                      style: TextStyle(color: Colors.grey[600]),
+                                      readOnly: false,
+                                      enabled: true,
+                                      filled: true,
+                                      onTapAction: () {
+                                        hideWidget();
+                                        //_number();
+                                      },
+                                    ),
+                              /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                              Offstage(
+                                offstage: _offstage,
+                                child: CustomDropdownField(
+                                  labelText: "Origine",
+                                  value: orgselectedValue,
+                                  items: orgResultsList.map((value) {
+                                    return DropdownMenuItem(
+                                      value: value,
+                                      child: Text(value.orgp),
+                                    );
+                                  }).toList(),
+                                  onChangedAction: (value) {
+                                    setState(() {
+                                      orgselectedValue = value!;
+                                    });
+                                  },
+                                  validator: (value) => dropdownFieldValidation(
+                                    value,
+                                    "Selectionne une fonction",
+                                  ),
+                                ),
                               ),
+                              ////////////////////////////////////////////////
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
-                              CustomTextField(
-                                controller:
-                                    _libSecteurActiviteTextFormFieldController,
-                                inputLabel: "Secteur d'activité",
-                                helperText: " ",
-                                style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
-                                enabled: true,
-                                filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
+
+                              //////////////////////////////////////////////
+                              ///if the show button is false
+                              !_canShowButton2
+                                  ? const SizedBox.shrink()
+                                  : CustomTextField(
+                                      controller:
+                                          _libSecteurActiviteTextFormFieldController,
+                                      inputLabel: "Secteur d'activité",
+                                      helperText: " ",
+                                      style: TextStyle(color: Colors.grey[600]),
+                                      readOnly: false,
+                                      enabled: true,
+                                      filled: true,
+                                      onTapAction: () {
+                                        hideWidget2();
+                                        //_number();
+                                      },
+                                    ),
+                              /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                              Offstage(
+                                offstage: _offstage2,
+                                child: CustomDropdownField(
+                                  labelText: "Secteur d'activité",
+                                  value: sectselectedValue,
+                                  items: sectResultsList.map((value) {
+                                    return DropdownMenuItem(
+                                      value: value,
+                                      child: Text(value.libelle),
+                                    );
+                                  }).toList(),
+                                  onChangedAction: (value) {
+                                    setState(() {
+                                      orgselectedValue = value!;
+                                    });
+                                  },
+                                  validator: (value) => dropdownFieldValidation(
+                                    value,
+                                    "Selectionne une fonction",
+                                  ),
+                                ),
                               ),
+                              /////////////////////////////////////////////
+                              SizedBox(height: SizeConfig.heightMultiplier * 2),
+
+                              //////////////////////////////////////////////
+                              ///if the show button is false
+                              !_canShowButton3
+                                  ? const SizedBox.shrink()
+                                  : CustomTextField(
+                                      controller:
+                                          _collabTextFormFieldController,
+                                      inputLabel: "Assigné à ",
+                                      helperText: " ",
+                                      style: TextStyle(color: Colors.grey[600]),
+                                      readOnly: false,
+                                      enabled: true,
+                                      filled: true,
+                                      onTapAction: () {
+                                        hideWidget3();
+                                        //_number();
+                                      },
+                                    ),
+                              /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                              Offstage(
+                                offstage: _offstage3,
+                                child: CustomDropdownField(
+                                  labelText: "Secteur d'activité",
+                                  value: assgselectedValue,
+                                  items: assgResultsList.map((value) {
+                                    return DropdownMenuItem(
+                                      value: value,
+                                      child: Text(value.nompresup),
+                                    );
+                                  }).toList(),
+                                  onChangedAction: (value) {
+                                    setState(() {
+                                      orgselectedValue = value!;
+                                    });
+                                  },
+                                  validator: (value) => dropdownFieldValidation(
+                                    value,
+                                    "Selectionne une fonction",
+                                  ),
+                                ),
+                              ),
+                              ////////////////////////////////////
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
                                 controller:
@@ -310,18 +465,6 @@ class _DemandeProspectDetailsViewState
                               CustomTextField(
                                 controller: _nbrempTextFormFieldController,
                                 inputLabel: "Nombre d'employés",
-                                helperText: " ",
-                                style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
-                                enabled: true,
-                                filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
-                              ),
-                              SizedBox(height: SizeConfig.heightMultiplier * 2),
-                              CustomTextField(
-                                controller: _collabTextFormFieldController,
-                                inputLabel: "Assigné à ",
                                 helperText: " ",
                                 style: TextStyle(color: Colors.grey[600]),
                                 readOnly: false,
@@ -380,7 +523,7 @@ class _DemandeProspectDetailsViewState
                 ? SafeArea(
                     child: RefreshIndicator(
                       onRefresh: () async {
-                        await getProspectDetails(viewModel);
+                        await getProspectDetails(viewModel, context);
                       },
                       child: SingleChildScrollView(
                         physics: const AlwaysScrollableScrollPhysics(),
@@ -459,15 +602,26 @@ class _DemandeProspectDetailsViewState
     );
   }
 
+  String? dropdownFieldValidation(value, validationMessage) =>
+      value == null ? validationMessage : null;
+
   Future<void> getProspectDetails(
-    DemandeProspectDetailsViewModel viewModel,
-  ) async {
+      DemandeProspectDetailsViewModel viewModel, BuildContext context) async {
+    var orgResults = await viewModel.getorg();
+    var sectResults = await viewModel.getsect();
+    var assgResults = await viewModel.getassg();
+
     var prospectDetailsResult = await viewModel
         .getProspectDetails("${widget.demandeProspectDetailsViewArguments}");
-    print(prospectDetailsResult);
+    //print(prospectDetailsResult);
     if (prospectDetailsResult is DemandesProspectListModel) {
       setState(
         () {
+          orgResultsList = orgResults;
+          sectResultsList = sectResults;
+          assgResultsList = assgResults;
+
+          ///////////////////////////////////////////////
           dataFinishLoading = true;
           _numProspectTextFormFieldController.text =
               prospectDetailsResult.numProspect.toString();
@@ -521,6 +675,9 @@ class _DemandeProspectDetailsViewState
     }
   }
 }
+
+DropdownMenuItem<String> buildMenuItem(String item) =>
+    DropdownMenuItem(value: item, child: Text(item));
 
 class SaveProspectArgument {
   final String numProspect;
