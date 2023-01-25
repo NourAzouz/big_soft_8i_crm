@@ -17,4 +17,11 @@ class DemandeProductDetailsViewModel extends BaseViewModel {
     changeState(ViewState.Idle);
     return addContactResult;
   }
+
+  Future<dynamic> getcat() async {
+    changeState(ViewState.Busy);
+    var demandesResult = await _prospectService.getcat();
+    changeState(ViewState.Idle);
+    return demandesResult;
+  }
 }

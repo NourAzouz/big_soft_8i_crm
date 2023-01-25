@@ -161,4 +161,40 @@ class DemandesProductListService {
       return deleteFeedbackMessage;
     }
   }
+
+  Future<dynamic> getcat() async {
+    var catresponse;
+    try {
+      catresponse = await http.post(
+        Uri.parse("${Constants.baseURL}/FamilleArticleAction"),
+        headers: <String, String>{
+          "Cookie": Constants.sessionId,
+        },
+        body: {
+          "start": "",
+          "limit": "",
+          "sort": "",
+          "dir": "",
+          "action": "select",
+          "code": "",
+          "FLevel": "",
+          "IdParent": "",
+          "useCache": "",
+          "Filter": "",
+          "CGrp": ""
+        },
+      ).timeout(const Duration(seconds: 50));
+    } on TimeoutException catch (_) {
+      return "Cette requette a pris un temps inattendu";
+    } on SocketException catch (_) {
+      return "Vérifier la configuration de votre réseau";
+    }
+    if (catresponse.contentLength == 0) {
+      return 0;
+    }
+    var demandesResponse = CatListResults.fromJson(
+      json.decode(catresponse.body),
+    );
+    return demandesResponse.results;
+  }
 }

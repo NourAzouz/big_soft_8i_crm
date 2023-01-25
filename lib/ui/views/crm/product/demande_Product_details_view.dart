@@ -6,6 +6,7 @@ import '../../../../core/enums/view_states.dart';
 import '../../../../core/models/demandes_Product_list_model.dart';
 import '../../../../core/view_models/crm/product/demande_product_details_view_model.dart';
 import '../../../shared/size_config.dart';
+import '../../../widgets/custom_dropdown_field.dart';
 import '../../../widgets/custom_flutter_toast.dart';
 import '../../../widgets/custom_text_field.dart';
 import '../../../widgets/loading_error_view.dart';
@@ -23,6 +24,21 @@ class DemandeProductDetailsView extends StatefulWidget {
 }
 
 class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
+  late List<CatListModel> catResultsList;
+  List<DropdownMenuItem<Object?>> _dropdownTestItems = [];
+  String? catselectedValue;
+
+  //for dropdownmenu ////////////////////////////////
+  bool _canShowButton = true;
+  bool _offstage = true;
+
+  void hideWidget() {
+    setState(() {
+      _canShowButton = !_canShowButton;
+      _offstage = !_offstage;
+    });
+  }
+
   late GlobalKey<ScaffoldMessengerState> _scaffoldKey;
   late GlobalKey<FormState> _formKey;
   late TextEditingController _codeArticleTextFormFieldController;
@@ -59,6 +75,9 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
   @override
   void initState() {
     super.initState();
+
+    catResultsList = [];
+
     _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
     _formKey = GlobalKey<FormState>();
     _codeArticleTextFormFieldController = TextEditingController();
@@ -163,7 +182,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
   @override
   Widget build(BuildContext context) {
     return BaseView<DemandeProductDetailsViewModel>(
-      //onModelReady: (viewModel) => getActivityDetails(viewModel),
+      onModelReady: (viewModel) => getActivityDetails(viewModel, context),
       builder: (context, viewModel, child) => Scaffold(
           key: _scaffoldKey,
           body: dataFinishLoading
@@ -204,16 +223,49 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                 ),
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
-                                CustomTextField(
-                                  controller: _familleTextFormFieldController,
-                                  inputLabel: "Categorie",
-                                  helperText: " ",
-                                  style: TextStyle(color: Colors.grey[600]),
-                                  readOnly: false,
-                                  enabled: true,
-                                  filled: true,
-                                  onTapAction: () =>
-                                      showToast(fToast, toastMessage, context),
+
+                                ///if the show button is false
+                                !_canShowButton
+                                    ? const SizedBox.shrink()
+                                    : CustomTextField(
+                                        controller:
+                                            _familleTextFormFieldController,
+                                        inputLabel: "Categorie",
+                                        helperText: " ",
+                                        style:
+                                            TextStyle(color: Colors.grey[600]),
+                                        readOnly: false,
+                                        enabled: true,
+                                        filled: true,
+                                        onTapAction: () {
+                                          hideWidget();
+                                          //_number();
+                                        },
+                                      ),
+                                /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                                Offstage(
+                                  offstage: _offstage,
+                                  child: CustomDropdownField(
+                                    labelText: "Categorie",
+                                    value: catselectedValue,
+                                    items: catResultsList.map((value) {
+                                      return DropdownMenuItem(
+                                        value: value,
+                                        child: Text(value.codeFamille),
+                                      );
+                                    }).toList(),
+                                    onChangedAction: (value) {
+                                      setState(() {
+                                        catselectedValue = value!;
+                                      });
+                                    },
+                                    validator: (value) =>
+                                        dropdownFieldValidation(
+                                      value,
+                                      "Selectionne une fonction",
+                                    ),
+                                  ),
                                 ),
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
@@ -321,7 +373,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                   ? SafeArea(
                       child: RefreshIndicator(
                         onRefresh: () async {
-                          await getActivityDetails(viewModel);
+                          await getActivityDetails(viewModel, context);
                         },
                         child: SingleChildScrollView(
                           physics: const AlwaysScrollableScrollPhysics(),
@@ -337,11 +389,32 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                         ),
                       ),
                     )
-                  : const Center(
-                      child: CircularProgressIndicator(
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.blue),
-                      ),
-                    ),
+                  : dataLoadingError
+                      ? SafeArea(
+                          child: RefreshIndicator(
+                            onRefresh: () async {
+                              await getActivityDetails(viewModel, context);
+                            },
+                            child: SingleChildScrollView(
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              child: Container(
+                                child: Center(
+                                  child: LoadingErrorView(
+                                    imageURL: "assets/images/error.png",
+                                    errorMessage: dataLoadingErrorMessage,
+                                  ),
+                                ),
+                                height: SizeConfig.heightMultiplier * 77,
+                              ),
+                            ),
+                          ),
+                        )
+                      : const Center(
+                          child: CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.blue),
+                          ),
+                        ),
           floatingActionButton: FloatingActionButton(
             child: const Icon(Icons.save),
             onPressed: () async {
@@ -354,11 +427,15 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
     );
   }
 
+  String? dropdownFieldValidation(value, validationMessage) =>
+      value == null ? validationMessage : null;
+
   Future<void> getActivityDetails(
-    DemandeProductDetailsViewModel viewModel,
-  ) async {
+      DemandeProductDetailsViewModel viewModel, BuildContext context) async {
+    var orgResults = await viewModel.getcat();
     setState(
       () {
+        catResultsList = orgResults;
         _codeArticleTextFormFieldController.text =
             widget.demandeProductDetailsViewArguments!.sujet.toString();
         _libelleTextFormFieldController.text =
@@ -385,6 +462,9 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
     );
   }
 }
+
+DropdownMenuItem<String> buildMenuItem(String item) =>
+    DropdownMenuItem(value: item, child: Text(item));
 
 class SaveProductArgument {
   final String codeArticle;

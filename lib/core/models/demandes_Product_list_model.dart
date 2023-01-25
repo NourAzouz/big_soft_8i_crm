@@ -68,3 +68,34 @@ class ProductsProductListModel {
     refArt = json['ReferenceArticle'];
   }
 }
+
+class CatListResults {
+  dynamic total;
+  List<CatListModel>? results;
+
+  CatListResults({this.total, this.results});
+
+  CatListResults.fromJson(Map<dynamic, dynamic> json) {
+    total = json['total'];
+    if (json['results'] != null) {
+      results = <CatListModel>[];
+      json['results'].forEach((v) {
+        results!.add(CatListModel.fromJson(v));
+      });
+    }
+  }
+}
+
+class CatListModel {
+  dynamic codeFamille;
+  dynamic libelleFamille;
+
+  CatListModel({
+    this.codeFamille,
+    this.libelleFamille,
+  });
+  CatListModel.fromJson(Map<dynamic, dynamic> json) {
+    libelleFamille = json['CodeFamille'].toString();
+    libelleFamille = json['LibelleFamille'].toString();
+  }
+}
