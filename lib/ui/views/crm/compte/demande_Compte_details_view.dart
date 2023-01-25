@@ -8,6 +8,7 @@ import '../../../../core/enums/view_states.dart';
 import '../../../../core/models/demandes_compte_model.dart';
 import '../../../../core/view_models/crm/compte/demande_compte_details_view_model.dart';
 import '../../../shared/size_config.dart';
+import '../../../widgets/custom_dropdown_field.dart';
 import '../../../widgets/custom_flutter_toast.dart';
 import '../../../widgets/custom_text_field.dart';
 import '../../../widgets/loading_error_view.dart';
@@ -26,6 +27,16 @@ class DemandeCompteDetailsView extends StatefulWidget {
 }
 
 class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
+  late List<AssgCollabListModel> assgResultsList;
+  late List<SecListModel> secResultsList;
+  late List<DevListModel> devResultsList;
+  //String? selectedValue;
+  var assgValue;
+  var secvalue;
+  var devvalue;
+
+  List<DropdownMenuItem<Object?>> _dropdownTestItems = [];
+
   bool isAddProspectSuccess = false;
   late GlobalKey<ScaffoldMessengerState> _scaffoldKey;
   late GlobalKey<FormState> _formKey;
@@ -60,9 +71,45 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
   bool dataLoadingError = false;
   late String dataLoadingErrorMessage;
 
+  //for dropdownmenu
+  bool _canShowButton = true;
+  bool _offstage = true;
+
+  bool _canShowButton2 = true;
+  bool _offstage2 = true;
+
+  bool _canShowButton3 = true;
+  bool _offstage3 = true;
+
+  void hideWidget() {
+    setState(() {
+      _canShowButton = !_canShowButton;
+      _offstage = !_offstage;
+    });
+  }
+
+  void hideWidget2() {
+    setState(() {
+      _canShowButton2 = !_canShowButton2;
+      _offstage2 = !_offstage2;
+    });
+  }
+
+  void hideWidget3() {
+    setState(() {
+      _canShowButton3 = !_canShowButton3;
+      _offstage3 = !_offstage3;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
+
+    assgResultsList = [];
+    secResultsList = [];
+    devResultsList = [];
+
     _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
     _formKey = GlobalKey<FormState>();
     _numCompteTextFormFieldController = TextEditingController();
@@ -170,7 +217,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
   @override
   Widget build(BuildContext context) {
     return BaseView<DemandeCompteDetailsViewModel>(
-      //onModelReady: (viewModel) => getCompteDetails(viewModel),
+      onModelReady: (viewModel) => getCompteDetails(viewModel, context),
       builder: (context, viewModel, child) => Scaffold(
           key: _scaffoldKey,
           body: dataFinishLoading
@@ -214,19 +261,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
                                 ),
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
-                                CustomTextField(
-                                  controller: _assignTextFormFieldController,
-                                  inputLabel: "Assigné a",
-                                  helperText: " ",
-                                  style: TextStyle(color: Colors.grey[600]),
-                                  readOnly: false,
-                                  enabled: true,
-                                  filled: true,
-                                  onTapAction: () =>
-                                      showToast(fToast, toastMessage, context),
-                                ),
-                                SizedBox(
-                                    height: SizeConfig.heightMultiplier * 2),
+
                                 CustomTextField(
                                   controller: _telephoneTextFormFieldController,
                                   inputLabel: "Telephone",
@@ -259,19 +294,153 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
                                 ),
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
-                                CustomTextField(
-                                  controller: _secteurTextFormFieldController,
-                                  inputLabel: "Secteur",
-                                  helperText: " ",
-                                  style: TextStyle(color: Colors.grey[600]),
-                                  readOnly: false,
-                                  enabled: true,
-                                  filled: true,
-                                  onTapAction: () =>
-                                      showToast(fToast, toastMessage, context),
+
+                                ///if the show button is false
+                                !_canShowButton2
+                                    ? const SizedBox.shrink()
+                                    : CustomTextField(
+                                        controller:
+                                            _assignTextFormFieldController,
+                                        inputLabel: "Assigné a",
+                                        helperText: " ",
+                                        style:
+                                            TextStyle(color: Colors.grey[600]),
+                                        readOnly: false,
+                                        enabled: true,
+                                        filled: true,
+                                        onTapAction: () {
+                                          hideWidget2();
+                                          //_number();
+                                        },
+                                      ),
+                                /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                                Offstage(
+                                  offstage: _offstage2,
+                                  child: CustomDropdownField(
+                                    labelText: "Assigne a ",
+                                    value: assgValue,
+                                    items: assgResultsList.map((value) {
+                                      return DropdownMenuItem(
+                                        value: value,
+                                        child: Text(value.npCollab),
+                                      );
+                                    }).toList(),
+                                    onChangedAction: (value) {
+                                      setState(() {
+                                        assgValue = value!;
+                                      });
+                                    },
+                                    validator: (value) =>
+                                        dropdownFieldValidation(
+                                      value,
+                                      "Veuillez assigne quelqun",
+                                    ),
+                                  ),
                                 ),
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
+
+                                ///if the show button is false
+                                !_canShowButton
+                                    ? const SizedBox.shrink()
+                                    : CustomTextField(
+                                        controller:
+                                            _secteurTextFormFieldController,
+                                        inputLabel: "Secteur",
+                                        helperText: " ",
+                                        style:
+                                            TextStyle(color: Colors.grey[600]),
+                                        readOnly: false,
+                                        enabled: true,
+                                        filled: true,
+                                        onTapAction: () {
+                                          hideWidget();
+                                          //_number();
+                                        },
+                                      ),
+                                /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                                Offstage(
+                                  offstage: _offstage,
+                                  child: CustomDropdownField(
+                                    labelText: "Secteur ",
+                                    value: secvalue,
+                                    items: secResultsList.map((value) {
+                                      return DropdownMenuItem(
+                                        value: value,
+                                        child: Text(value.libellesecteur),
+                                      );
+                                    }).toList(),
+                                    onChangedAction: (value) {
+                                      setState(() {
+                                        secvalue = value!;
+                                      });
+                                    },
+                                    validator: (value) =>
+                                        dropdownFieldValidation(
+                                      value,
+                                      "Selectionne une fonction",
+                                    ),
+                                  ),
+                                ),
+
+                                /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 2),
+                                  Text(
+                                    _superieurTextFormFieldController.text
+                                        .toString(),
+                                    selectionColor: Colors.black,
+                                  ),*/
+                                SizedBox(
+                                    height: SizeConfig.heightMultiplier * 2),
+
+                                ///if the show button is false
+                                !_canShowButton3
+                                    ? const SizedBox.shrink()
+                                    : CustomTextField(
+                                        controller:
+                                            _devisTextFormFieldController,
+                                        inputLabel: "Devise",
+                                        helperText: " ",
+                                        style:
+                                            TextStyle(color: Colors.grey[600]),
+                                        readOnly: false,
+                                        enabled: true,
+                                        filled: true,
+                                        onTapAction: () {
+                                          hideWidget3();
+                                          //_number();
+                                        },
+                                      ),
+                                /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                                Offstage(
+                                  offstage: _offstage3,
+                                  child: CustomDropdownField(
+                                    labelText: "Superieur ",
+                                    value: devvalue,
+                                    items: devResultsList.map((value) {
+                                      return DropdownMenuItem(
+                                        value: value,
+                                        child: Text(value.devise),
+                                      );
+                                    }).toList(),
+                                    onChangedAction: (value) {
+                                      setState(() {
+                                        value = value!;
+                                      });
+                                    },
+                                    validator: (value) =>
+                                        dropdownFieldValidation(
+                                      value,
+                                      "Selectionne un superieur",
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                    height: SizeConfig.heightMultiplier * 2),
+
                                 CustomTextField(
                                   controller:
                                       _propritaireTextFormFieldController,
@@ -313,19 +482,6 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
                                 CustomTextField(
-                                  controller: _devisTextFormFieldController,
-                                  inputLabel: "Devise",
-                                  helperText: " ",
-                                  style: TextStyle(color: Colors.grey[600]),
-                                  readOnly: false,
-                                  enabled: true,
-                                  filled: true,
-                                  onTapAction: () =>
-                                      showToast(fToast, toastMessage, context),
-                                ),
-                                SizedBox(
-                                    height: SizeConfig.heightMultiplier * 2),
-                                CustomTextField(
                                   controller: _descriptionTextFormController,
                                   inputLabel: "Description",
                                   helperText: " ",
@@ -350,7 +506,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
                   ? SafeArea(
                       child: RefreshIndicator(
                         onRefresh: () async {
-                          await getCompteDetails(viewModel);
+                          await getCompteDetails(viewModel, context);
                         },
                         child: SingleChildScrollView(
                           physics: const AlwaysScrollableScrollPhysics(),
@@ -383,11 +539,21 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
     );
   }
 
+  String? dropdownFieldValidation(value, validationMessage) =>
+      value == null ? validationMessage : null;
+
   Future<void> getCompteDetails(
-    DemandeCompteDetailsViewModel viewModel,
-  ) async {
+      DemandeCompteDetailsViewModel viewModel, BuildContext context) async {
+    var assgResults = await viewModel.getAssg();
+    var secResults = await viewModel.getSect();
+    var devResults = await viewModel.getDev();
+
     setState(
       () {
+        assgResultsList = assgResults;
+        secResultsList = secResults;
+        devResultsList = devResults;
+
         _numCompteTextFormFieldController.text =
             widget.demandeCompteDetailsViewArguments!.codeTiers.toString();
         _assignTextFormFieldController.text =
@@ -413,6 +579,9 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
     );
   }
 }
+
+DropdownMenuItem<String> buildMenuItem(String item) =>
+    DropdownMenuItem(value: item, child: Text(item));
 
 class SaveCompteArgument {
   final String numCompteText;

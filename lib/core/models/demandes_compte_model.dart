@@ -56,3 +56,87 @@ class DemandesCompteListModel {
     description = json['Description'].toString();
   }
 }
+
+class AssgCollabListResults {
+  dynamic total;
+  List<AssgCollabListModel>? results;
+
+  AssgCollabListResults({this.total, this.results});
+
+  AssgCollabListResults.fromJson(Map<dynamic, dynamic> json) {
+    total = json['total'];
+    if (json['results'] != null) {
+      results = <AssgCollabListModel>[];
+      json['results'].forEach((v) {
+        results!.add(AssgCollabListModel.fromJson(v));
+      });
+    }
+  }
+}
+
+class AssgCollabListModel {
+  dynamic npCollab;
+
+  AssgCollabListModel({
+    this.npCollab,
+  });
+  AssgCollabListModel.fromJson(Map<dynamic, dynamic> json) {
+    npCollab = json['Nom'].toString() + " " + json['Prenom'].toString();
+  }
+}
+
+class SecListResults {
+  dynamic total;
+  List<SecListModel>? results;
+
+  SecListResults({this.total, this.results});
+
+  SecListResults.fromJson(Map<dynamic, dynamic> json) {
+    total = json['total'];
+    if (json['results'] != null) {
+      results = <SecListModel>[];
+      json['results'].forEach((v) {
+        results!.add(SecListModel.fromJson(v));
+      });
+    }
+  }
+}
+
+class SecListModel {
+  dynamic libellesecteur;
+
+  SecListModel({
+    this.libellesecteur,
+  });
+  SecListModel.fromJson(Map<dynamic, dynamic> json) {
+    libellesecteur = json['LibelleSecteur'].toString();
+  }
+}
+
+class DevListResults {
+  dynamic total;
+  List<DevListModel>? results;
+
+  DevListResults({this.total, this.results});
+
+  DevListResults.fromJson(Map<dynamic, dynamic> json) {
+    total = json['total'];
+    if (json['results'] != null) {
+      results = <DevListModel>[];
+      json['results'].forEach((v) {
+        results!.add(DevListModel.fromJson(v));
+      });
+    }
+  }
+}
+
+class DevListModel {
+  dynamic devise;
+
+  DevListModel({
+    this.devise,
+  });
+  DevListModel.fromJson(Map<dynamic, dynamic> json) {
+    devise = json['LibelleDevise'].toString();
+  }
+}

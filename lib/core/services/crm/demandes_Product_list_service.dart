@@ -171,15 +171,15 @@ class DemandesProductListService {
           "Cookie": Constants.sessionId,
         },
         body: {
-          "start": "",
-          "limit": "",
-          "sort": "",
-          "dir": "",
+          "start": "0",
+          "limit": "25",
+          "sort": "CodeFamille",
+          "dir": "ASC",
           "action": "select",
           "code": "",
-          "FLevel": "",
+          "FLevel": "1",
           "IdParent": "",
-          "useCache": "",
+          "useCache": "false",
           "Filter": "",
           "CGrp": ""
         },
@@ -192,6 +192,7 @@ class DemandesProductListService {
     if (catresponse.contentLength == 0) {
       return 0;
     }
+    print(catresponse.body);
     var demandesResponse = CatListResults.fromJson(
       json.decode(catresponse.body),
     );

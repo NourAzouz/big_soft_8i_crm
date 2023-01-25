@@ -140,4 +140,99 @@ class DemandesCompteListService {
       return deleteFeedbackMessage;
     }
   }
+
+  Future<dynamic> getSect() async {
+    var response;
+    try {
+      response = await http.post(
+        Uri.parse("${Constants.baseURL}/base/SecteurAction"),
+        headers: <String, String>{
+          "Cookie": Constants.sessionId,
+        },
+        body: {
+          "start": "",
+          "limit": "",
+          "sort": "CodeSecteur",
+          "dir": "ASC",
+          "action": "select",
+          "useCache": "false",
+          "Filter": "",
+          "CGrp": ""
+        },
+      ).timeout(const Duration(seconds: 50));
+    } on TimeoutException catch (_) {
+      return "Cette requette a pris un temps inattendu";
+    } on SocketException catch (_) {
+      return "Vérifier la configuration de votre réseau";
+    }
+    if (response.contentLength == 0) {
+      return 0;
+    }
+    var demandesResponse = SecListResults.fromJson(
+      json.decode(response.body),
+    );
+    return demandesResponse.results;
+  }
+
+  Future<dynamic> getAssg() async {
+    var assgresponse;
+    try {
+      assgresponse = await http.post(
+        Uri.parse("${Constants.baseURL}/crm/CollaborateurAction"),
+        headers: <String, String>{
+          "Cookie": Constants.sessionId,
+        },
+        body: {
+          "start": "0",
+          "limit": "25",
+          "sort": "CodeCollab",
+          "dir": "ASC",
+          "action": "select",
+          "useCache": "false",
+          "Filter": "",
+          "CGrp": ""
+        },
+      ).timeout(const Duration(seconds: 50));
+    } on TimeoutException catch (_) {
+      return "Cette requette a pris un temps inattendu";
+    } on SocketException catch (_) {
+      return "Vérifier la configuration de votre réseau";
+    }
+    if (assgresponse.contentLength == 0) {
+      return 0;
+    }
+    var demandesResponse = AssgCollabListResults.fromJson(
+      json.decode(assgresponse.body),
+    );
+    return demandesResponse.results;
+  }
+
+  Future<dynamic> getdev() async {
+    var devresponse;
+    try {
+      devresponse = await http.post(
+        Uri.parse("${Constants.baseURL}/DeviseAction"),
+        headers: <String, String>{
+          "Cookie": Constants.sessionId,
+        },
+        body: {
+          "sort": "",
+          "dir": "ASC",
+          "action": "select",
+          "useCache": "true"
+        },
+      ).timeout(const Duration(seconds: 50));
+    } on TimeoutException catch (_) {
+      return "Cette requette a pris un temps inattendu";
+    } on SocketException catch (_) {
+      return "Vérifier la configuration de votre réseau";
+    }
+    if (devresponse.contentLength == 0) {
+      return 0;
+    }
+    var demandesResponse = DevListResults.fromJson(
+      json.decode(devresponse.body),
+    );
+    return demandesResponse.results;
+  }
 }

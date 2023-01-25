@@ -75,7 +75,7 @@ class CatListResults {
 
   CatListResults({this.total, this.results});
 
-  CatListResults.fromJson(Map<dynamic, dynamic> json) {
+  CatListResults.fromJson(Map<String, dynamic> json) {
     total = json['total'];
     if (json['results'] != null) {
       results = <CatListModel>[];
@@ -94,8 +94,8 @@ class CatListModel {
     this.codeFamille,
     this.libelleFamille,
   });
-  CatListModel.fromJson(Map<dynamic, dynamic> json) {
-    libelleFamille = json['CodeFamille'].toString();
+  CatListModel.fromJson(Map<String, dynamic> json) {
+    codeFamille = json['CodeFamille'].toString();
     libelleFamille = json['LibelleFamille'].toString();
   }
 }

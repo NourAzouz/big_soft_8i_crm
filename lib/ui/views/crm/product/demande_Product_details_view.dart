@@ -436,6 +436,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
     setState(
       () {
         catResultsList = orgResults;
+
         _codeArticleTextFormFieldController.text =
             widget.demandeProductDetailsViewArguments!.sujet.toString();
         _libelleTextFormFieldController.text =
