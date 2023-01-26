@@ -18,9 +18,16 @@ class DemandeProductDetailsViewModel extends BaseViewModel {
     return addContactResult;
   }
 
-  Future<dynamic> getcat() async {
+  Future<dynamic> getTva() async {
     changeState(ViewState.Busy);
-    var demandesResult = await _prospectService.getcat();
+    var demandesResult = await _prospectService.getTva();
+    changeState(ViewState.Idle);
+    return demandesResult;
+  }
+
+  Future<dynamic> getCat() async {
+    changeState(ViewState.Busy);
+    var demandesResult = await _prospectService.getCat();
     changeState(ViewState.Idle);
     return demandesResult;
   }

@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:big_soft_8i_crm/ui/views/crm/product/demande_Product_details_view.dart';
 import 'package:http/http.dart' as http;
-
 import '/core/constants/constants.dart';
 import '/core/models/demandes_Product_list_model.dart';
 
@@ -162,7 +161,37 @@ class DemandesProductListService {
     }
   }
 
-  Future<dynamic> getcat() async {
+  Future<dynamic> getTva() async {
+    var tvaresponse;
+    try {
+      tvaresponse = await http.post(
+        Uri.parse("${Constants.baseURL}/TVAAction"),
+        headers: <String, String>{
+          "Cookie": Constants.sessionId,
+        },
+        body: {
+          "sort": "",
+          "dir": "ASC",
+          "action": "select",
+          "useCache": "true"
+        },
+      ).timeout(const Duration(seconds: 50));
+    } on TimeoutException catch (_) {
+      return "Cette requette a pris un temps inattendu";
+    } on SocketException catch (_) {
+      return "Vérifier la configuration de votre réseau";
+    }
+    if (tvaresponse.contentLength == 0) {
+      return 0;
+    }
+    //print(catresponse.body);
+    var demandesResponse = TVAListResults.fromJson(
+      json.decode(tvaresponse.body),
+    );
+    return demandesResponse.results;
+  }
+
+  Future<dynamic> getCat() async {
     var catresponse;
     try {
       catresponse = await http.post(
@@ -181,7 +210,7 @@ class DemandesProductListService {
           "IdParent": "",
           "useCache": "false",
           "Filter": "",
-          "CGrp": ""
+          "CGrp": "",
         },
       ).timeout(const Duration(seconds: 50));
     } on TimeoutException catch (_) {
@@ -192,9 +221,9 @@ class DemandesProductListService {
     if (catresponse.contentLength == 0) {
       return 0;
     }
-    print(catresponse.body);
+    //print(catresponse.body);
     var demandesResponse = CatListResults.fromJson(
-      json.decode(catresponse.body),
+      json.decode(catresponse.bodyBytes),
     );
     return demandesResponse.results;
   }

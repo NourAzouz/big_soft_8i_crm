@@ -69,6 +69,34 @@ class ProductsProductListModel {
   }
 }
 
+class TVAListResults {
+  dynamic total;
+  List<TVAListModel>? results;
+
+  TVAListResults({this.total, this.results});
+
+  TVAListResults.fromJson(Map<String, dynamic> json) {
+    total = json['total'];
+    if (json['results'] != null) {
+      results = <TVAListModel>[];
+      json['results'].forEach((v) {
+        results!.add(TVAListModel.fromJson(v));
+      });
+    }
+  }
+}
+
+class TVAListModel {
+  dynamic codeTva;
+
+  TVAListModel({
+    this.codeTva,
+  });
+  TVAListModel.fromJson(Map<String, dynamic> json) {
+    codeTva = json['CodeTva'].toString();
+  }
+}
+
 class CatListResults {
   dynamic total;
   List<CatListModel>? results;
@@ -87,15 +115,12 @@ class CatListResults {
 }
 
 class CatListModel {
-  dynamic codeFamille;
-  dynamic libelleFamille;
+  dynamic codeCat;
 
   CatListModel({
-    this.codeFamille,
-    this.libelleFamille,
+    this.codeCat,
   });
   CatListModel.fromJson(Map<String, dynamic> json) {
-    codeFamille = json['CodeFamille'].toString();
-    libelleFamille = json['LibelleFamille'].toString();
+    codeCat = json['LibelleFamille'].toString();
   }
 }

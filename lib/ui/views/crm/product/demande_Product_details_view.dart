@@ -24,8 +24,11 @@ class DemandeProductDetailsView extends StatefulWidget {
 }
 
 class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
-  late List<CatListModel> catResultsList;
+  late List<TVAListModel> tvaResultsList;
   List<DropdownMenuItem<Object?>> _dropdownTestItems = [];
+  String? tvaselectedValue;
+
+  late List<CatListModel> catResultsList;
   String? catselectedValue;
 
   //for dropdownmenu ////////////////////////////////
@@ -36,6 +39,17 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
     setState(() {
       _canShowButton = !_canShowButton;
       _offstage = !_offstage;
+    });
+  }
+
+  //for dropdownmenu ////////////////////////////////
+  bool _canShowButton2 = true;
+  bool _offstage2 = true;
+
+  void hideWidget2() {
+    setState(() {
+      _canShowButton2 = !_canShowButton2;
+      _offstage2 = !_offstage2;
     });
   }
 
@@ -77,6 +91,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
     super.initState();
 
     catResultsList = [];
+    tvaResultsList = [];
 
     _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
     _formKey = GlobalKey<FormState>();
@@ -225,7 +240,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                     height: SizeConfig.heightMultiplier * 2),
 
                                 ///if the show button is false
-                                !_canShowButton
+                                !_canShowButton2
                                     ? const SizedBox.shrink()
                                     : CustomTextField(
                                         controller:
@@ -238,21 +253,21 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                         enabled: true,
                                         filled: true,
                                         onTapAction: () {
-                                          hideWidget();
+                                          hideWidget2();
                                           //_number();
                                         },
                                       ),
                                 /*SizedBox(
                                       height: SizeConfig.heightMultiplier * 3),*/
                                 Offstage(
-                                  offstage: _offstage,
+                                  offstage: _offstage2,
                                   child: CustomDropdownField(
                                     labelText: "Categorie",
                                     value: catselectedValue,
                                     items: catResultsList.map((value) {
                                       return DropdownMenuItem(
                                         value: value,
-                                        child: Text(value.codeFamille),
+                                        child: Text(value.codeCat),
                                       );
                                     }).toList(),
                                     onChangedAction: (value) {
@@ -348,16 +363,48 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                 ),
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
-                                CustomTextField(
-                                  controller: _tvaTextFormFieldController,
-                                  inputLabel: "Tva",
-                                  helperText: " ",
-                                  style: TextStyle(color: Colors.grey[600]),
-                                  readOnly: false,
-                                  enabled: true,
-                                  filled: true,
-                                  onTapAction: () =>
-                                      showToast(fToast, toastMessage, context),
+
+                                ///if the show button is false
+                                !_canShowButton
+                                    ? const SizedBox.shrink()
+                                    : CustomTextField(
+                                        controller: _tvaTextFormFieldController,
+                                        inputLabel: "Tva",
+                                        helperText: " ",
+                                        style:
+                                            TextStyle(color: Colors.grey[600]),
+                                        readOnly: false,
+                                        enabled: true,
+                                        filled: true,
+                                        onTapAction: () {
+                                          hideWidget();
+                                          //_number();
+                                        },
+                                      ),
+                                /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                                Offstage(
+                                  offstage: _offstage,
+                                  child: CustomDropdownField(
+                                    labelText: "Categorie",
+                                    value: tvaselectedValue,
+                                    items: tvaResultsList.map((value) {
+                                      return DropdownMenuItem(
+                                        value: value,
+                                        child: Text(value.codeTva),
+                                      );
+                                    }).toList(),
+                                    onChangedAction: (value) {
+                                      setState(() {
+                                        catselectedValue = value!;
+                                      });
+                                    },
+                                    validator: (value) =>
+                                        dropdownFieldValidation(
+                                      value,
+                                      "Selectionne une fonction",
+                                    ),
+                                  ),
                                 ),
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
@@ -432,15 +479,17 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
 
   Future<void> getActivityDetails(
       DemandeProductDetailsViewModel viewModel, BuildContext context) async {
-    var orgResults = await viewModel.getcat();
+    var tvaResults = await viewModel.getTva();
+    var catResults = await viewModel.getCat();
     setState(
       () {
-        catResultsList = orgResults;
+        catResultsList = catResults;
 
-        _codeArticleTextFormFieldController.text =
-            widget.demandeProductDetailsViewArguments!.sujet.toString();
+        tvaResultsList = tvaResults;
+        /* _codeArticleTextFormFieldController.text =
+            widget.demandeProductDetailsViewArguments!.codeArticle.toString();
         _libelleTextFormFieldController.text =
-            widget.demandeProductDetailsViewArguments!.dateDebut.toString();
+            widget.demandeProductDetailsViewArguments!.dateInitf.toString();
         _familleTextFormFieldController.text =
             widget.demandeProductDetailsViewArguments!.heureDebut.toString();
         _stockTextFormFieldController.text =
@@ -458,7 +507,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
             widget.demandeProductDetailsViewArguments!.codeBarres.toString();
         _tvaTextFormFieldController.text =
             widget.demandeProductDetailsViewArguments!.tva.toString();
-        dataFinishLoading = true;
+        dataFinishLoading = true;*/
       },
     );
   }
