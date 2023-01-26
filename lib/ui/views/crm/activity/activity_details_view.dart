@@ -8,6 +8,7 @@ import '../../../../core/models/demandes_Prospect_ACT_list_model.dart';
 import '../../../../core/view_models/crm/activity/demande_activity_details_view_model.dart';
 import '../../../shared/size_config.dart';
 import '../../../widgets/contact_support_alert_view.dart';
+import '../../../widgets/custom_dropdown_field.dart';
 import '../../../widgets/custom_flutter_toast.dart';
 import '../../../widgets/custom_text_field.dart';
 import '../../../widgets/loading_error_view.dart';
@@ -75,6 +76,50 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
     '8': 'Reporté',
     '9': 'Planifié'
   };
+
+  //for dropdownmenu
+  bool _canShowButton = true;
+  bool _offstage = true;
+
+  void hideWidget() {
+    setState(() {
+      _canShowButton = !_canShowButton;
+      _offstage = !_offstage;
+    });
+  }
+
+  //for dropdownmenu
+  bool _canShowButton2 = true;
+  bool _offstage2 = true;
+
+  void hideWidget2() {
+    setState(() {
+      _canShowButton2 = !_canShowButton2;
+      _offstage2 = !_offstage2;
+    });
+  }
+
+  //for dropdownmenu
+  bool _canShowButton3 = true;
+  bool _offstage3 = true;
+
+  void hideWidget3() {
+    setState(() {
+      _canShowButton3 = !_canShowButton3;
+      _offstage3 = !_offstage3;
+    });
+  }
+
+  //for dropdownmenu
+  bool _canShowButton4 = true;
+  bool _offstage4 = true;
+
+  void hideWidget4() {
+    setState(() {
+      _canShowButton4 = !_canShowButton4;
+      _offstage4 = !_offstage4;
+    });
+  }
 
   @override
   void initState() {
@@ -180,17 +225,57 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
                                     showToast(fToast, toastMessage, context),
                               ),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
-                              CustomTextField(
-                                controller: _statutTextFormFieldController,
-                                inputLabel: "Statut",
-                                helperText: " ",
-                                style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
-                                enabled: true,
-                                filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
-                              ),
+
+                              ///if the show button is false
+                              !_canShowButton
+                                  ? const SizedBox.shrink()
+                                  : CustomTextField(
+                                      controller:
+                                          _statutTextFormFieldController,
+                                      inputLabel: "Statut",
+                                      helperText: " ",
+                                      style: TextStyle(color: Colors.grey[600]),
+                                      readOnly: false,
+                                      enabled: true,
+                                      filled: true,
+                                      onTapAction: () {
+                                        hideWidget();
+                                      },
+                                    ),
+                              /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                              Offstage(
+                                  offstage: _offstage,
+                                  child: CustomDropdownField(
+                                    labelText: "Statut ",
+                                    items: <String>[
+                                      'Planifiée',
+                                      'A eu lieu',
+                                      "N'a pas eu lieu",
+                                      'Non commencé',
+                                      'En cours',
+                                      'Terminé',
+                                      'En attente',
+                                      'Reporté',
+                                      'Planifié'
+                                    ].map((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                    onChangedAction: (value) {
+                                      setState(() {
+                                        value = value!;
+                                      });
+                                    },
+                                    validator: (value) =>
+                                        dropdownFieldValidation(
+                                      value,
+                                      "Selectionne une fonction",
+                                    ),
+                                  )),
+
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
                                 controller: _lieuTextFormFieldController,
@@ -216,41 +301,132 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
                                     showToast(fToast, toastMessage, context),
                               ),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
-                              CustomTextField(
-                                controller: _prioriteTextFormFieldController,
-                                inputLabel: "priorite",
-                                helperText: " ",
-                                style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
-                                enabled: true,
-                                filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
-                              ),
+
+                              ///if the show button is false
+                              !_canShowButton2
+                                  ? const SizedBox.shrink()
+                                  : CustomTextField(
+                                      controller:
+                                          _prioriteTextFormFieldController,
+                                      inputLabel: "priorite",
+                                      helperText: " ",
+                                      style: TextStyle(color: Colors.grey[600]),
+                                      readOnly: false,
+                                      enabled: true,
+                                      filled: true,
+                                      onTapAction: () {
+                                        hideWidget2();
+                                      },
+                                    ),
+                              /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                              Offstage(
+                                  offstage: _offstage2,
+                                  child: CustomDropdownField(
+                                    labelText: "Priorite ",
+                                    items: <String>['Haut', 'Moyen', 'Bas']
+                                        .map((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                    onChangedAction: (value) {
+                                      setState(() {
+                                        value = value!;
+                                      });
+                                    },
+                                    validator: (value) =>
+                                        dropdownFieldValidation(
+                                      value,
+                                      "Selectionne une fonction",
+                                    ),
+                                  )),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
-                              CustomTextField(
-                                controller: _typeTextFormFieldController,
-                                inputLabel: "Type",
-                                helperText: " ",
-                                style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
-                                enabled: true,
-                                filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
-                              ),
+
+                              ///if the show button is false
+                              !_canShowButton3
+                                  ? const SizedBox.shrink()
+                                  : CustomTextField(
+                                      controller: _typeTextFormFieldController,
+                                      inputLabel: "Type",
+                                      helperText: " ",
+                                      style: TextStyle(color: Colors.grey[600]),
+                                      readOnly: false,
+                                      enabled: true,
+                                      filled: true,
+                                      onTapAction: () {
+                                        hideWidget3();
+                                      },
+                                    ),
+                              /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                              Offstage(
+                                  offstage: _offstage3,
+                                  child: CustomDropdownField(
+                                    labelText: "Type ",
+                                    items: <String>['Activité', 'Tâche']
+                                        .map((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                    onChangedAction: (value) {
+                                      setState(() {
+                                        value = value!;
+                                      });
+                                    },
+                                    validator: (value) =>
+                                        dropdownFieldValidation(
+                                      value,
+                                      "Selectionne une fonction",
+                                    ),
+                                  )),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
-                              CustomTextField(
-                                controller: _typeATextFormFieldController,
-                                inputLabel: "Type d'activite",
-                                helperText: " ",
-                                style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
-                                enabled: true,
-                                filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
-                              ),
+
+                              ///if the show button is false
+                              !_canShowButton4
+                                  ? const SizedBox.shrink()
+                                  : CustomTextField(
+                                      controller: _typeATextFormFieldController,
+                                      inputLabel: "Type d'activite",
+                                      helperText: " ",
+                                      style: TextStyle(color: Colors.grey[600]),
+                                      readOnly: false,
+                                      enabled: true,
+                                      filled: true,
+                                      onTapAction: () {
+                                        hideWidget4();
+                                      },
+                                    ),
+                              /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                              Offstage(
+                                  offstage: _offstage4,
+                                  child: CustomDropdownField(
+                                    labelText: "Type d'activite ",
+                                    items: <String>[
+                                      'Appel',
+                                      'Conférence',
+                                      'Mobile Call'
+                                    ].map((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                    onChangedAction: (value) {
+                                      setState(() {
+                                        value = value!;
+                                      });
+                                    },
+                                    validator: (value) =>
+                                        dropdownFieldValidation(
+                                      value,
+                                      "Selectionne une fonction",
+                                    ),
+                                  )),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                             ],
                           ),
@@ -292,6 +468,9 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
       ),
     );
   }
+
+  String? dropdownFieldValidation(value, validationMessage) =>
+      value == null ? validationMessage : null;
 
   Future<void> getActivityDetails(
     DemandeActivityDetailsViewModel viewModel,

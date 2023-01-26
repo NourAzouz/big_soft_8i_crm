@@ -13,4 +13,11 @@ class DemandeAffaireDetailsViewModel extends BaseViewModel {
     changeState(ViewState.Idle);
     return demandesResult;
   }
+
+  Future<dynamic> getRel() async {
+    changeState(ViewState.Busy);
+    var demandesResult = await _demandesListService.getrel();
+    changeState(ViewState.Idle);
+    return demandesResult;
+  }
 }

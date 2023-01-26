@@ -68,3 +68,31 @@ class DemandesAffaireListModel {
     owner = json['owner'].toString();
   }
 }
+
+class RelListResults {
+  dynamic total;
+  List<RelListModel>? results;
+
+  RelListResults({this.total, this.results});
+
+  RelListResults.fromJson(Map<dynamic, dynamic> json) {
+    total = json['total'];
+    if (json['results'] != null) {
+      results = <RelListModel>[];
+      json['results'].forEach((v) {
+        results!.add(RelListModel.fromJson(v));
+      });
+    }
+  }
+}
+
+class RelListModel {
+  dynamic npRel;
+
+  RelListModel({
+    this.npRel,
+  });
+  RelListModel.fromJson(Map<dynamic, dynamic> json) {
+    npRel = json['NomTiers'].toString();
+  }
+}

@@ -98,4 +98,37 @@ class DemandesAffaireListService {
       return deleteFeedbackMessage;
     }
   }
+
+  Future<dynamic> getrel() async {
+    var response;
+    try {
+      response = await http.post(
+        Uri.parse("${Constants.baseURL}/CompteCRMAction"),
+        headers: <String, String>{
+          "Cookie": Constants.sessionId,
+        },
+        body: {
+          "start": "0",
+          "limit": "25",
+          "sort": "CodeTiers",
+          "dir": "ASC",
+          "action": "select",
+          "useCache": "false",
+          "Filter": "",
+          "CGrp": ""
+        },
+      ).timeout(const Duration(seconds: 50));
+    } on TimeoutException catch (_) {
+      return "Cette requette a pris un temps inattendu";
+    } on SocketException catch (_) {
+      return "Vérifier la configuration de votre réseau";
+    }
+    if (response.contentLength == 0) {
+      return 0;
+    }
+    var demandesResponse = RelListResults.fromJson(
+      json.decode(response.body),
+    );
+    return demandesResponse.results;
+  }
 }

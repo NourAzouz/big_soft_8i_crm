@@ -7,6 +7,7 @@ import '../../../../core/models/demandes_Affaire_list_model.dart';
 import '../../../../core/view_models/crm/affaire/demande_affaire_details_view_model.dart';
 import '../../../shared/size_config.dart';
 import '../../../widgets/contact_support_alert_view.dart';
+import '../../../widgets/custom_dropdown_field.dart';
 import '../../../widgets/custom_flutter_toast.dart';
 import '../../../widgets/custom_text_field.dart';
 import '../../../widgets/loading_error_view.dart';
@@ -25,6 +26,10 @@ class DemandeAffaireDetailsView extends StatefulWidget {
 }
 
 class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
+  late List<RelListModel> relResultsList;
+  var relValue;
+  List<DropdownMenuItem<Object?>> _dropdownTestItems = [];
+
   late GlobalKey<ScaffoldState> _scaffoldKey;
   late GlobalKey<FormState> _formKey;
   late TextEditingController _numeroTextFormFieldController;
@@ -56,9 +61,41 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
   bool dataLoadingError = false;
   late String dataLoadingErrorMessage;
 
+  //for dropdownmenu
+  bool _canShowButton = true;
+  bool _offstage = true;
+
+  void hideWidget() {
+    setState(() {
+      _canShowButton = !_canShowButton;
+      _offstage = !_offstage;
+    });
+  }
+
+  bool _canShowButton2 = true;
+  bool _offstage2 = true;
+
+  void hideWidget2() {
+    setState(() {
+      _canShowButton2 = !_canShowButton2;
+      _offstage2 = !_offstage2;
+    });
+  }
+
+  // Initial Selected Value
+  String dropdownvalue = '';
+  var types = [
+    'Item 1',
+    'Item 2',
+  ];
+
   @override
   void initState() {
     super.initState();
+
+    relResultsList = [];
+    // List of items in our dropdown menu
+
     _scaffoldKey = GlobalKey<ScaffoldState>();
     _formKey = GlobalKey<FormState>();
     _numeroTextFormFieldController = TextEditingController();
@@ -103,7 +140,7 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
   @override
   Widget build(BuildContext context) {
     return BaseView<DemandeAffaireDetailsViewModel>(
-      onModelReady: (viewModel) => getAffaireDetails(viewModel),
+      onModelReady: (viewModel) => getAffaireDetails(viewModel, context),
       builder: (context, viewModel, child) => Scaffold(
         key: _scaffoldKey,
         body: dataFinishLoading
@@ -157,30 +194,95 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
                                     showToast(fToast, toastMessage, context),
                               ),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
-                              CustomTextField(
-                                controller: _nomTiersTextFormFieldController,
-                                inputLabel: "Relatif à ",
-                                helperText: " ",
-                                style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
-                                enabled: true,
-                                filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
+
+                              ///if the show button is false
+                              !_canShowButton
+                                  ? const SizedBox.shrink()
+                                  : CustomTextField(
+                                      controller:
+                                          _nomTiersTextFormFieldController,
+                                      inputLabel: "Relatif à ",
+                                      helperText: " ",
+                                      style: TextStyle(color: Colors.grey[600]),
+                                      readOnly: false,
+                                      enabled: true,
+                                      filled: true,
+                                      onTapAction: () {
+                                        hideWidget();
+                                        //_number();
+                                      },
+                                    ),
+                              /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                              Offstage(
+                                offstage: _offstage,
+                                child: CustomDropdownField(
+                                  labelText: "Relatif à ",
+                                  value: relValue,
+                                  items: relResultsList.map((value) {
+                                    return DropdownMenuItem(
+                                      value: value,
+                                      child: Text(value.npRel),
+                                    );
+                                  }).toList(),
+                                  onChangedAction: (value) {
+                                    setState(() {
+                                      relValue = value!;
+                                    });
+                                  },
+                                  validator: (value) => dropdownFieldValidation(
+                                    value,
+                                    "Selectionne une fonction",
+                                  ),
+                                ),
                               ),
+
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
-                              CustomTextField(
-                                controller: _typeTextFormFieldController,
-                                inputLabel: "Type",
-                                helperText: " ",
-                                style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
-                                enabled: true,
-                                filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
-                              ),
+
+                              ///if the show button is false
+                              !_canShowButton2
+                                  ? const SizedBox.shrink()
+                                  : CustomTextField(
+                                      controller: _typeTextFormFieldController,
+                                      inputLabel: "Type",
+                                      helperText: " ",
+                                      style: TextStyle(color: Colors.grey[600]),
+                                      readOnly: false,
+                                      enabled: true,
+                                      filled: true,
+                                      onTapAction: () {
+                                        hideWidget2();
+                                      },
+                                    ),
+                              /*SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                              Offstage(
+                                  offstage: _offstage2,
+                                  child: CustomDropdownField(
+                                    labelText: "Type ",
+                                    items: <String>[
+                                      'Client éxistant',
+                                      'Nouveau Client'
+                                    ].map((String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                    onChangedAction: (value) {
+                                      setState(() {
+                                        value = value!;
+                                      });
+                                    },
+                                    validator: (value) =>
+                                        dropdownFieldValidation(
+                                      value,
+                                      "Selectionne une fonction",
+                                    ),
+                                  )),
+
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
+
                               CustomTextField(
                                 controller: _montantTextFormFieldController,
                                 inputLabel: "Montant",
@@ -241,7 +343,7 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
                 ? SafeArea(
                     child: RefreshIndicator(
                       onRefresh: () async {
-                        await getAffaireDetails(viewModel);
+                        await getAffaireDetails(viewModel, context);
                       },
                       child: SingleChildScrollView(
                         physics: const AlwaysScrollableScrollPhysics(),
@@ -270,17 +372,20 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
     );
   }
 
+  String? dropdownFieldValidation(value, validationMessage) =>
+      value == null ? validationMessage : null;
+
   Future<void> getAffaireDetails(
-    DemandeAffaireDetailsViewModel viewModel,
-  ) async {
+      DemandeAffaireDetailsViewModel viewModel, BuildContext context) async {
     var affaireDetailsResult = await viewModel
         .getAffaireDetails("${widget.demandeAffaireDetailsViewArguments}");
 
-    print(affaireDetailsResult);
+    var relResults = await viewModel.getRel();
     if (affaireDetailsResult is DemandesAffaireListModel) {
       setState(
         () {
           dataFinishLoading = true;
+          relResultsList = relResults;
           _numeroTextFormFieldController.text =
               affaireDetailsResult.numero.toString();
           _nomTextFormFieldController.text =
@@ -321,7 +426,8 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
   }
 }
 
-
+DropdownMenuItem<String> buildMenuItem(String item) =>
+    DropdownMenuItem(value: item, child: Text(item));
 /*
 class DemandeAffaireDetailsView extends StatelessWidget {
   final DemandesAffaireListModel? demandeAffaireDetailsViewArguments;
