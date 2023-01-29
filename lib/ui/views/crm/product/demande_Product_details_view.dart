@@ -197,7 +197,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
   @override
   Widget build(BuildContext context) {
     return BaseView<DemandeProductDetailsViewModel>(
-      onModelReady: (viewModel) => getActivityDetails(viewModel, context),
+      //onModelReady: (viewModel) => getActivityDetails(viewModel, context),
       builder: (context, viewModel, child) => Scaffold(
           key: _scaffoldKey,
           body: dataFinishLoading
@@ -238,9 +238,20 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                 ),
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
+                                CustomTextField(
+                                  controller: _modeleTextFormFieldController,
+                                  inputLabel: "Modele",
+                                  helperText: " ",
+                                  style: TextStyle(color: Colors.grey[600]),
+                                  readOnly: false,
+                                  enabled: true,
+                                  filled: true,
+                                  /*onTapAction: () =>
+                                      showToast(fToast, toastMessage, context),*/
+                                ),
 
                                 ///if the show button is false
-                                !_canShowButton2
+                                /*!_canShowButton2
                                     ? const SizedBox.shrink()
                                     : CustomTextField(
                                         controller:
@@ -257,9 +268,9 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                           //_number();
                                         },
                                       ),
-                                /*SizedBox(
+                                SizedBox(
                                       height: SizeConfig.heightMultiplier * 3),*/
-                                Offstage(
+                                /*Offstage(
                                   offstage: _offstage2,
                                   child: CustomDropdownField(
                                     labelText: "Categorie",
@@ -283,18 +294,8 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                   ),
                                 ),
                                 SizedBox(
-                                    height: SizeConfig.heightMultiplier * 2),
-                                CustomTextField(
-                                  controller: _referenceTextFormFieldController,
-                                  inputLabel: "Reference",
-                                  helperText: " ",
-                                  style: TextStyle(color: Colors.grey[600]),
-                                  readOnly: false,
-                                  enabled: true,
-                                  filled: true,
-                                  onTapAction: () =>
-                                      showToast(fToast, toastMessage, context),
-                                ),
+                                    height: SizeConfig.heightMultiplier * 2),*/
+
                                 /*SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
                                 CustomTextField(
@@ -311,21 +312,8 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
                                 CustomTextField(
-                                  controller: _modeleTextFormFieldController,
-                                  inputLabel: "Modele",
-                                  helperText: " ",
-                                  style: TextStyle(color: Colors.grey[600]),
-                                  readOnly: false,
-                                  enabled: true,
-                                  filled: true,
-                                  onTapAction: () =>
-                                      showToast(fToast, toastMessage, context),
-                                ),
-                                SizedBox(
-                                    height: SizeConfig.heightMultiplier * 2),
-                                CustomTextField(
-                                  controller: _prixTextFormFieldController,
-                                  inputLabel: "Prix",
+                                  controller: _referenceTextFormFieldController,
+                                  inputLabel: "Référence",
                                   helperText: " ",
                                   style: TextStyle(color: Colors.grey[600]),
                                   readOnly: false,
@@ -344,8 +332,22 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                   readOnly: false,
                                   enabled: true,
                                   filled: true,
-                                  onTapAction: () =>
-                                      showToast(fToast, toastMessage, context),
+                                  /*onTapAction: () =>
+                                      showToast(fToast, toastMessage, context),*/
+                                ),
+
+                                SizedBox(
+                                    height: SizeConfig.heightMultiplier * 2),
+                                CustomTextField(
+                                  controller: _prixTextFormFieldController,
+                                  inputLabel: "Prix",
+                                  helperText: " ",
+                                  style: TextStyle(color: Colors.grey[600]),
+                                  readOnly: false,
+                                  enabled: true,
+                                  filled: true,
+                                  /*onTapAction: () =>
+                                      showToast(fToast, toastMessage, context),*/
                                 ),
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
@@ -358,14 +360,14 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                   readOnly: false,
                                   enabled: true,
                                   filled: true,
-                                  onTapAction: () =>
-                                      showToast(fToast, toastMessage, context),
+                                  /*onTapAction: () =>
+                                      showToast(fToast, toastMessage, context),*/
                                 ),
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
 
                                 ///if the show button is false
-                                !_canShowButton
+                                /*!_canShowButton
                                     ? const SizedBox.shrink()
                                     : CustomTextField(
                                         controller: _tvaTextFormFieldController,
@@ -386,7 +388,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                 Offstage(
                                   offstage: _offstage,
                                   child: CustomDropdownField(
-                                    labelText: "Categorie",
+                                    labelText: "TVA",
                                     value: tvaselectedValue,
                                     items: tvaResultsList.map((value) {
                                       return DropdownMenuItem(
@@ -407,7 +409,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                   ),
                                 ),
                                 SizedBox(
-                                    height: SizeConfig.heightMultiplier * 2),
+                                    height: SizeConfig.heightMultiplier * 2),*/
                               ],
                             ),
                           ),

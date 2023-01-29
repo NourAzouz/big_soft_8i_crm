@@ -277,30 +277,28 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                     readOnly: false,
                                     enabled: true,
                                     filled: true,
-                                    onTapAction: () => showToast(
-                                        fToast, toastMessage, context),
-                                    child: null,
+                                    /*onTapAction: () => showToast(
+                                        fToast, toastMessage, context),*/
                                   ),
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
                                   CustomTextField(
                                     controller: _nomTextFormFieldController,
-                                    inputLabel: "Nom & Prenom",
+                                    inputLabel: "Nom & Prénom",
                                     helperText: " ",
                                     style: TextStyle(color: Colors.grey[600]),
                                     readOnly: false,
                                     enabled: true,
                                     filled: true,
-                                    onTapAction: () => showToast(
-                                        fToast, toastMessage, context),
-                                    child: null,
+                                    /*onTapAction: () => showToast(
+                                        fToast, toastMessage, context),*/
                                   ),
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
                                   CustomTextField(
                                     controller:
                                         _telephoneTextFormFieldController,
-                                    inputLabel: "Telephone",
+                                    inputLabel: "Téléphone",
                                     helperText: " ",
                                     style: TextStyle(color: Colors.grey[600]),
                                     readOnly: false,
@@ -312,7 +310,6 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                               .text),
                                       child: const Icon(Icons.phone),
                                     ),
-                                    child: null,
                                   ),
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 3),
@@ -354,12 +351,12 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                       height: SizeConfig.heightMultiplier * 2),
 
                                   ///if the show button is false
-                                  !_canShowButton2
+                                  !_canShowButton3
                                       ? const SizedBox.shrink()
                                       : CustomTextField(
                                           controller:
-                                              _assigneTextFormFieldController,
-                                          inputLabel: "Assigne a",
+                                              _superieurTextFormFieldController,
+                                          inputLabel: "Supérieur",
                                           helperText: " ",
                                           style: TextStyle(
                                               color: Colors.grey[600]),
@@ -367,35 +364,38 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                           enabled: true,
                                           filled: true,
                                           onTapAction: () {
-                                            hideWidget2();
+                                            hideWidget3();
                                             //_number();
                                           },
                                         ),
                                   /*SizedBox(
                                       height: SizeConfig.heightMultiplier * 3),*/
                                   Offstage(
-                                    offstage: _offstage2,
+                                    offstage: _offstage3,
                                     child: CustomDropdownField(
-                                      labelText: "Assigne a ",
-                                      value: selectedValue,
-                                      items: L.map((value) {
+                                      labelText: "Supérieur",
+                                      value: value,
+                                      items: supResultsList.map((value) {
                                         return DropdownMenuItem(
                                           value: value,
-                                          child: Text(value),
+                                          child: Text(value.nompresup),
                                         );
                                       }).toList(),
                                       onChangedAction: (value) {
                                         setState(() {
-                                          selectedValue = value!;
+                                          value = value!;
                                         });
                                       },
                                       validator: (value) =>
                                           dropdownFieldValidation(
                                         value,
-                                        "Veuillez assigne quelqun",
+                                        "Selectionne un superieur",
                                       ),
                                     ),
                                   ),
+
+                                  ///if the show button is false
+
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
 
@@ -453,13 +453,12 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
 
-                                  ///if the show button is false
-                                  !_canShowButton3
+                                  !_canShowButton2
                                       ? const SizedBox.shrink()
                                       : CustomTextField(
                                           controller:
-                                              _superieurTextFormFieldController,
-                                          inputLabel: "Supérieur",
+                                              _assigneTextFormFieldController,
+                                          inputLabel: "Assigné à",
                                           helperText: " ",
                                           style: TextStyle(
                                               color: Colors.grey[600]),
@@ -467,32 +466,32 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                           enabled: true,
                                           filled: true,
                                           onTapAction: () {
-                                            hideWidget3();
+                                            hideWidget2();
                                             //_number();
                                           },
                                         ),
                                   /*SizedBox(
                                       height: SizeConfig.heightMultiplier * 3),*/
                                   Offstage(
-                                    offstage: _offstage3,
+                                    offstage: _offstage2,
                                     child: CustomDropdownField(
-                                      labelText: "Superieur ",
-                                      value: value,
-                                      items: supResultsList.map((value) {
+                                      labelText: "Assigné à",
+                                      value: selectedValue,
+                                      items: L.map((value) {
                                         return DropdownMenuItem(
                                           value: value,
-                                          child: Text(value.nompresup),
+                                          child: Text(value),
                                         );
                                       }).toList(),
                                       onChangedAction: (value) {
                                         setState(() {
-                                          value = value!;
+                                          selectedValue = value!;
                                         });
                                       },
                                       validator: (value) =>
                                           dropdownFieldValidation(
                                         value,
-                                        "Selectionne un superieur",
+                                        "Veuillez assigne quelqun",
                                       ),
                                     ),
                                   ),
@@ -508,9 +507,9 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                     readOnly: false,
                                     enabled: true,
                                     filled: true,
-                                    onTapAction: () => showToast(
+                                    /*onTapAction: () => showToast(
                                         fToast, toastMessage, context),
-                                    child: null,
+                                    child: null,*/
                                   ),
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
