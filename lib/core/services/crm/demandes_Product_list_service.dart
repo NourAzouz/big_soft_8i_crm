@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:big_soft_8i_crm/ui/views/crm/product/demande_Product_details_view.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '/core/constants/constants.dart';
 import '/core/models/demandes_Product_list_model.dart';
@@ -221,9 +222,9 @@ class DemandesProductListService {
     if (catresponse.contentLength == 0) {
       return 0;
     }
-    //print(catresponse.body);
+
     var demandesResponse = CatListResults.fromJson(
-      json.decode(catresponse.bodyBytes),
+      json.decode(catresponse.body),
     );
     return demandesResponse.results;
   }

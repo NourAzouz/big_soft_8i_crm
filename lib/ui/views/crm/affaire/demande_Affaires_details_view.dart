@@ -163,11 +163,11 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
                                 inputLabel: "N° Affaire",
                                 helperText: " ",
                                 style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
+                                readOnly: true,
                                 enabled: true,
                                 filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
+                                /*onTapAction: () =>
+                                    showToast(fToast, toastMessage, context),*/
                               ),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
@@ -178,8 +178,20 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
                                 readOnly: false,
                                 enabled: true,
                                 filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
+                                /*onTapAction: () =>
+                                    showToast(fToast, toastMessage, context),*/
+                              ),
+                              SizedBox(height: SizeConfig.heightMultiplier * 2),
+                              CustomTextField(
+                                controller: _montantTextFormFieldController,
+                                inputLabel: "Montant",
+                                helperText: " ",
+                                style: TextStyle(color: Colors.grey[600]),
+                                readOnly: false,
+                                enabled: true,
+                                filled: true,
+                                /*onTapAction: () =>
+                                    showToast(fToast, toastMessage, context),*/
                               ),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
@@ -190,12 +202,24 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
                                 readOnly: false,
                                 enabled: true,
                                 filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
+                                /*onTapAction: () =>
+                                    showToast(fToast, toastMessage, context),*/
                               ),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
+                              CustomTextField(
+                                controller: _probaliteTextFormFieldController,
+                                inputLabel: "Probabilité",
+                                helperText: " ",
+                                style: TextStyle(color: Colors.grey[600]),
+                                readOnly: false,
+                                enabled: true,
+                                filled: true,
+                                /*onTapAction: () =>
+                                    showToast(fToast, toastMessage, context),*/
+                              ),
 
                               ///if the show button is false
+                              SizedBox(height: SizeConfig.heightMultiplier * 2),
                               !_canShowButton
                                   ? const SizedBox.shrink()
                                   : CustomTextField(
@@ -283,29 +307,6 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
 
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
 
-                              CustomTextField(
-                                controller: _montantTextFormFieldController,
-                                inputLabel: "Montant",
-                                helperText: " ",
-                                style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
-                                enabled: true,
-                                filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
-                              ),
-                              SizedBox(height: SizeConfig.heightMultiplier * 2),
-                              CustomTextField(
-                                controller: _probaliteTextFormFieldController,
-                                inputLabel: "Probalité",
-                                helperText: " ",
-                                style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
-                                enabled: true,
-                                filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
-                              ),
                               /*SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
                                 controller: _suivantTextFormFieldController,
@@ -318,7 +319,7 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
                                 onTapAction: () =>
                                     showToast(fToast, toastMessage, context),
                               ),*/
-                              SizedBox(height: SizeConfig.heightMultiplier * 2),
+
                               CustomTextField(
                                 controller: _descriptionTextFormFieldController,
                                 inputLabel: "Description",
@@ -327,8 +328,8 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
                                 readOnly: false,
                                 enabled: true,
                                 filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
+                                /*onTapAction: () =>
+                                    showToast(fToast, toastMessage, context),*/
                               ),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                             ],

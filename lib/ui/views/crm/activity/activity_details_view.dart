@@ -182,7 +182,7 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
                                 inputLabel: "Sujet",
                                 helperText: " ",
                                 style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
+                                readOnly: true,
                                 enabled: true,
                                 filled: true,
                                 onTapAction: () =>
@@ -194,7 +194,7 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
                                 inputLabel: "Date début",
                                 helperText: " ",
                                 style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
+                                readOnly: true,
                                 enabled: true,
                                 filled: true,
                                 onTapAction: () =>
@@ -215,14 +215,14 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
                                 controller: _nomContactTextFormFieldController,
-                                inputLabel: "Nom contact",
+                                inputLabel: "Assigné à",
                                 helperText: " ",
                                 style: TextStyle(color: Colors.grey[600]),
                                 readOnly: false,
                                 enabled: true,
                                 filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
+                                /*onTapAction: () =>
+                                    showToast(fToast, toastMessage, context),*/
                               ),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
 
@@ -275,31 +275,6 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
                                       "Selectionne une fonction",
                                     ),
                                   )),
-
-                              SizedBox(height: SizeConfig.heightMultiplier * 2),
-                              CustomTextField(
-                                controller: _lieuTextFormFieldController,
-                                inputLabel: "Localisation",
-                                helperText: " ",
-                                style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
-                                enabled: true,
-                                filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
-                              ),
-                              SizedBox(height: SizeConfig.heightMultiplier * 2),
-                              CustomTextField(
-                                controller: _descriptionTextFormFieldController,
-                                inputLabel: "Description",
-                                helperText: " ",
-                                style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
-                                enabled: true,
-                                filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
-                              ),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
 
                               ///if the show button is false
@@ -308,7 +283,7 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
                                   : CustomTextField(
                                       controller:
                                           _prioriteTextFormFieldController,
-                                      inputLabel: "priorite",
+                                      inputLabel: "priorité",
                                       helperText: " ",
                                       style: TextStyle(color: Colors.grey[600]),
                                       readOnly: false,
@@ -323,7 +298,7 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
                               Offstage(
                                   offstage: _offstage2,
                                   child: CustomDropdownField(
-                                    labelText: "Priorite ",
+                                    labelText: "Priorité ",
                                     items: <String>['Haut', 'Moyen', 'Bas']
                                         .map((String value) {
                                       return DropdownMenuItem<String>(
@@ -390,7 +365,7 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
                                   ? const SizedBox.shrink()
                                   : CustomTextField(
                                       controller: _typeATextFormFieldController,
-                                      inputLabel: "Type d'activite",
+                                      inputLabel: "Type d'activité",
                                       helperText: " ",
                                       style: TextStyle(color: Colors.grey[600]),
                                       readOnly: false,
@@ -405,7 +380,7 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
                               Offstage(
                                   offstage: _offstage4,
                                   child: CustomDropdownField(
-                                    labelText: "Type d'activite ",
+                                    labelText: "Type d'activité ",
                                     items: <String>[
                                       'Appel',
                                       'Conférence',
@@ -428,6 +403,30 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
                                     ),
                                   )),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
+
+                              CustomTextField(
+                                controller: _lieuTextFormFieldController,
+                                inputLabel: "Localisation",
+                                helperText: " ",
+                                style: TextStyle(color: Colors.grey[600]),
+                                readOnly: false,
+                                enabled: true,
+                                filled: true,
+                                /*onTapAction: () =>
+                                    showToast(fToast, toastMessage, context),*/
+                              ),
+                              SizedBox(height: SizeConfig.heightMultiplier * 2),
+                              CustomTextField(
+                                controller: _descriptionTextFormFieldController,
+                                inputLabel: "Description",
+                                helperText: " ",
+                                style: TextStyle(color: Colors.grey[600]),
+                                readOnly: false,
+                                enabled: true,
+                                filled: true,
+                                /*onTapAction: () =>
+                                    showToast(fToast, toastMessage, context),*/
+                              ),
                             ],
                           ),
                         ),

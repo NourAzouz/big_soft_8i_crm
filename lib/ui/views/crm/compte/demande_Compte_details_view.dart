@@ -237,10 +237,10 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
                               children: [
                                 CustomTextField(
                                   controller: _numCompteTextFormFieldController,
-                                  inputLabel: "Numero",
+                                  inputLabel: "N°Compte",
                                   helperText: " ",
                                   style: TextStyle(color: Colors.grey[600]),
-                                  readOnly: false,
+                                  readOnly: true,
                                   enabled: true,
                                   filled: true,
                                   onTapAction: () =>
@@ -256,15 +256,15 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
                                   readOnly: false,
                                   enabled: true,
                                   filled: true,
-                                  onTapAction: () =>
-                                      showToast(fToast, toastMessage, context),
+                                  /*onTapAction: () =>
+                                      showToast(fToast, toastMessage, context),*/
                                 ),
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
 
                                 CustomTextField(
                                   controller: _telephoneTextFormFieldController,
-                                  inputLabel: "Telephone",
+                                  inputLabel: "Téléphone",
                                   helperText: " ",
                                   style: TextStyle(color: Colors.grey[600]),
                                   readOnly: false,
@@ -295,48 +295,44 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
 
-                                ///if the show button is false
-                                !_canShowButton2
-                                    ? const SizedBox.shrink()
-                                    : CustomTextField(
-                                        controller:
-                                            _assignTextFormFieldController,
-                                        inputLabel: "Assigné a",
-                                        helperText: " ",
-                                        style:
-                                            TextStyle(color: Colors.grey[600]),
-                                        readOnly: false,
-                                        enabled: true,
-                                        filled: true,
-                                        onTapAction: () {
-                                          hideWidget2();
-                                          //_number();
-                                        },
-                                      ),
-                                /*SizedBox(
-                                      height: SizeConfig.heightMultiplier * 3),*/
-                                Offstage(
-                                  offstage: _offstage2,
-                                  child: CustomDropdownField(
-                                    labelText: "Assigne a ",
-                                    value: assgValue,
-                                    items: assgResultsList.map((value) {
-                                      return DropdownMenuItem(
-                                        value: value,
-                                        child: Text(value.npCollab),
-                                      );
-                                    }).toList(),
-                                    onChangedAction: (value) {
-                                      setState(() {
-                                        assgValue = value!;
-                                      });
-                                    },
-                                    validator: (value) =>
-                                        dropdownFieldValidation(
-                                      value,
-                                      "Veuillez assigne quelqun",
-                                    ),
-                                  ),
+                                CustomTextField(
+                                  controller:
+                                      _propritaireTextFormFieldController,
+                                  inputLabel: "Propritaire",
+                                  helperText: " ",
+                                  style: TextStyle(color: Colors.grey[600]),
+                                  readOnly: false,
+                                  enabled: true,
+                                  filled: true,
+                                  /*onTapAction: () =>
+                                      showToast(fToast, toastMessage, context),*/
+                                ),
+                                SizedBox(
+                                    height: SizeConfig.heightMultiplier * 2),
+
+                                CustomTextField(
+                                  controller: _revenueTextFormFieldController,
+                                  inputLabel: "Revenue Anuelle",
+                                  helperText: " ",
+                                  style: TextStyle(color: Colors.grey[600]),
+                                  readOnly: false,
+                                  enabled: true,
+                                  filled: true,
+                                  /*onTapAction: () =>
+                                      showToast(fToast, toastMessage, context),*/
+                                ),
+                                SizedBox(
+                                    height: SizeConfig.heightMultiplier * 2),
+                                CustomTextField(
+                                  controller: _effictifeTextFormFieldController,
+                                  inputLabel: "Effectif",
+                                  helperText: " ",
+                                  style: TextStyle(color: Colors.grey[600]),
+                                  readOnly: false,
+                                  enabled: true,
+                                  filled: true,
+                                  /*onTapAction: () =>
+                                      showToast(fToast, toastMessage, context),*/
                                 ),
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
@@ -384,14 +380,52 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
                                     ),
                                   ),
                                 ),
+                                SizedBox(
+                                    height: SizeConfig.heightMultiplier * 3),
 
+                                ///if the show button is false
+                                !_canShowButton2
+                                    ? const SizedBox.shrink()
+                                    : CustomTextField(
+                                        controller:
+                                            _assignTextFormFieldController,
+                                        inputLabel: "Assigné à",
+                                        helperText: " ",
+                                        style:
+                                            TextStyle(color: Colors.grey[600]),
+                                        readOnly: false,
+                                        enabled: true,
+                                        filled: true,
+                                        onTapAction: () {
+                                          hideWidget2();
+                                          //_number();
+                                        },
+                                      ),
                                 /*SizedBox(
-                                      height: SizeConfig.heightMultiplier * 2),
-                                  Text(
-                                    _superieurTextFormFieldController.text
-                                        .toString(),
-                                    selectionColor: Colors.black,
-                                  ),*/
+                                      height: SizeConfig.heightMultiplier * 3),*/
+                                Offstage(
+                                  offstage: _offstage2,
+                                  child: CustomDropdownField(
+                                    labelText: "Assigné à",
+                                    value: assgValue,
+                                    items: assgResultsList.map((value) {
+                                      return DropdownMenuItem(
+                                        value: value,
+                                        child: Text(value.npCollab),
+                                      );
+                                    }).toList(),
+                                    onChangedAction: (value) {
+                                      setState(() {
+                                        assgValue = value!;
+                                      });
+                                    },
+                                    validator: (value) =>
+                                        dropdownFieldValidation(
+                                      value,
+                                      "Veuillez assigne quelqun",
+                                    ),
+                                  ),
+                                ),
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),
 
@@ -418,7 +452,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
                                 Offstage(
                                   offstage: _offstage3,
                                   child: CustomDropdownField(
-                                    labelText: "Superieur ",
+                                    labelText: "Devise",
                                     value: devvalue,
                                     items: devResultsList.map((value) {
                                       return DropdownMenuItem(
@@ -442,46 +476,6 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
                                     height: SizeConfig.heightMultiplier * 2),
 
                                 CustomTextField(
-                                  controller:
-                                      _propritaireTextFormFieldController,
-                                  inputLabel: "Propritaire",
-                                  helperText: " ",
-                                  style: TextStyle(color: Colors.grey[600]),
-                                  readOnly: false,
-                                  enabled: true,
-                                  filled: true,
-                                  onTapAction: () =>
-                                      showToast(fToast, toastMessage, context),
-                                ),
-                                SizedBox(
-                                    height: SizeConfig.heightMultiplier * 2),
-                                CustomTextField(
-                                  controller: _effictifeTextFormFieldController,
-                                  inputLabel: "Effectif",
-                                  helperText: " ",
-                                  style: TextStyle(color: Colors.grey[600]),
-                                  readOnly: false,
-                                  enabled: true,
-                                  filled: true,
-                                  onTapAction: () =>
-                                      showToast(fToast, toastMessage, context),
-                                ),
-                                SizedBox(
-                                    height: SizeConfig.heightMultiplier * 2),
-                                CustomTextField(
-                                  controller: _revenueTextFormFieldController,
-                                  inputLabel: "Revenue Anuelle",
-                                  helperText: " ",
-                                  style: TextStyle(color: Colors.grey[600]),
-                                  readOnly: false,
-                                  enabled: true,
-                                  filled: true,
-                                  onTapAction: () =>
-                                      showToast(fToast, toastMessage, context),
-                                ),
-                                SizedBox(
-                                    height: SizeConfig.heightMultiplier * 2),
-                                CustomTextField(
                                   controller: _descriptionTextFormController,
                                   inputLabel: "Description",
                                   helperText: " ",
@@ -489,8 +483,8 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
                                   readOnly: false,
                                   enabled: true,
                                   filled: true,
-                                  onTapAction: () =>
-                                      showToast(fToast, toastMessage, context),
+                                  /*onTapAction: () =>
+                                      showToast(fToast, toastMessage, context),*/
                                 ),
                                 SizedBox(
                                     height: SizeConfig.heightMultiplier * 2),

@@ -66,7 +66,7 @@ class DemandesActivityListModel {
     lieu = json['Lieu'].toString();
     typedoc = json['TypeDoc'].toString();
     codeDoc = json['CodeDoc'].toString();
-    nomContact = json['NomContact'].toString();
+    nomContact = json['NomCollab'].toString();
     dateCreated = json['DateCreated'];
     dateModified = json['DateModified'];
     owner = json['owner'].toString();

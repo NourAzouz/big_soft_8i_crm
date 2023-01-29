@@ -56,7 +56,7 @@ class ProductsProductListModel {
     libelle = json["LibelleArticle"];
     modele = json['Modele'];
     reference = json['Reference'];
-    famille = json['CodeFamille'];
+    famille = json['LibelleFamille'];
     stock = json['MAJStock'];
     siteWeb = json['SiteWeb'];
     dateInitf = json['DateInitf'].toString();

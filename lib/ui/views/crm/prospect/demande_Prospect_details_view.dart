@@ -242,7 +242,7 @@ class _DemandeProspectDetailsViewState
                             children: [
                               CustomTextField(
                                 controller: _numProspectTextFormFieldController,
-                                inputLabel: "Numero",
+                                inputLabel: "Numéro°",
                                 helperText: " ",
                                 style: TextStyle(color: Colors.grey[600]),
                                 readOnly: false,
@@ -254,7 +254,7 @@ class _DemandeProspectDetailsViewState
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
                                 controller: _nomProspectTextFormFieldController,
-                                inputLabel: "Nom & prenom",
+                                inputLabel: "Nom & prénom",
                                 helperText: " ",
                                 style: TextStyle(color: Colors.grey[600]),
                                 readOnly: false,
@@ -428,7 +428,7 @@ class _DemandeProspectDetailsViewState
                               Offstage(
                                 offstage: _offstage3,
                                 child: CustomDropdownField(
-                                  labelText: "Secteur d'activité",
+                                  labelText: "Assigné à ",
                                   value: assgselectedValue,
                                   items: assgResultsList.map((value) {
                                     return DropdownMenuItem(
