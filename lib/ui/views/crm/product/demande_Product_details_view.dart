@@ -221,7 +221,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                   inputLabel: "Code article",
                                   helperText: " ",
                                   style: TextStyle(color: Colors.grey[600]),
-                                  readOnly: false,
+                                  readOnly: true,
                                   enabled: true,
                                   filled: true,
                                 ),

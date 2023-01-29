@@ -245,7 +245,7 @@ class _DemandeProspectDetailsViewState
                                 inputLabel: "Numéro°",
                                 helperText: " ",
                                 style: TextStyle(color: Colors.grey[600]),
-                                readOnly: false,
+                                readOnly: true,
                                 enabled: true,
                                 filled: true,
                                 onTapAction: () =>
@@ -310,8 +310,8 @@ class _DemandeProspectDetailsViewState
                                 readOnly: false,
                                 enabled: true,
                                 filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
+                                /*onTapAction: () =>
+                                    showToast(fToast, toastMessage, context),*/
                               ),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
 
@@ -458,8 +458,8 @@ class _DemandeProspectDetailsViewState
                                 readOnly: false,
                                 enabled: true,
                                 filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
+                                /*onTapAction: () =>
+                                    showToast(fToast, toastMessage, context),*/
                               ),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
@@ -470,8 +470,8 @@ class _DemandeProspectDetailsViewState
                                 readOnly: false,
                                 enabled: true,
                                 filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
+                                /*onTapAction: () =>
+                                    showToast(fToast, toastMessage, context),*/
                               ),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
@@ -482,8 +482,8 @@ class _DemandeProspectDetailsViewState
                                 readOnly: false,
                                 enabled: true,
                                 filled: true,
-                                onTapAction: () =>
-                                    showToast(fToast, toastMessage, context),
+                                /*onTapAction: () =>
+                                    showToast(fToast, toastMessage, context),*/
                               ),
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                               // CustomTextField(
