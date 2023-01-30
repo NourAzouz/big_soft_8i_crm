@@ -184,7 +184,7 @@ class _RootViewState extends State<RootView> {
                                 .headline4
                                 ?.copyWith(fontWeight: FontWeight.w900),
                           ),
-                          SizedBox(width: SizeConfig.widthMultiplier * 35),
+                          SizedBox(width: SizeConfig.widthMultiplier * 30),
                           Align(
                             alignment: Alignment.topRight,
                             child: SpeedDial(

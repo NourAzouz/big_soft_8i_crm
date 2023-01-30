@@ -49,6 +49,7 @@ class _HomeViewState extends State<HomeView> {
             key: _scaffoldKey,
             body: Stack(children: <Widget>[
               SafeArea(
+                  child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -435,7 +436,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ],
                 ),
-              ),
+              )),
             ])));
   }
 
