@@ -16,6 +16,7 @@ class DemandesCompteListResults {
 }
 
 class DemandesCompteListModel {
+  dynamic code;
   dynamic codeTiers;
   dynamic nomTiers;
   dynamic tel;
@@ -29,6 +30,7 @@ class DemandesCompteListModel {
   dynamic description;
 
   DemandesCompteListModel({
+    this.code,
     this.codeTiers,
     this.nomTiers,
     this.tel,
@@ -43,6 +45,7 @@ class DemandesCompteListModel {
   });
 
   DemandesCompteListModel.fromJson(Map<dynamic, dynamic> json) {
+    code = json['CodeTiers'].toString();
     codeTiers = json['NumTiers'].toString();
     nomTiers = json['NomTiers'].toString();
     tel = json['Telephone'].toString();
