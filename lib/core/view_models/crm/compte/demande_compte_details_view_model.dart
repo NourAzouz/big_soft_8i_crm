@@ -9,11 +9,11 @@ class DemandeCompteDetailsViewModel extends BaseViewModel {
   final DemandesCompteListService _prospectService =
       locator<DemandesCompteListService>();
   Future<dynamic> updateContact(
-    SaveCompteArgument saveProspectArgument,
+    SaveCompteArgument saveCompteArgument,
   ) async {
     changeState(ViewState.Busy);
     var addContactResult =
-        await _prospectService.updateProspectViewModel(saveProspectArgument);
+        await _prospectService.updateCompteViewModel(saveCompteArgument);
     changeState(ViewState.Idle);
     return addContactResult;
   }

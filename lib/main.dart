@@ -72,34 +72,3 @@ class _AppState extends State<App> {
     );
   }
 }
-
-//  void getCollab(DemandeListDetailsViewModel viewModel) async {
-//     // TODO: Return the call of await function to get right result & remove the static one
-//     var _uniteResult = await viewModel.getCollab(0,25);
-
-//     // var _uniteResult =<UniteModel>[];
-//     if (_uniteResult is List<DemandesCollabListModel>) {
-//        demandesResultsList = _uniteResult;
-      
-//       // TODO: Return the call of await function & remove the static one
-     
-      
-//     } else if (_uniteResult is int) {
-//       showDialog(
-//         context: context,
-//         barrierDismissible: false,
-//         builder: (BuildContext context) => WillPopScope(
-//           onWillPop: () async => false,
-//           child: const ContactSupportAlertView(),
-//         ),
-//       );
-//     } else {
-//       setState(() {
-      
-//         dataLoadingError = true;
-//       });
-//     }
-//     setState(() {
-//       dataFinishLoading = true;
-//     });
-//   }

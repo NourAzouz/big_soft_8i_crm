@@ -136,9 +136,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
     _nomTiersTextFormFieldController.text =
         widget.demandeDetailsViewArguments!.nomTiers.toString();
     _nomTextFormFieldController.text =
-        widget.demandeDetailsViewArguments!.nom.toString() +
-            " " +
-            widget.demandeDetailsViewArguments!.prenom.toString();
+        widget.demandeDetailsViewArguments!.nom.toString();
     _telephoneTextFormFieldController.text =
         widget.demandeDetailsViewArguments!.telephone.toString();
     _prenomTextFormFieldController.text =
@@ -184,21 +182,20 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
 
   onPressAction(DemandeListDetailsViewModel viewModel, scaffoldstate) async {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    if (_formKey.currentState!.validate()) {
-      var addProspectResult = await viewModel.updateContact(SaveContactArgument(
-          numCompte: '',
-          nomText: '',
-          prenomText: '',
-          telephoneText: '',
-          telBureauText: '',
-          superieurText: '',
-          mailText: '',
-          descriptionText: '',
-          nomTiers: '',
-          serviceText: ''));
-      var isAddProspectSuccess = true;
-      print(addProspectResult);
-      /*
+    //if (_formKey.currentState!.validate()) {
+    var addProspectResult = await viewModel.updateContact(SaveContactArgument(
+      numCompte: _numCompteTextFormFieldController.text,
+      nomText: _nomTextFormFieldController.text,
+      prenomText: _prenomTextFormFieldController.text,
+      telephoneText: _telephoneTextFormFieldController.text,
+      telBureauText: _telBureauTextFormFieldController.text,
+      superieurText: _superieurTextFormFieldController.text,
+      mailText: _mailTextFormFieldController.text,
+      descriptionText: _descriptionTextFormFieldController.text,
+      nomTiers: _nomTiersTextFormFieldController.text,
+    ));
+    var isAddProspectSuccess = true;
+    /*
       if (addContactResult is bool) {
         setState(() {
           return isAddContactSuccess = true;
@@ -225,7 +222,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
    
    
    */
-    }
+    //}
   }
 
   @override
@@ -284,7 +281,20 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                       height: SizeConfig.heightMultiplier * 2),
                                   CustomTextField(
                                     controller: _nomTextFormFieldController,
-                                    inputLabel: "Nom & Prénom",
+                                    inputLabel: "Nom",
+                                    helperText: " ",
+                                    style: TextStyle(color: Colors.grey[600]),
+                                    readOnly: false,
+                                    enabled: true,
+                                    filled: true,
+                                    /*onTapAction: () => showToast(
+                                        fToast, toastMessage, context),*/
+                                  ),
+                                  SizedBox(
+                                      height: SizeConfig.heightMultiplier * 2),
+                                  CustomTextField(
+                                    controller: _prenomTextFormFieldController,
+                                    inputLabel: "Prénom",
                                     helperText: " ",
                                     style: TextStyle(color: Colors.grey[600]),
                                     readOnly: false,
@@ -591,7 +601,7 @@ class SaveContactArgument {
   final String prenomText;
   final String mailText;
   final String telBureauText;
-  final String serviceText;
+  //final String serviceText;
   final String superieurText;
   final String descriptionText;
 
@@ -603,7 +613,7 @@ class SaveContactArgument {
     required this.prenomText,
     required this.mailText,
     required this.telBureauText,
-    required this.serviceText,
+    //required this.serviceText,
     required this.superieurText,
     required this.descriptionText,
   });

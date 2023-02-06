@@ -28,6 +28,7 @@ class ActivityDetailsView extends StatefulWidget {
 class _ActivityDetailsViewState extends State<ActivityDetailsView> {
   late GlobalKey<ScaffoldState> _scaffoldKey;
   late GlobalKey<FormState> _formKey;
+  late TextEditingController _numTextFormFieldController;
   late TextEditingController _sujetTextFormFieldController;
   late TextEditingController _dateDebutTextFormFieldController;
   late TextEditingController _heureDebutTextFormFieldController;
@@ -126,6 +127,7 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
     super.initState();
     _scaffoldKey = GlobalKey<ScaffoldState>();
     _formKey = GlobalKey<FormState>();
+    _numTextFormFieldController = TextEditingController();
     _sujetTextFormFieldController = TextEditingController();
     _dateDebutTextFormFieldController = TextEditingController();
     _heureDebutTextFormFieldController = TextEditingController();
@@ -143,6 +145,7 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
 
   @override
   void dispose() {
+    _numTextFormFieldController.dispose();
     _sujetTextFormFieldController.dispose();
     _dateDebutTextFormFieldController.dispose();
     _heureDebutTextFormFieldController.dispose();
@@ -154,6 +157,53 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
     _typeTextFormFieldController.dispose();
     _typeATextFormFieldController.dispose();
     super.dispose();
+  }
+
+  onPressAction(
+      DemandeActivityDetailsViewModel viewModel, scaffoldstate) async {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    //if (_formKey.currentState!.validate()) {
+    var addProspectResult = await viewModel.updateContact(SaveActivityArgument(
+        num: _numTextFormFieldController.text,
+        sujet: _sujetTextFormFieldController.text,
+        dateD: _dateDebutTextFormFieldController.text,
+        assign: _nomContactTextFormFieldController.text,
+        statut: _statutTextFormFieldController.text,
+        priorite: _prioriteTextFormFieldController.text,
+        type: _typeTextFormFieldController.text,
+        typeA: _typeATextFormFieldController.text,
+        localisation: _lieuTextFormFieldController.text,
+        description: _descriptionTextFormFieldController.text));
+    //isAddProspectSuccess = true;
+    //print(addProspectResult);
+    /*
+      if (addContactResult is bool) {
+        setState(() {
+          return isAddContactSuccess = true;
+        });
+      } else if (addContactResult is int) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          child: WillPopScope(
+            onWillPop: () async => false,
+            child: ContactSupportAlertView(),
+          ),
+        );
+      } else {
+        scaffoldstate.showSnackBar(
+          SnackBar(
+            content: Text(
+              removeAllHtmlTags(addContactResult),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }
+   
+   
+   */
+    //}
   }
 
   @override
@@ -462,7 +512,12 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
                   ),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.save),
-          onPressed: () {},
+          onPressed: () async {
+            await onPressAction(
+              viewModel,
+              _scaffoldKey.currentState,
+            );
+          },
         ),
       ),
     );
@@ -481,6 +536,8 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
       setState(
         () {
           dataFinishLoading = true;
+          _numTextFormFieldController.text =
+              activityDetailsResult.numero.toString();
           _sujetTextFormFieldController.text =
               activityDetailsResult.sujet.toString();
           _dateDebutTextFormFieldController.text =
@@ -523,6 +580,37 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
   }
 }
 
+class SaveActivityArgument {
+  final String num;
+  final String sujet;
+  final String dateD;
+  final String assign;
+  final String statut;
+  final String priorite;
+  final String type;
+  final String typeA;
+  final String localisation;
+  final String description;
+  //final String devisText;
+  //final String descriptionText;
+  //final String nomCompteText;
+
+  SaveActivityArgument({
+    required this.num,
+    required this.sujet,
+    required this.dateD,
+    required this.assign,
+    required this.statut,
+    required this.priorite,
+    required this.type,
+    required this.typeA,
+    required this.localisation,
+    required this.description,
+    //required this.devisText,
+    //required this.descriptionText,
+    //required this.nomCompteText,
+  });
+}
 
 
 /*

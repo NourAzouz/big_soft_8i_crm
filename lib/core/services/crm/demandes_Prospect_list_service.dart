@@ -45,7 +45,8 @@ class DemandesProspectListService {
   ) async {
     var response;
     try {
-      await http.post(Uri.parse("${Constants.baseURL}/ProspectAction"),
+      response = await http.post(
+          Uri.parse("${Constants.baseURL}/ProspectAction"),
           headers: <String, String>{
             "Cookie": Constants.sessionId,
           },
@@ -53,47 +54,55 @@ class DemandesProspectListService {
             "action": "update",
             "gridLine": "",
             "gridDocuments": "{}",
-            "CodeProspect": "PR1SYS2022",
+            "CodeProspect": saveContactArgument.codeProspect,
+            "CodeProspect": saveContactArgument.codeProspect,
             "NumProspect": saveContactArgument.numProspect,
             'NomProspect': saveContactArgument.nomProspect,
             'PrenomProspect': saveContactArgument.prenomProspect,
             'Titre': saveContactArgument.titre,
             'Objet': '',
-            'Societe': "ESPI",
-            "OrigineProspect": "31a68806d94e4b5490da4a6bc5cae4f0",
-            "LibSecteurActivite": "Industrie",
-            "SecteurActivite": "In",
-            "Note": "10415ba238ea4c6fa093a663f81874fb",
-            "StatutProspect": "7e48faa453dd47bb9a09363de25fb31d",
-            "DateContact": "2022-06-16",
-            "CodeCollab": "habes",
-            "NomCollab": "Habes",
-            "PrenomCollab": "Djalil",
+            'Societe': saveContactArgument.societe,
+            "OrigineProspect": "",
+            "LibSecteurActivite": "",
+            "SecteurActivite": "",
+            "Note": "",
+            "StatutProspect": "",
+            "DateContact": "",
+            "CodeCollab": "",
+            "NomCollab": "",
+            "PrenomCollab": "",
             "Tel": saveContactArgument.telText,
             "Telecopie": '',
-            "Portable": "0557406080",
+            "Portable": "",
             "Mail": saveContactArgument.mail,
             "Mail2": "",
             "SiteWeb": '',
             "Skype": '',
             "FB": '',
-            "NbrEmp": '0',
-            "ChiffreAffaire": ' 0,00',
+            "NbrEmp": '',
+            "ChiffreAffaire": "",
             "Rue": '',
             "CodePostal": '',
             "Ville": '',
             "Region": '',
+            "Region": '',
             "Pays": '',
+            "ext-comp-2167": "Contient",
+            "ext-comp-2165": "",
+            "filterValue": "",
+            "Description": "",
+            "ext-comp-2227": "Contient",
+            "ext-comp-2225": "",
+            "filterValue": "",
           });
     } on TimeoutException catch (_) {
       return "Cette requette a pris un temps inattendu";
     } on SocketException catch (_) {
       return "Vérifier la configuration de votre réseau";
     }
-    //  if (response.contentLength == 0) {
-    //  return 0;
-    //}
-    /*
+    if (response.contentLength == 0) {
+      return 0;
+    }
     print(response);
     var isAddContactSuccess = json.decode(response.body)["success"];
     if (isAddContactSuccess) {
@@ -101,7 +110,7 @@ class DemandesProspectListService {
     } else {
       var addContactbackMessage = json.decode(response.body)["feedback"];
       return addContactbackMessage;
-    }*/
+    }
   }
 
   Future<dynamic> getProspectDetails(String code_doc) async {

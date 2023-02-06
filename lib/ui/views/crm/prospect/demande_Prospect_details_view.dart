@@ -72,6 +72,7 @@ class _DemandeProspectDetailsViewState
 
   late GlobalKey<ScaffoldMessengerState> _scaffoldKey;
   late GlobalKey<FormState> _formKey;
+  late TextEditingController _codeProspectTextFormFieldController;
   late TextEditingController _numProspectTextFormFieldController;
   late TextEditingController _nomProspectTextFormFieldController;
   late TextEditingController _prenomProspectTextFormFieldController;
@@ -117,6 +118,7 @@ class _DemandeProspectDetailsViewState
 
     _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
     _formKey = GlobalKey<FormState>();
+    _codeProspectTextFormFieldController = TextEditingController();
     _numProspectTextFormFieldController = TextEditingController();
     _nomProspectTextFormFieldController = TextEditingController();
     _prenomProspectTextFormFieldController = TextEditingController();
@@ -153,6 +155,7 @@ class _DemandeProspectDetailsViewState
 
   @override
   void dispose() {
+    _codeProspectTextFormFieldController.dispose();
     _numProspectTextFormFieldController.dispose();
     _nomProspectTextFormFieldController.dispose();
     _prenomProspectTextFormFieldController.dispose();
@@ -171,25 +174,26 @@ class _DemandeProspectDetailsViewState
     super.dispose();
   }
 
-  onPressAction(
-      DemandeProspectDetailsViewModel viewModel, scaffoldstate) async {
+  onPressAction(DemandeProspectDetailsViewModel viewModel, scaffoldstate,
+      BuildContext context) async {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    if (_formKey.currentState!.validate()) {
-      var addProspectResult = await viewModel.updateContact(
-        SaveProspectArgument(
-          numProspect: _numProspectTextFormFieldController.text,
-          nomProspect: _nomProspectTextFormFieldController.text,
-          prenomProspect: _prenomProspectTextFormFieldController.text,
-          telText: _telTextFormFieldController.text,
-          mail: _mailTextFormFieldController.text,
-          societe: _mailTextFormFieldController.text,
-          titre: _titreTextFormFieldController.text,
-          description: _descriptionTextFormController.text,
-        ),
-      );
-      isAddProspectSuccess = true;
-      print(addProspectResult);
-      /*
+    //if (_formKey.currentState!.validate()) {
+    var addProspectResult = await viewModel.updateContact(
+      SaveProspectArgument(
+        codeProspect: _codeProspectTextFormFieldController.text,
+        numProspect: _numProspectTextFormFieldController.text,
+        nomProspect: _nomProspectTextFormFieldController.text,
+        prenomProspect: _prenomProspectTextFormFieldController.text,
+        telText: _telTextFormFieldController.text,
+        mail: _mailTextFormFieldController.text,
+        societe: _mailTextFormFieldController.text,
+        titre: _titreTextFormFieldController.text,
+        description: _descriptionTextFormController.text,
+      ),
+    );
+    isAddProspectSuccess = true;
+    print(addProspectResult);
+    /*
       if (addContactResult is bool) {
         setState(() {
           return isAddContactSuccess = true;
@@ -216,7 +220,7 @@ class _DemandeProspectDetailsViewState
    
    
    */
-    }
+    //}
   }
 
   @override
@@ -574,9 +578,7 @@ class _DemandeProspectDetailsViewState
               labelStyle: const TextStyle(fontSize: 18.0),
               onTap: () async {
                 await onPressAction(
-                  viewModel,
-                  _scaffoldKey.currentState,
-                );
+                    viewModel, _scaffoldKey.currentState, context);
               },
             ),
             /*SpeedDialChild(
@@ -623,6 +625,8 @@ class _DemandeProspectDetailsViewState
 
           ///////////////////////////////////////////////
           dataFinishLoading = true;
+          _codeProspectTextFormFieldController.text =
+              prospectDetailsResult.codeProspect;
           _numProspectTextFormFieldController.text =
               prospectDetailsResult.numProspect.toString();
           _nomProspectTextFormFieldController.text =
@@ -680,6 +684,7 @@ DropdownMenuItem<String> buildMenuItem(String item) =>
     DropdownMenuItem(value: item, child: Text(item));
 
 class SaveProspectArgument {
+  final String codeProspect;
   final String numProspect;
   final String nomProspect;
   final String prenomProspect;
@@ -690,6 +695,7 @@ class SaveProspectArgument {
   final String description;
 
   SaveProspectArgument({
+    required this.codeProspect,
     required this.numProspect,
     required this.nomProspect,
     required this.prenomProspect,

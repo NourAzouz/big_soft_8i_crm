@@ -40,21 +40,20 @@ class DemandesCompteListService {
     return demandesResponse.results;
   }
 
-  Future<dynamic> updateProspectViewModel(
+  Future<dynamic> updateCompteViewModel(
     SaveCompteArgument saveCompteArgument,
   ) async {
     var response;
     try {
-      await http.post(
-          Uri.parse(
-              "${Constants.baseURL}/${Constants.appName}/CompteCRMAction"),
+      response = await http.post(
+          Uri.parse("${Constants.baseURL}/CompteCRMAction"),
           headers: <String, String>{
             "Cookie": Constants.sessionId,
           },
           body: {
             "action": "update",
-            "PrecMtDevise": saveCompteArgument.devisText,
-            "CodeTiers": saveCompteArgument.numCompteText,
+            "PrecMtDevise": "",
+            "CodeTiers": saveCompteArgument.code,
             "NomTiers": saveCompteArgument.nomCompteText,
             "Telephone": saveCompteArgument.telephoneText,
             "Fax": "",
@@ -73,11 +72,11 @@ class DemandesCompteListService {
             "CodeSecteur": "",
             "LibSecteur": saveCompteArgument.secteurText,
             "TypeCompte": "",
-            "CodeCollab": "habes",
-            "NomCollab": "Habes",
-            "PrenomCollab": "Djalil",
-            "CodeDevise": "DA",
-            "IsLocal": "1",
+            "CodeCollab": "",
+            "NomCollab": "",
+            "PrenomCollab": "",
+            "CodeDevise": "",
+            "IsLocal": "",
             "Adresse": "",
             "BPFact": "",
             "Ville": "",
@@ -88,8 +87,8 @@ class DemandesCompteListService {
             "VilleLiv": "",
             "PaysLiv": "",
             "CodePostalLiv": "",
-            "ext-comp-1292": "Contient",
-            "ext-comp-1290": "",
+            "ext-comp-1785": "Contient",
+            "ext-comp-1783": "",
             "filterValue": "",
           });
     } on TimeoutException catch (_) {
@@ -97,18 +96,19 @@ class DemandesCompteListService {
     } on SocketException catch (_) {
       return "Vérifier la configuration de votre réseau";
     }
-    //  if (response.contentLength == 0) {
-    //  return 0;
-    //}
-    /*
-    print(response);
+    if (response.contentLength == 0) {
+      return 0;
+    }
+
     var isAddContactSuccess = json.decode(response.body)["success"];
     if (isAddContactSuccess) {
+      print(isAddContactSuccess);
       return isAddContactSuccess;
     } else {
       var addContactbackMessage = json.decode(response.body)["feedback"];
+      print(addContactbackMessage);
       return addContactbackMessage;
-    }*/
+    }
   }
 
   Future<dynamic> deleteDemande(String code) async {

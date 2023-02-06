@@ -1,6 +1,7 @@
 import 'package:big_soft_8i_crm/core/view_models/base_view_model.dart';
 import 'package:big_soft_8i_crm/locator.dart';
 
+import '../../../../ui/views/crm/contact/demande_details_view.dart';
 import '../../../enums/view_states.dart';
 
 import '../../../services/crm/demandes_list_service.dart';
@@ -29,5 +30,13 @@ class DemandeListDetailsViewModel extends BaseViewModel {
     return demandesResult;
   }
 
-  updateContact(saveProspectArgument) {}
+  Future<dynamic> updateContact(
+    SaveContactArgument saveContactArgument,
+  ) async {
+    changeState(ViewState.Busy);
+    var addContactResult =
+        await _contactService.updateProspectViewModel(saveContactArgument);
+    changeState(ViewState.Idle);
+    return addContactResult;
+  }
 }

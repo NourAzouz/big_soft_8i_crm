@@ -47,7 +47,7 @@ class DemandesProductListService {
   ) async {
     var response;
     try {
-      await http.post(
+      response = await http.post(
           Uri.parse(
               "${Constants.baseURL}/${Constants.appName}/crm/ProduitAction"),
           headers: <String, String>{

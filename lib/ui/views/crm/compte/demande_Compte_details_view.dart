@@ -40,6 +40,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
   bool isAddProspectSuccess = false;
   late GlobalKey<ScaffoldMessengerState> _scaffoldKey;
   late GlobalKey<FormState> _formKey;
+  late TextEditingController _codeCompteTextFormFieldController;
   late TextEditingController _numCompteTextFormFieldController;
   late TextEditingController _nomCompteTextFormFieldController;
   late TextEditingController _assignTextFormFieldController;
@@ -112,6 +113,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
 
     _scaffoldKey = GlobalKey<ScaffoldMessengerState>();
     _formKey = GlobalKey<FormState>();
+    _codeCompteTextFormFieldController = TextEditingController();
     _numCompteTextFormFieldController = TextEditingController();
     _nomCompteTextFormFieldController = TextEditingController();
     _assignTextFormFieldController = TextEditingController();
@@ -123,6 +125,9 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
     _revenueTextFormFieldController = TextEditingController();
     _devisTextFormFieldController = TextEditingController();
     _descriptionTextFormController = TextEditingController();
+
+    _codeCompteTextFormFieldController.text =
+        widget.demandeCompteDetailsViewArguments!.code.toString();
     _numCompteTextFormFieldController.text =
         widget.demandeCompteDetailsViewArguments!.codeTiers.toString();
     _nomCompteTextFormFieldController.text =
@@ -152,6 +157,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
 
   @override
   void dispose() {
+    _codeCompteTextFormFieldController.dispose();
     _numCompteTextFormFieldController.dispose();
     _assignTextFormFieldController.dispose();
     _telephoneTextFormFieldController.dispose();
@@ -166,25 +172,26 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
 
   onPressAction(DemandeCompteDetailsViewModel viewModel, scaffoldstate) async {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    if (_formKey.currentState!.validate()) {
-      var addProspectResult = await viewModel.updateContact(
-        SaveCompteArgument(
-          numCompteText: _numCompteTextFormFieldController.text,
-          nomCompteText: _nomCompteTextFormFieldController.text,
-          assignText: _assignTextFormFieldController.text,
-          telephoneText: _telephoneTextFormFieldController.text,
-          mailText: _mailTextFormFieldController.text,
-          secteurText: _secteurTextFormFieldController.text,
-          propritaireText: _propritaireTextFormFieldController.text,
-          effictifeText: _effictifeTextFormFieldController.text,
-          revenueText: _revenueTextFormFieldController.text,
-          devisText: _devisTextFormFieldController.text,
-          descriptionText: _descriptionTextFormController.text,
-        ),
-      );
-      isAddProspectSuccess = true;
-      print(addProspectResult);
-      /*
+    //if (_formKey.currentState!.validate()) {
+    var addProspectResult = await viewModel.updateContact(
+      SaveCompteArgument(
+        code: _codeCompteTextFormFieldController.text,
+        numCompteText: _numCompteTextFormFieldController.text,
+        nomCompteText: _nomCompteTextFormFieldController.text,
+        assignText: _assignTextFormFieldController.text,
+        telephoneText: _telephoneTextFormFieldController.text,
+        mailText: _mailTextFormFieldController.text,
+        secteurText: _secteurTextFormFieldController.text,
+        propritaireText: _propritaireTextFormFieldController.text,
+        effictifeText: _effictifeTextFormFieldController.text,
+        revenueText: _revenueTextFormFieldController.text,
+        devisText: _devisTextFormFieldController.text,
+        descriptionText: _descriptionTextFormController.text,
+      ),
+    );
+    isAddProspectSuccess = true;
+    print(addProspectResult);
+    /*
       if (addContactResult is bool) {
         setState(() {
           return isAddContactSuccess = true;
@@ -211,7 +218,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
    
    
    */
-    }
+    //}
   }
 
   @override
@@ -578,6 +585,7 @@ DropdownMenuItem<String> buildMenuItem(String item) =>
     DropdownMenuItem(value: item, child: Text(item));
 
 class SaveCompteArgument {
+  final String code;
   final String numCompteText;
   final String assignText;
   final String telephoneText;
@@ -591,6 +599,7 @@ class SaveCompteArgument {
   final String nomCompteText;
 
   SaveCompteArgument({
+    required this.code,
     required this.numCompteText,
     required this.assignText,
     required this.telephoneText,

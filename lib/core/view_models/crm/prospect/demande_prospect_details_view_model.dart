@@ -17,6 +17,7 @@ class DemandeProspectDetailsViewModel extends BaseViewModel {
 
   final DemandesProspectListService _prospectService =
       locator<DemandesProspectListService>();
+
   Future<dynamic> updateContact(
     SaveProspectArgument saveProspectArgument,
   ) async {

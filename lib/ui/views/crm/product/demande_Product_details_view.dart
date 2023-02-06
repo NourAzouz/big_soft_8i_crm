@@ -197,7 +197,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
   @override
   Widget build(BuildContext context) {
     return BaseView<DemandeProductDetailsViewModel>(
-      //onModelReady: (viewModel) => getActivityDetails(viewModel, context),
+      onModelReady: (viewModel) => getActivityDetails(viewModel, context),
       builder: (context, viewModel, child) => Scaffold(
           key: _scaffoldKey,
           body: dataFinishLoading
@@ -367,7 +367,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                     height: SizeConfig.heightMultiplier * 2),
 
                                 ///if the show button is false
-                                /*!_canShowButton
+                                !_canShowButton
                                     ? const SizedBox.shrink()
                                     : CustomTextField(
                                         controller: _tvaTextFormFieldController,
@@ -409,7 +409,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
                                   ),
                                 ),
                                 SizedBox(
-                                    height: SizeConfig.heightMultiplier * 2),*/
+                                    height: SizeConfig.heightMultiplier * 2),
                               ],
                             ),
                           ),
@@ -482,10 +482,10 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
   Future<void> getActivityDetails(
       DemandeProductDetailsViewModel viewModel, BuildContext context) async {
     var tvaResults = await viewModel.getTva();
-    var catResults = await viewModel.getCat();
+    //var catResults = await viewModel.getCat();
     setState(
       () {
-        catResultsList = catResults;
+        //catResultsList = catResults;
 
         tvaResultsList = tvaResults;
         /* _codeArticleTextFormFieldController.text =
