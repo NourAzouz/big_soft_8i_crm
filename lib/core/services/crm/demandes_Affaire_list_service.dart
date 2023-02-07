@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import '../../../ui/views/crm/affaire/demande_Affaires_details_view.dart';
 import '/core/constants/constants.dart';
 import '/core/models/demandes_Affaire_list_model.dart';
 import 'package:http/http.dart' as http;
@@ -130,5 +131,86 @@ class DemandesAffaireListService {
       json.decode(response.body),
     );
     return demandesResponse.results;
+  }
+
+  Future<dynamic> updateAffaireViewModel(
+    SaveAffaireArgument saveAffaireArgument,
+  ) async {
+    var response;
+    try {
+      response = await http.post(
+          Uri.parse("${Constants.baseURL}/crm/AffaireAction"),
+          headers: <String, String>{
+            "Cookie": Constants.sessionId,
+          },
+          body: {
+            "action": "update",
+            "gridLine": "{}",
+            "GridCause": "{}",
+            "Numero": saveAffaireArgument.num,
+            "Nom": saveAffaireArgument.nomAffaire,
+            "Montant": saveAffaireArgument.montant,
+            "DateEcheance": saveAffaireArgument.dateE,
+            "CodeEtape": "",
+            "Probabilite": saveAffaireArgument.prob,
+            "CodeContact": "",
+            "NomContact": "",
+            "CodeTiers": "",
+            "NomTiers": saveAffaireArgument.rel,
+            "TypePros": saveAffaireArgument.type,
+            "CodeOrigine": "",
+            "Prospect": "",
+            "CodeProspect": "",
+            "PrenomProspect": "",
+            "NomProspect": "",
+            "CodeCollab": "",
+            "NomCollab": "",
+            "PrenomCollab": "",
+            "Lost": "",
+            "NumComp": "",
+            "NomComp": "",
+            "MontantPrev": "",
+            "Titre": "",
+            "Objet": "",
+            "Mail": "",
+            "Mail2": "",
+            "Tel": "",
+            "Telecopie": "",
+            "Portable": "",
+            "SiteWeb": "",
+            "StatutProspect": "",
+            "SecteurActivite": "",
+            "LibSecteurActivite": "",
+            "NbrEmp": "",
+            "ChiffreAffaire": "",
+            "Note": "",
+            "Skype": "",
+            "FB": "",
+            "Rue": "",
+            "CodePostal": "",
+            "Ville": "",
+            "Region": "",
+            "Region": "",
+            "Pays": "",
+            "Description": saveAffaireArgument.description,
+          });
+    } on TimeoutException catch (_) {
+      return "Cette requette a pris un temps inattendu";
+    } on SocketException catch (_) {
+      return "Vérifier la configuration de votre réseau";
+    }
+    if (response.contentLength == 0) {
+      return 0;
+    }
+
+    var isAddContactSuccess = json.decode(response.body)["success"];
+    if (isAddContactSuccess) {
+      print(isAddContactSuccess);
+      return isAddContactSuccess;
+    } else {
+      var addContactbackMessage = json.decode(response.body)["feedback"];
+      print(addContactbackMessage);
+      return addContactbackMessage;
+    }
   }
 }

@@ -137,6 +137,50 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
     super.dispose();
   }
 
+  onPressAction(DemandeAffaireDetailsViewModel viewModel, scaffoldstate) async {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    //if (_formKey.currentState!.validate()) {
+    var addProspectResult = await viewModel.updateAffaire(SaveAffaireArgument(
+        num: _numeroTextFormFieldController.text,
+        nomAffaire: _nomTextFormFieldController.text,
+        montant: _montantTextFormFieldController.text,
+        dateE: _dateTextFormFieldController.text,
+        prob: _probaliteTextFormFieldController.text,
+        rel: _nomTiersTextFormFieldController.text,
+        type: _typeTextFormFieldController.text,
+        description: _descriptionTextFormFieldController.text));
+    //isAddProspectSuccess = true;
+    //print(addProspectResult);
+    /*
+      if (addContactResult is bool) {
+        setState(() {
+          return isAddContactSuccess = true;
+        });
+      } else if (addContactResult is int) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          child: WillPopScope(
+            onWillPop: () async => false,
+            child: ContactSupportAlertView(),
+          ),
+        );
+      } else {
+        scaffoldstate.showSnackBar(
+          SnackBar(
+            content: Text(
+              removeAllHtmlTags(addContactResult),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        );
+      }
+   
+   
+   */
+    //}
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseView<DemandeAffaireDetailsViewModel>(
@@ -367,7 +411,12 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
                   ),
         floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.save),
-          onPressed: () {},
+          onPressed: () async {
+            await onPressAction(
+              viewModel,
+              _scaffoldKey.currentState,
+            );
+          },
         ),
       ),
     );
@@ -429,6 +478,29 @@ class _DemandeAffaireDetailsViewState extends State<DemandeAffaireDetailsView> {
 
 DropdownMenuItem<String> buildMenuItem(String item) =>
     DropdownMenuItem(value: item, child: Text(item));
+
+class SaveAffaireArgument {
+  final String num;
+  final String nomAffaire;
+  final String montant;
+  final String dateE;
+  final String prob;
+  final String rel;
+  final String type;
+  final String description;
+
+  SaveAffaireArgument({
+    required this.num,
+    required this.nomAffaire,
+    required this.montant,
+    required this.dateE,
+    required this.prob,
+    required this.rel,
+    required this.type,
+    required this.description,
+  });
+}
+
 /*
 class DemandeAffaireDetailsView extends StatelessWidget {
   final DemandesAffaireListModel? demandeAffaireDetailsViewArguments;

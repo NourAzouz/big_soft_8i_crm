@@ -162,16 +162,16 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
   onPressAction(
       DemandeActivityDetailsViewModel viewModel, scaffoldstate) async {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
+
     //if (_formKey.currentState!.validate()) {
     var addProspectResult = await viewModel.updateContact(SaveActivityArgument(
         num: _numTextFormFieldController.text,
         sujet: _sujetTextFormFieldController.text,
-        dateD: _dateDebutTextFormFieldController.text,
         assign: _nomContactTextFormFieldController.text,
-        statut: _statutTextFormFieldController.text,
-        priorite: _prioriteTextFormFieldController.text,
-        type: _typeTextFormFieldController.text,
-        typeA: _typeATextFormFieldController.text,
+        statut: "2",
+        priorite: "2",
+        type: "CF",
+        typeA: "CF",
         localisation: _lieuTextFormFieldController.text,
         description: _descriptionTextFormFieldController.text));
     //isAddProspectSuccess = true;
@@ -583,7 +583,6 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
 class SaveActivityArgument {
   final String num;
   final String sujet;
-  final String dateD;
   final String assign;
   final String statut;
   final String priorite;
@@ -598,7 +597,6 @@ class SaveActivityArgument {
   SaveActivityArgument({
     required this.num,
     required this.sujet,
-    required this.dateD,
     required this.assign,
     required this.statut,
     required this.priorite,
