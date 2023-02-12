@@ -147,24 +147,24 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
 
   onPressAction(DemandeProductDetailsViewModel viewModel, scaffoldstate) async {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    if (_formKey.currentState!.validate()) {
-      var addProspectResult = await viewModel.updateContact(
-        SaveProductArgument(
-          codeArticle: _codeArticleTextFormFieldController.text,
-          libelleText: _libelleTextFormFieldController.text,
-          familleText: _familleTextFormFieldController.text,
-          referenceText: _referenceTextFormFieldController.text,
-          stockText: _stockTextFormFieldController.text,
-          modeleText: _modeleTextFormFieldController.text,
-          prixText: _prixTextFormFieldController.text,
-          siteWebText: _siteWebTextFormFieldController.text,
-          codeBarresText: _codeBarresTextFormFieldController.text,
-          tvaText: _tvaTextFormFieldController.text,
-        ),
-      );
-      isAddProspectSuccess = true;
-      print(addProspectResult);
-      /*
+    //if (_formKey.currentState!.validate()) {
+    var addProspectResult = await viewModel.updateContact(
+      SaveProductArgument(
+        codeArticle: _codeArticleTextFormFieldController.text,
+        libelleText: _libelleTextFormFieldController.text,
+        familleText: _familleTextFormFieldController.text,
+        referenceText: _referenceTextFormFieldController.text,
+        stockText: _stockTextFormFieldController.text,
+        modeleText: _modeleTextFormFieldController.text,
+        prixText: _prixTextFormFieldController.text,
+        siteWebText: _siteWebTextFormFieldController.text,
+        codeBarresText: _codeBarresTextFormFieldController.text,
+        tvaText: _tvaTextFormFieldController.text,
+      ),
+    );
+    isAddProspectSuccess = true;
+    //print(addProspectResult);
+    /*
       if (addContactResult is bool) {
         setState(() {
           return isAddContactSuccess = true;
@@ -191,7 +191,7 @@ class _DemandeProductDetailsViewState extends State<DemandeProductDetailsView> {
    
    
    */
-    }
+    //}
   }
 
   @override

@@ -85,18 +85,20 @@ class DemandesProductListService {
     } on SocketException catch (_) {
       return "Vérifier la configuration de votre réseau";
     }
-    //  if (response.contentLength == 0) {
-    //  return 0;
-    //}
-    /*
+    if (response.contentLength == 0) {
+      return 0;
+    }
+
     print(response);
     var isAddContactSuccess = json.decode(response.body)["success"];
     if (isAddContactSuccess) {
+      print("true");
       return isAddContactSuccess;
     } else {
       var addContactbackMessage = json.decode(response.body)["feedback"];
+      print(addContactbackMessage);
       return addContactbackMessage;
-    }*/
+    }
   }
 
   Future<dynamic> getProductsProspectList(String code) async {

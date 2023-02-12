@@ -126,7 +126,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
     _devisTextFormFieldController = TextEditingController();
     _descriptionTextFormController = TextEditingController();
 
-    _codeCompteTextFormFieldController.text =
+    /*  _codeCompteTextFormFieldController.text =
         widget.demandeCompteDetailsViewArguments!.code.toString();
     _numCompteTextFormFieldController.text =
         widget.demandeCompteDetailsViewArguments!.codeTiers.toString();
@@ -149,7 +149,7 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
     _devisTextFormFieldController.text =
         widget.demandeCompteDetailsViewArguments!.devis.toString();
     _descriptionTextFormController.text =
-        widget.demandeCompteDetailsViewArguments!.description.toString();
+        widget.demandeCompteDetailsViewArguments!.description.toString();  */
 
     fToast = FToast();
     fToast.init(context);
@@ -555,14 +555,23 @@ class _DemandeCompteDetailsViewState extends State<DemandeCompteDetailsView> {
         secResultsList = secResults;
         devResultsList = devResults;
 
+        _codeCompteTextFormFieldController.text =
+            widget.demandeCompteDetailsViewArguments!.code.toString();
         _numCompteTextFormFieldController.text =
             widget.demandeCompteDetailsViewArguments!.codeTiers.toString();
         _assignTextFormFieldController.text =
             widget.demandeCompteDetailsViewArguments!.assign.toString();
         _telephoneTextFormFieldController.text =
             widget.demandeCompteDetailsViewArguments!.tel.toString();
-        _secteurTextFormFieldController.text =
-            widget.demandeCompteDetailsViewArguments!.secteur.toString();
+
+        if (widget.demandeCompteDetailsViewArguments.secteur.toString() ==
+            "null") {
+          _secteurTextFormFieldController.text = " ";
+        } else {
+          _secteurTextFormFieldController.text =
+              widget.demandeCompteDetailsViewArguments!.secteur.toString();
+        }
+
         _mailTextFormFieldController.text =
             widget.demandeCompteDetailsViewArguments!.mail.toString();
         _propritaireTextFormFieldController.text =

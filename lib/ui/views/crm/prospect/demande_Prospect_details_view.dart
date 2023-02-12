@@ -258,7 +258,18 @@ class _DemandeProspectDetailsViewState
                               SizedBox(height: SizeConfig.heightMultiplier * 2),
                               CustomTextField(
                                 controller: _nomProspectTextFormFieldController,
-                                inputLabel: "Nom & prénom",
+                                inputLabel: "Nom",
+                                helperText: " ",
+                                style: TextStyle(color: Colors.grey[600]),
+                                readOnly: false,
+                                enabled: true,
+                                filled: true,
+                              ),
+                              SizedBox(height: SizeConfig.heightMultiplier * 2),
+                              CustomTextField(
+                                controller:
+                                    _prenomProspectTextFormFieldController,
+                                inputLabel: "Prénom",
                                 helperText: " ",
                                 style: TextStyle(color: Colors.grey[600]),
                                 readOnly: false,
@@ -630,9 +641,9 @@ class _DemandeProspectDetailsViewState
           _numProspectTextFormFieldController.text =
               prospectDetailsResult.numProspect.toString();
           _nomProspectTextFormFieldController.text =
-              prospectDetailsResult.nomProspect.toString() +
-                  " " +
-                  prospectDetailsResult.prenomProspect.toString();
+              prospectDetailsResult.nomProspect.toString();
+          _prenomProspectTextFormFieldController.text =
+              prospectDetailsResult.prenomProspect.toString();
           _telTextFormFieldController.text =
               prospectDetailsResult.tel.toString();
           _titreTextFormFieldController.text =

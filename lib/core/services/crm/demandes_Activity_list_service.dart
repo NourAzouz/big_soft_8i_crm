@@ -59,7 +59,7 @@ class DemandesActivityListService {
             "Type": saveActivityArgument.type,
             "Numero": saveActivityArgument.num,
             "Sujet": saveActivityArgument.sujet,
-            "DateDebut": "",
+            "DateDebut": saveActivityArgument.date,
             "HeureDebut": "",
             "Statut": saveActivityArgument.statut,
             "TypeActivite": saveActivityArgument.typeA,

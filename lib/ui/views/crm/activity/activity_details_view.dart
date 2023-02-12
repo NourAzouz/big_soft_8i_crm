@@ -82,6 +82,8 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
   bool _canShowButton = true;
   bool _offstage = true;
 
+  var date;
+
   void hideWidget() {
     setState(() {
       _canShowButton = !_canShowButton;
@@ -138,7 +140,6 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
     _prioriteTextFormFieldController = TextEditingController();
     _typeTextFormFieldController = TextEditingController();
     _typeATextFormFieldController = TextEditingController();
-
     fToast = FToast();
     fToast.init(context);
   }
@@ -167,10 +168,11 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
     var addProspectResult = await viewModel.updateContact(SaveActivityArgument(
         num: _numTextFormFieldController.text,
         sujet: _sujetTextFormFieldController.text,
+        date: _dateDebutTextFormFieldController.text,
         assign: _nomContactTextFormFieldController.text,
         statut: "2",
         priorite: "2",
-        type: "CF",
+        type: "A",
         typeA: "CF",
         localisation: _lieuTextFormFieldController.text,
         description: _descriptionTextFormFieldController.text));
@@ -542,6 +544,7 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
               activityDetailsResult.sujet.toString();
           _dateDebutTextFormFieldController.text =
               activityDetailsResult.dateDebut.toString();
+          date = activityDetailsResult.dateDebut;
           _heureDebutTextFormFieldController.text =
               activityDetailsResult.heureDebut.toString();
           _lieuTextFormFieldController.text =
@@ -583,6 +586,7 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
 class SaveActivityArgument {
   final String num;
   final String sujet;
+  final dynamic date;
   final String assign;
   final String statut;
   final String priorite;
@@ -597,6 +601,7 @@ class SaveActivityArgument {
   SaveActivityArgument({
     required this.num,
     required this.sujet,
+    required this.date,
     required this.assign,
     required this.statut,
     required this.priorite,
