@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:collection/collection.dart';
 
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -361,7 +362,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                       height: SizeConfig.heightMultiplier * 2),
 
                                   ///if the show button is false
-                                  !_canShowButton3
+                                  /*!_canShowButton3
                                       ? const SizedBox.shrink()
                                       : CustomTextField(
                                           controller:
@@ -378,31 +379,37 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                             //_number();
                                           },
                                         ),
-                                  /*SizedBox(
+                                  SizedBox(
                                       height: SizeConfig.heightMultiplier * 3),*/
-                                  Offstage(
+                                  /*Offstage(
                                     offstage: _offstage3,
-                                    child: CustomDropdownField(
-                                      labelText: "Supérieur",
-                                      value: value,
-                                      items: supResultsList.map((value) {
-                                        return DropdownMenuItem(
-                                          value: value,
-                                          child: Text(value.nompresup),
-                                        );
-                                      }).toList(),
-                                      onChangedAction: (value) {
-                                        setState(() {
-                                          value = value!;
-                                        });
-                                      },
-                                      validator: (value) =>
-                                          dropdownFieldValidation(
-                                        value,
-                                        "Selectionne un superieur",
-                                      ),
+                                    child: */
+                                  CustomDropdownField(
+                                    labelText: "Supérieur",
+                                    value: supResultsList.singleWhereOrNull(
+                                      (unite) =>
+                                          unite.nompresup ==
+                                          _superieurTextFormFieldController
+                                              .text,
+                                    ),
+                                    items: supResultsList.map((value) {
+                                      return DropdownMenuItem(
+                                        value: value,
+                                        child: Text(value.nompresup),
+                                      );
+                                    }).toList(),
+                                    onChangedAction: (value) {
+                                      setState(() {
+                                        value = value!;
+                                      });
+                                    },
+                                    validator: (value) =>
+                                        dropdownFieldValidation(
+                                      value,
+                                      "Selectionne un superieur",
                                     ),
                                   ),
+                                  //),
 
                                   ///if the show button is false
 
@@ -410,7 +417,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                       height: SizeConfig.heightMultiplier * 2),
 
                                   ///if the show button is false
-                                  !_canShowButton
+                                  /*!_canShowButton
                                       ? const SizedBox.shrink()
                                       : CustomTextField(
                                           controller:
@@ -427,31 +434,39 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                             //_number();
                                           },
                                         ),
-                                  /*SizedBox(
+                                  SizedBox(
                                       height: SizeConfig.heightMultiplier * 3),*/
-                                  Offstage(
+                                  /*Offstage(
                                     offstage: _offstage,
-                                    child: CustomDropdownField(
-                                      labelText: "Fonction ",
-                                      value: functionselectedValue,
-                                      items: fonctionResultsList.map((value) {
-                                        return DropdownMenuItem(
-                                          value: value,
-                                          child: Text(value.libellefonction),
-                                        );
-                                      }).toList(),
-                                      onChangedAction: (value) {
-                                        setState(() {
-                                          functionselectedValue = value!;
-                                        });
-                                      },
-                                      validator: (value) =>
-                                          dropdownFieldValidation(
-                                        value,
-                                        "Selectionne une fonction",
-                                      ),
+                                    child:*/
+
+                                  CustomDropdownField(
+                                    labelText: "Fonction ",
+                                    value:
+                                        fonctionResultsList.singleWhereOrNull(
+                                      (unite) =>
+                                          unite.libellefonction ==
+                                          _superieurTextFormFieldController
+                                              .text,
+                                    ),
+                                    items: fonctionResultsList.map((value) {
+                                      return DropdownMenuItem(
+                                        value: value,
+                                        child: Text(value.libellefonction),
+                                      );
+                                    }).toList(),
+                                    onChangedAction: (value) {
+                                      setState(() {
+                                        functionselectedValue = value!;
+                                      });
+                                    },
+                                    validator: (value) =>
+                                        dropdownFieldValidation(
+                                      value,
+                                      "Selectionne une fonction",
                                     ),
                                   ),
+                                  //),
 
                                   /*SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
@@ -463,48 +478,53 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
 
-                                  !_canShowButton2
+                                  /*!_canShowButton2
                                       ? const SizedBox.shrink()
-                                      : CustomTextField(
-                                          controller:
-                                              _assigneTextFormFieldController,
-                                          inputLabel: "Assigné à",
-                                          helperText: " ",
-                                          style: TextStyle(
-                                              color: Colors.grey[600]),
-                                          readOnly: false,
-                                          enabled: true,
-                                          filled: true,
-                                          onTapAction: () {
-                                            hideWidget2();
-                                            //_number();
-                                          },
-                                        ),
-                                  /*SizedBox(
-                                      height: SizeConfig.heightMultiplier * 3),*/
-                                  Offstage(
+                                      : */
+                                  CustomTextField(
+                                    controller: _assigneTextFormFieldController,
+                                    inputLabel: "Assigné à",
+                                    helperText: " ",
+                                    style: TextStyle(color: Colors.grey[600]),
+                                    readOnly: false,
+                                    enabled: true,
+                                    filled: true,
+                                    onTapAction: () {
+                                      //hideWidget2();
+                                      //_number();
+                                    },
+                                  ),
+                                  SizedBox(
+                                      height: SizeConfig.heightMultiplier * 3),
+                                  /*Offstage(
                                     offstage: _offstage2,
-                                    child: CustomDropdownField(
-                                      labelText: "Assigné à",
-                                      value: selectedValue,
-                                      items: L.map((value) {
-                                        return DropdownMenuItem(
-                                          value: value,
-                                          child: Text(value),
-                                        );
-                                      }).toList(),
-                                      onChangedAction: (value) {
-                                        setState(() {
-                                          selectedValue = value!;
-                                        });
-                                      },
-                                      validator: (value) =>
-                                          dropdownFieldValidation(
-                                        value,
-                                        "Veuillez assigne quelqun",
-                                      ),
+                                    child: */
+                                  CustomDropdownField(
+                                    labelText: "Assigné à",
+                                    value:
+                                        demandesResultsList.singleWhereOrNull(
+                                      (unite) =>
+                                          unite.codeCollab ==
+                                          _assigneTextFormFieldController.text,
+                                    ),
+                                    items: demandesResultsList.map((value) {
+                                      return DropdownMenuItem(
+                                        value: value,
+                                        child: Text(value.codeCollab),
+                                      );
+                                    }).toList(),
+                                    onChangedAction: (value) {
+                                      setState(() {
+                                        selectedValue = value!;
+                                      });
+                                    },
+                                    validator: (value) =>
+                                        dropdownFieldValidation(
+                                      value,
+                                      "Veuillez assigne quelqun",
                                     ),
                                   ),
+                                  //),
 
                                   SizedBox(
                                       height: SizeConfig.heightMultiplier * 2),
@@ -579,6 +599,7 @@ class _DemandeDetailsViewState extends State<DemandeDetailsView> {
         demandesResultsList = demandesResults;
         fonctionResultsList = fonctionResults;
         supResultsList = supResults;
+
         //print(fonctionResults);
         for (var inu in demandesResultsList) {
           L.add(inu.codeCollab.toString());

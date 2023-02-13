@@ -165,6 +165,7 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
     //if (_formKey.currentState!.validate()) {
+    print(_dateDebutTextFormFieldController.text);
     var addProspectResult = await viewModel.updateContact(SaveActivityArgument(
         num: _numTextFormFieldController.text,
         sujet: _sujetTextFormFieldController.text,
@@ -544,7 +545,7 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
               activityDetailsResult.sujet.toString();
           _dateDebutTextFormFieldController.text =
               activityDetailsResult.dateDebut.toString();
-          date = activityDetailsResult.dateDebut;
+          //date = activityDetailsResult.dateDebut;
           _heureDebutTextFormFieldController.text =
               activityDetailsResult.heureDebut.toString();
           _lieuTextFormFieldController.text =
@@ -586,7 +587,7 @@ class _ActivityDetailsViewState extends State<ActivityDetailsView> {
 class SaveActivityArgument {
   final String num;
   final String sujet;
-  final dynamic date;
+  final String date;
   final String assign;
   final String statut;
   final String priorite;

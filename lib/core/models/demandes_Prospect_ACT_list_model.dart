@@ -58,7 +58,8 @@ class DemandesActivityListModel {
     numero = json['Numero'].toString();
     sujet = json['Sujet'].toString();
     var d = json['DateDebut'].toString();
-    dateDebut = d[0] + d[1] + d[2] + d[3] + d[4] + d[5] + d[6] + d[7] + d[8];
+    dateDebut = json['DateDebut'].toString();
+    //d[0] + d[1] + d[2] + d[3] + d[4] + d[5] + d[6] + d[7] + d[8];
     heureDebut = json['HeureDebut:'].toString();
     heurefin = json['HeureFin:'].toString();
     description = json['Description'].toString();
